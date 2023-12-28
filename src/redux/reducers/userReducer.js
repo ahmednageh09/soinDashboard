@@ -20,9 +20,13 @@ const authReducer = (state = initialState, action) => {
         user: {},
         error: action.payload,
       }
+    case 'LOGOUT':
+      return {
+        ...state,
+        isAuthenticated: false,
+        user: {},
+      }
     default:
       return state
   }
 }
-
-export default authReducer

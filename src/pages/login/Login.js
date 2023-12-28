@@ -16,36 +16,52 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../redux/actions/userAction'
+import { setupInterceptors } from '../../services/interceptors/authInterceptor'
+import { loginAction } from '../../redux/actions/userAction'
 import { toast } from 'react-toastify'
-import * as userService from '../../services/userService'
+
+import cookies from 'universal-cookie'
+const cookie = new cookies()
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const [emailTouched, setEmailTouched] = useState(false)
+  const [passwordTouched, setPasswordTouched] = useState(false)
+  const [emailError, setEmailError] = useState('')
+  const [passwordError, setPasswordError] = useState('')
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true)
   const dispatch = useDispatch()
-  const userStatus = useSelector((state) => state.user.isAuthenticated)
+  const userStatus = useSelector((state) => state.isAuthenticated)
+
+  useEffect(() => {
+    setIsButtonDisabled(!(email && password))
+  }, [email, password])
+
+  useEffect(() => {
+    if (emailTouched && !email) {
+      setEmailError('Email is required')
+    } else {
+      setEmailError('')
+    }
+    if (passwordTouched && !password) {
+      setPasswordError('Password is required')
+    } else {
+      setPasswordError('')
+    }
+  }, [email, password, emailTouched, passwordTouched])
 
   const signIn = async (e) => {
     e.preventDefault()
     try {
       const userData = { email, password }
-      await dispatch(login(userData))
+      await dispatch(loginAction(userData, navigate))
     } catch (error) {
-      console.error('Login failed:', error)
-      toast.error(error.message)
+      console.error(error.message)
     }
   }
-
-  useEffect(() => {
-    if (userStatus) {
-      // navigate('/dashboard')
-    } else {
-      // navigate('/login')
-      toast.error('Please Login First !')
-    }
-  }, [userStatus])
 
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
@@ -66,7 +82,10 @@ const Login = () => {
                       autoComplete="username"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
+                      onBlur={() => setEmailTouched(true)}
+                      className={emailError ? 'is-invalid' : ''}
                     />
+                    {emailError && <div className="invalid-feedback">{emailError}</div>}
                   </CInputGroup>
                   <CInputGroup className="mb-4">
                     <CInputGroupText>
@@ -78,11 +97,19 @@ const Login = () => {
                       autoComplete="current-password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      onBlur={() => setPasswordTouched(true)}
+                      className={passwordError ? 'is-invalid' : ''}
                     />
+                    {passwordError && <div className="invalid-feedback">{passwordError}</div>}
                   </CInputGroup>
                   <CRow>
                     <CCol xs={6}>
-                      <CButton color="primary" className="px-4" onClick={signIn}>
+                      <CButton
+                        color="primary"
+                        className="px-4"
+                        onClick={signIn}
+                        disabled={isButtonDisabled}
+                      >
                         Login
                       </CButton>
                     </CCol>

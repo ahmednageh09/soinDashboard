@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
-import userReducer from './userReducer'
+import authReducer from './userReducer'
 import sidebarReducer from './sidebarReducer'
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  user: authReducer,
   sidebar: sidebarReducer,
 })
 

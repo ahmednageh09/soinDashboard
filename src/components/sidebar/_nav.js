@@ -47,25 +47,25 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Reports',
-    to: '/theme/colors',
+    to: '/reports',
     icon: <CIcon icon={cilClipboard} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Stock',
-    to: '/theme/typography',
+    to: '/stock',
     icon: <CIcon icon={cilStorage} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Orders',
-    to: '/theme/typography',
+    to: '/orders',
     icon: <CIcon icon={cilCheckCircle} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Financial Transactions',
-    to: '/theme/typography',
+    to: '/financialTransactions',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
   },
   {
@@ -75,19 +75,19 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Products',
-    to: '/theme/colors',
+    to: '/products',
     icon: <CIcon icon={cilBlur} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Request Product',
-    to: '/theme/typography',
+    to: '/requestProduct',
     icon: <CIcon icon={cilFlagAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Notify Me',
-    to: '/theme/typography',
+    to: '/notifyMe',
     icon: <CIcon icon={cilBullhorn} customClassName="nav-icon" />,
   },
   {
@@ -97,47 +97,47 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Countries',
-    to: '/theme/typography',
+    to: '/countries',
     icon: <CIcon icon={cilGlobeAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Cities',
-    to: '/theme/typography',
+    to: '/cities',
     icon: <CIcon icon={cilMap} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Regions',
-    to: '/theme/typography',
+    to: '/regions',
     icon: <CIcon icon={cilLocationPin} customClassName="nav-icon" />,
   },
-  {
-    component: CNavGroup,
-    name: 'Icons',
-    icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: 'CoreUI Free',
-        to: '/icons/coreui-icons',
-        badge: {
-          color: 'success',
-          text: 'NEW',
-        },
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Flags',
-        to: '/icons/flags',
-      },
-      {
-        component: CNavItem,
-        name: 'CoreUI Brands',
-        to: '/icons/brands',
-      },
-    ],
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Icons',
+  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Free',
+  //       to: '/icons/coreui-icons',
+  //       badge: {
+  //         color: 'success',
+  //         text: 'NEW',
+  //       },
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Flags',
+  //       to: '/icons/flags',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: 'CoreUI Brands',
+  //       to: '/icons/brands',
+  //     },
+  //   ],
+  // },
   {
     component: CNavTitle,
     name: 'Extras',
@@ -145,13 +145,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Offers',
-    to: '/theme/typography',
+    to: '/offers',
     icon: <CIcon icon={cilGift} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Discounts',
-    to: '/theme/typography',
+    to: '/discounts',
     icon: <CIcon icon={cilBurn} customClassName="nav-icon" />,
   },
   {
@@ -161,47 +161,47 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Customers',
-    to: '/theme/typography',
+    to: '/customers',
     icon: <CIcon icon={cilGroup} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Comments',
-    to: '/theme/typography',
+    to: '/comments',
     icon: <CIcon icon={cilCommentBubble} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Contacts',
-    to: '/theme/typography',
+    to: '/contacts',
     icon: <CIcon icon={cilPhone} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Abandoned Carts',
-    to: '/theme/typography',
+    to: '/abandonedCarts',
     icon: <CIcon icon={cilXCircle} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,
     name: 'Links',
-    to: '/theme/typography',
+    to: '/links',
     icon: <CIcon icon={cilTouchApp} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Categories',
-        to: '/base/accordion',
+        to: '/links/categories',
       },
       {
         component: CNavItem,
         name: 'Products',
-        to: '/base/breadcrumbs',
+        to: '/links/products',
       },
       {
         component: CNavItem,
         name: 'Pages',
-        to: '/base/cards',
+        to: '/links/pages',
       },
     ],
   },
@@ -212,73 +212,73 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Templates',
-    to: '/theme/typography',
+    to: '/templates',
     icon: <CIcon icon={cilLibrary} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Mailing Templates',
-    to: '/theme/typography',
+    to: '/mailingTemplates',
     icon: <CIcon icon={cilClone} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Styles',
-    to: '/theme/typography',
+    to: '/styles',
     icon: <CIcon icon={cilViewQuilt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Mailing List',
-    to: '/theme/typography',
+    to: '/mailingList',
     icon: <CIcon icon={cilExternalLink} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Notifications',
-    to: '/theme/typography',
+    to: '/notifications',
     icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
   {
     component: CNavGroup,
     name: 'Tickets',
-    to: '/theme/typography',
+    to: '/tickets',
     icon: <CIcon icon={cilInput} customClassName="nav-icon" />,
     items: [
       {
         component: CNavItem,
         name: 'Active Tickets',
-        to: '/base/accordion',
+        to: '/tickets/active',
       },
       {
         component: CNavItem,
         name: 'Ticket Settings',
-        to: '/base/breadcrumbs',
+        to: '/tickets/settings',
       },
     ],
   },
   {
     component: CNavItem,
     name: 'Online Customers',
-    to: '/theme/typography',
+    to: '/onlineCustomers',
     icon: <CIcon icon={cilAudio} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Images Settings',
-    to: '/theme/typography',
+    to: '/imagesSettings',
     icon: <CIcon icon={cilImage} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Security',
-    to: '/theme/typography',
+    to: '/security',
     icon: <CIcon icon={cilBadge} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Settings',
-    to: '/theme/typography',
+    to: '/settings',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
   // {

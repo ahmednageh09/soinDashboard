@@ -1,24 +1,16 @@
-// .date {
-//      display: flex;
-//      justify-content: space-between;
-//      align-items: center;
-// }
-
-div input,
+.input,
 .select {
      background-color: #f1f1f1;
      outline: none;
      border: none;
-     margin: 0.7rem;
+     margin: 0.5rem;
      padding: 0.4rem;
      padding-left: 1rem;
-     // margin-right: 1rem;
-     max-width: 9rem;
+     max-width: 8rem;
      border-radius: 10rem 10rem;
      box-shadow: 2px 2px 3px 3px #e7e9eb;
 }
 
-// .search {
-//      max-width: 220px;
-//      padding: 0.1rem;
-// }
+.search {
+     max-width: 14rem;
+}

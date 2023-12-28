@@ -1,55 +1,49 @@
-// import axios from '../axiosConfig'
-import UniversalCookie from 'universal-cookie'
-// import { useNavigate } from 'react-router-dom'
+import { axiosInstance } from '../axiosConfig'
+import Cookies from 'universal-cookie'
+import { toast } from 'react-toastify'
 
-const cookies = new UniversalCookie()
+const cookies = new Cookies()
 
-export const getUser = () => {
-  const userCookie = cookies.get('user')
-  return userCookie ? userCookie : null
-}
-
-export const loginUser = async (email, password) => {
+export const loginService = async (email, password) => {
   try {
-    console.log('start process')
-    // const response = await axios
-    // .post('https://jsonplaceholder.typicode.com/posts')
-    await fetch('https://soin.serv5group.com/demo2/api/admin/countries', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        // Include any other headers your API requires
-
-        // The following header is crucial for CORS
-        'Access-Control-Allow-Origin': '*',
-      },
+    const response = await axiosInstance.post('/login', {
+      email: email,
+      password: password,
     })
-      .then((response) => {
-        console.log('start success')
-        console.log(response.json())
-      })
-      .catch((json) => {
-        console.log('start error')
-        alert(json)
-      })
 
-    // return response
+    // Set the token after successful login
+    if (response && response.data.data.token) {
+      cookies.set('token', response.data.data.token)
+      toast.success('Login Successful')
+    } else {
+      toast.warning('Wrong credentials, try again')
+    }
+
+    return response.data
   } catch (error) {
     throw error
   }
 }
 
-// export const logout = () => {
-//   cookies.remove('user')
-// }
-
-// axios.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response.status === 401) {
-//       // Handle unauthorized access
-//       useNavigate('/login')
-//     }
-//     return Promise.reject(error)
-//   },
-// )
+export const logoutService = () => {
+  const token = cookies.get('token')
+  axiosInstance
+    .post(
+      '/logout',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    )
+    .then(() => {
+      cookies.remove('token')
+      toast.success('Logout Successful')
+    })
+    .catch((error) => {
+      if (error.response && error.response.status === 401) {
+        toast.error('You are not authorized to logout!')
+      }
+    })
+}

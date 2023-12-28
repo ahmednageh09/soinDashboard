@@ -1,41 +1,47 @@
-import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { axiosInstance } from 'src/axiosConfig'
 import DataTable from 'react-data-table-component'
 import './table.scss'
 import PropTypes from 'prop-types'
+
 Table.propTypes = {
   showSearch: PropTypes.bool,
   showFilter: PropTypes.bool,
   showDate: PropTypes.bool,
+  path: PropTypes.string,
+  columns: PropTypes.array,
+  keys: PropTypes.array,
 }
 
-export default function Table({ showSearch = true, showFilter = true, showDate = true }) {
-  const columns = [
-    { name: 'ID', selector: (row) => row.id },
-    { name: 'Name', selector: (row) => row.name, sortable: true },
-    { name: 'Email', selector: (row) => row.email },
-    { name: 'City', selector: (row) => row.address.city },
-  ]
-
+export default function Table({
+  showSearch = true,
+  showFilter = true,
+  showDate = true,
+  path = '',
+  columns = [],
+  keys = [],
+}) {
   const [data, setData] = useState([])
+  const [title, setTitle] = useState('')
   const [search, setSearch] = useState([])
   const [options, setOptions] = useState([])
   const [selectedOption, setSelectedOption] = useState('')
 
   useEffect(() => {
-    let isMounted = true
-
     const fetchData = async () => {
       try {
-        const response = await Axios.get('https://jsonplaceholder.typicode.com/users')
-
-        if (isMounted) {
-          const responseData = response.data
-          const names = responseData.map((user) => user.name)
-          setData(responseData)
-          setSearch(responseData)
-          setOptions(names)
-        }
+        const response = await axiosInstance.get(path)
+        const newTitle = response.data.message
+        setTitle(newTitle)
+        const newData = response.data.data.map((responseData) => {
+          const dataObj = keys.reduce((obj, key) => {
+            obj[key] = responseData[key]
+            // console.log(obj)
+            return obj
+          }, {})
+          return dataObj
+        })
+        setData(newData)
       } catch (error) {
         console.log(error)
       }
@@ -43,9 +49,7 @@ export default function Table({ showSearch = true, showFilter = true, showDate =
 
     fetchData()
 
-    return () => {
-      isMounted = false
-    }
+    return
   }, [])
 
   const handleSearch = (evt) => {
@@ -54,38 +58,41 @@ export default function Table({ showSearch = true, showFilter = true, showDate =
     setSearch(newData)
   }
 
-  const handleNameChange = (evt) => {
+  const handleFilter = (evt) => {
     const selectedValue = evt.target.value
     setSelectedOption(selectedValue)
-
     const newData = selectedValue
       ? data.filter((row) => row.name.toLowerCase() === selectedValue.toLowerCase())
       : data
-
     setSearch(newData)
   }
 
   return (
-    <div className="p-3 " style={{ backgroundColor: '#fafafa', borderRadius: '1rem 1rem' }}>
+    <div className="p-3 tb" style={{ backgroundColor: '#fafafa', borderRadius: '1rem 1rem' }}>
       <div className="row d-flex flex-wrap justify-content-between">
         <div className="date d-flex flex-wrap justify-content-between">
           {showDate && (
             <div className="d-flex justify-content-between">
               <div>
                 <label htmlFor="from">From</label>
-                <input type="date" id="from" />
+                <input className="input" type="date" id="from" />
               </div>
               <div>
                 <label htmlFor="to">To</label>
-                <input type="date" id="to" />
+                <input className="input" type="date" id="to" />
               </div>
             </div>
           )}
           {showSearch && (
-            <input type="text" className="search" placeholder="Search" onChange={handleSearch} />
+            <input
+              className="input search"
+              type="text"
+              placeholder="Search"
+              onChange={handleSearch}
+            />
           )}
           {showFilter && (
-            <select className="select mx-2" onChange={handleNameChange}>
+            <select className="select mx-2" onChange={handleFilter}>
               <option value="">All</option>
               {options.map((option, index) => (
                 <option key={index} value={option}>
@@ -96,7 +103,34 @@ export default function Table({ showSearch = true, showFilter = true, showDate =
           )}
         </div>
       </div>
-      <DataTable columns={columns} data={search} pagination striped highlightOnHover responsive />
+      <DataTable
+        columns={columns}
+        data={[...data]}
+        title={title}
+        pagination
+        striped
+        highlightOnHover
+        responsive
+        customStyles={{
+          header: {
+            style: {
+              width: '60%',
+              margin: 'auto',
+              marginBottom: '1rem',
+              marginTop: '1rem',
+              textAlign: 'center',
+              borderRadius: '10rem 10rem',
+              boxShadow: '2px 2px 3px 3px #e7e9eb',
+            },
+          },
+          headerCells: {
+            style: {
+              // backgroundColor: 'danger',
+              color: 'red',
+            },
+          },
+        }}
+      />
     </div>
   )
 }

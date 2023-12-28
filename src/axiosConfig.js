@@ -1,30 +1,56 @@
-// import axios from 'axios'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
+import { toast } from 'react-toastify'
 
-// export const login = async (email, password) => {
-//   const { data } = await axios.post('https://soin.serv5group.com/demo2/api/admin/login', {
-//     email,
-//     password,
-//   })
-//   return data
-// }
+const cookies = new Cookies()
 
-// import axios from 'axios'
-// const instance = axios.create({
-//   baseURL: 'https://soin.serv5group.com/demo2/api/admin',
-// })
-// export default instance
+const axiosInstance = axios.create({
+  baseURL: 'https://api.soin.serv5group.com/api/admin',
+  // baseURL: 'http://192.168.1.200:5128/api/admin',
+  // timeout: 5000,
+  headers: {
+    'Content-Type': 'application/json',
+    lang: 'en',
+  },
+})
 
-// axios.defaults.baseURL = process.env.NODE_ENV !== 'production' ? 'http://localhost:5000' : '/'
+axiosInstance.interceptors.request.use(
+  async (config) => {
+    const token = cookies.get('token')
+    const isLoginOrLogoutEndpoint = ['/login', '/logout'].includes(config.url)
 
-// import axiosInterceptors from './interceptors/authInterceptor'
+    if (token && !isLoginOrLogoutEndpoint) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    } else if (isLoginOrLogoutEndpoint) {
+      if (config.url === '/logout' && token) {
+        // Allow logout request to proceed with a token
+      } else if (config.url === '/login' && !token) {
+        // Allow login request to proceed without a token
+      }
+    } else {
+      // Redirect to login and show error toast for all other unauthorized requests
+      window.location.href = '/login'
+      toast.error('You are not authorized, please try again!')
+    }
 
-// const axiosInstance = axiosInterceptors
-// const domain = 'https://soin.serv5group.com'
-// const prefix = '/demo2/api/admin'
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  },
+)
 
-// axiosInstance.defaults.baseURL = domain + prefix
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response
+  },
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      window.location.href = '/login'
+      toast.error('Session expired. Please log in again.')
+    }
+    return Promise.reject(error)
+  },
+)
 
-// axiosInstance.defaults.timeout = 5000;
-// axiosInstance.defaults.headers['Content-Type'] = 'application/json'
-
-// export default axiosInstance
+export { axiosInstance }
