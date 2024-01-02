@@ -59,13 +59,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Orders',
-    to: '/orders',
+    to: '/orders/all',
     icon: <CIcon icon={cilCheckCircle} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Financial Transactions',
-    to: '/financialTransactions',
+    to: '/orders/financial_transactions',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
   },
   {

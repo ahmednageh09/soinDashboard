@@ -12,7 +12,10 @@ export default function CustomersLog() {
           { name: 'ID', selector: (row) => row.id },
           { name: 'Name', selector: (row) => row.name },
           { name: 'Page', selector: (row) => row.page },
-          { name: 'Created At', selector: (row) => row.created_at },
+          {
+            name: 'Created At',
+            selector: (row) => new Date(row.created_at).toLocaleDateString(),
+          },
           { name: 'Ip', selector: (row) => row.ip },
         ]}
         keys={['id', 'name', 'page', 'created_at', 'ip']}

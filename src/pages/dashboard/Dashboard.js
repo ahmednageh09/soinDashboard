@@ -23,62 +23,9 @@ const Dashboard = () => {
           <Chart chartName="tax_amount_chart" showPie={false} />
         </div>
 
-        {/* <CCard className="mb-3 col-md-5 h-100">
-          <CCardBody>
-            <CRow>
-              <CCol sm={5}>
-                <h4 id="traffic" className="card-title mb-0">
-                  ABANDON
-                </h4>
-              </CCol>
-            </CRow>
-            <CChartBar
-              data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [
-                  {
-                    label: 'GitHub Commits',
-                    backgroundColor: '#f87979',
-                    data: [40, 20, 12, 39, 10, 40, 39, 80, 40],
-                  },
-                ],
-              }}
-              labels="months"
-              options={{
-                plugins: {
-                  legend: {
-                    labels: {
-                      color: getStyle('--cui-body-color'),
-                    },
-                  },
-                },
-                scales: {
-                  x: {
-                    grid: {
-                      color: getStyle('--cui-border-color-translucent'),
-                    },
-                    ticks: {
-                      color: getStyle('--cui-body-color'),
-                    },
-                  },
-                  y: {
-                    grid: {
-                      color: getStyle('--cui-border-color-translucent'),
-                    },
-                    ticks: {
-                      color: getStyle('--cui-body-color'),
-                    },
-                  },
-                },
-              }}
-            />
-          </CCardBody>
-        </CCard> */}
-
         {/* Tables */}
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/salesSearch"
             showFilter={false}
             columns={[
@@ -92,7 +39,6 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/lastOrders"
             showFilter={false}
             columns={[
@@ -107,7 +53,6 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/wordsSearch"
             showDate={false}
             showFilter={false}
@@ -122,7 +67,6 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/wordsSearch?type=last_words_search"
             showDate={false}
             showFilter={false}
@@ -137,7 +81,6 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/soldProducts"
             showFilter={false}
             columns={[
@@ -152,10 +95,9 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/bestSellingProducts"
             //make two filters by country and by city
-            showDate={false}
+            showFilter={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Product Name', selector: (row) => row.product_name },
@@ -168,8 +110,22 @@ const Dashboard = () => {
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/ordersFilterByStatus"
+            keys={['id', 'order_status', 'total', 'day']}
+            showDate={false}
+            columns={[
+              { name: 'ID', selector: (row) => row.id },
+              { name: 'Orders Total', selector: (row) => row.order_status },
+              { name: 'Total', selector: (row) => row.total },
+              { name: 'Date', selector: (row) => row.day },
+            ]}
+            filter="order_status"
+          />
+        </CCol>
+        <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
+          <Table
+            path="/ordersFilterByStatus"
+            keys={['id', 'ordernumber', 'products_count', 'total', 'status', 'day']}
             showDate={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
@@ -179,13 +135,13 @@ const Dashboard = () => {
               { name: 'Status', selector: (row) => row.status },
               { name: 'Date', selector: (row) => row.day },
             ]}
-            keys={['id', 'ordernumber', 'products_count', 'total', 'status', 'day']}
+            filter="status"
           />
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/mostViewedProducts"
+            keys={['id', 'product_name', 'product_visits', 'day']}
             showFilter={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
@@ -193,13 +149,12 @@ const Dashboard = () => {
               { name: 'Views', selector: (row) => row.product_visits },
               { name: 'Date', selector: (row) => row.day },
             ]}
-            keys={['id', 'product_name', 'product_visits', 'day']}
           />
         </CCol>
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
-            style={{ width: '100%', height: '100%' }}
             path="/avg/sales"
+            keys={['name', 'total', 'orders_count', 'average']}
             showDate={false}
             showFilter={false}
             columns={[
@@ -208,7 +163,6 @@ const Dashboard = () => {
               { name: 'Sales Count', selector: (row) => row.orders_count },
               { name: 'average Purchases Amount', selector: (row) => row.average },
             ]}
-            keys={['name', 'total', 'orders_count', 'average']}
           />
         </CCol>
       </div>

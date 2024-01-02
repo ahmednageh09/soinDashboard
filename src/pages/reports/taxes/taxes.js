@@ -3,7 +3,7 @@ import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
-export default function CustomersOrders() {
+export default function Taxes() {
   const [showChart, setShowChart] = useState(false)
 
   function handleChartClick() {
@@ -25,29 +25,25 @@ export default function CustomersOrders() {
 
       {showChart ? (
         <div className="d-flex justify-content-center align-content-center w-100">
-          <Chart
-            showPie={false}
-            path="/reports/customers_orders?type=chart"
-            chartName="user_orders_chart"
-          />
+          <Chart showPie={false} path="/reports/taxes?type=chart" chartName="taxes_chart" />
         </div>
       ) : (
         <Table
-          path="/reports/customers_orders"
+          path="/reports/taxes"
           showFilter={false}
           showDate={false}
           columns={[
             { name: 'ID', selector: (row) => row.id },
-            { name: 'Name', selector: (row) => row.name },
-            { name: 'Email', selector: (row) => row.email },
-            { name: 'Orders Count', selector: (row) => row.orders_count },
             {
-              name: 'Invoices Numbers',
-              selector: (row) => row.invoices_numbers.join(' - '),
-              style: { width: '200px' },
+              name: 'Tax Name',
+              selector: (row) => row.taxe_name,
+              style: { color: 'green', fontWeight: 'bold' },
             },
+            { name: 'Title', selector: (row) => row.title },
+            { name: 'Tax Percent', selector: (row) => row.tax_percent },
+            { name: 'Tax Amount', selector: (row) => row.tax_amount },
           ]}
-          keys={['id', 'name', 'email', 'orders_count', 'invoices_numbers']}
+          keys={['id', 'taxe_name', 'title', 'tax_percent', 'tax_amount']}
         />
       )}
     </>

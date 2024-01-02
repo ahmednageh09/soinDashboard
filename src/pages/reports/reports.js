@@ -28,29 +28,29 @@ export default function Reports() {
           <Google path={'/reports/google'} />
         ) : (
           <div className="row d-flex justify-content-evenly">
-            <ReportCard path="/reports/products_prices" title={'products_prices'} />
-            <ReportCard path="/reports/affiliateSystem" title={'affiliateSystem'} />
-            <ReportCard path="/reports/customers_balances" title={'customers_balances'} />
-            <ReportCard path="/reports/log" title={'log'} />
-            <ReportCard path="/reports/customers_orders" title={'customers_orders'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
-            <ReportCard path="/reports/" title={'sadsf'} />
+            <ReportCard path="/reports/products_prices" title={'Products Prices'} />
+            <ReportCard path="/reports/affiliateSystem" title={'Affiliate System'} />
+            <ReportCard path="/reports/customers_balances" title={'Customers Balances'} />
+            <ReportCard path="/reports/log" title={'Customers log'} />
+            <ReportCard path="/reports/customers_orders" title={'Customers Orders'} />
+            <ReportCard path="/reports/customers_search" title={'Customers Search'} />
+            <ReportCard path="/reports/rewards_points" title={'Rewards Points'} />
+            <ReportCard path="/reports/taxes" title={'Taxes'} />
+            <ReportCard path="/reports/shipping" title={'Shipping'} />
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
+            {/* <ReportCard path="/reports/" title={''} /> */}
           </div>
         )}
       </div>

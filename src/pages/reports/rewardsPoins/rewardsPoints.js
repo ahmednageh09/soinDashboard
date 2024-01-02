@@ -3,7 +3,7 @@ import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
-export default function CustomersOrders() {
+export default function RewardsPoints() {
   const [showChart, setShowChart] = useState(false)
 
   function handleChartClick() {
@@ -27,27 +27,35 @@ export default function CustomersOrders() {
         <div className="d-flex justify-content-center align-content-center w-100">
           <Chart
             showPie={false}
-            path="/reports/customers_orders?type=chart"
-            chartName="user_orders_chart"
+            path="/reports/rewards_points?type=chart"
+            chartName="rewards_points_chart"
           />
         </div>
       ) : (
         <Table
-          path="/reports/customers_orders"
+          path="/reports/rewards_points"
           showFilter={false}
           showDate={false}
           columns={[
             { name: 'ID', selector: (row) => row.id },
             { name: 'Name', selector: (row) => row.name },
             { name: 'Email', selector: (row) => row.email },
-            { name: 'Orders Count', selector: (row) => row.orders_count },
-            {
-              name: 'Invoices Numbers',
-              selector: (row) => row.invoices_numbers.join(' - '),
-              style: { width: '200px' },
-            },
+            { name: 'Points Count', selector: (row) => row.points_count },
+            { name: 'Points Count Rewarded', selector: (row) => row.points_count_rewarded },
+            { name: 'Points Count Total', selector: (row) => row.points_count_total },
+            { name: 'Total Purchased', selector: (row) => row.total_purchased },
+            { name: 'Points Amount', selector: (row) => row.points_amount },
           ]}
-          keys={['id', 'name', 'email', 'orders_count', 'invoices_numbers']}
+          keys={[
+            'id',
+            'name',
+            'email',
+            'points_count',
+            'points_count_rewarded',
+            'points_count_total',
+            'total_purchased',
+            'points_amount',
+          ]}
         />
       )}
     </>
