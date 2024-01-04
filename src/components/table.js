@@ -106,7 +106,7 @@ export default function Table({
     setSearch(newData)
   }
   const handleAction = (id) => {
-    navigate(`${buttonPath}?id=${id}`)
+    navigate(`${buttonPath}/${id}`)
   }
   // Define the action buttons column
   const actionButtons = {

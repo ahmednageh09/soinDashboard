@@ -11,8 +11,8 @@ const Dashboard = () => {
         <Card indices={['total', 'products']} path={'/charts'} />
       </div>
 
-      {/* Charts */}
       <div className="row d-flex justify-content-evenly mb-4">
+        {/* Charts */}
         <div className="row d-flex justify-content-evenly mb-4">
           <Chart chartName="store_statistics_chart" />
           <Chart chartName="orders_chart" />
@@ -96,7 +96,6 @@ const Dashboard = () => {
         <CCol md={5} style={{ height: '100%', overflow: 'auto', marginBottom: '2rem' }}>
           <Table
             path="/bestSellingProducts"
-            //make two filters by country and by city
             showFilter={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },

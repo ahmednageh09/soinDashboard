@@ -14,33 +14,21 @@ export default function Orders() {
         <ActionButton name="Print" path="print" tableRef={tableRef} />
         <ActionButton name="Add Order" />
       </div>
-      <Table path="/orders/all" showDate={false} showFilter={false} ref={tableRef} />
+      <Table
+        path="/orders/all"
+        showDate={false}
+        showFilter={false}
+        ref={tableRef}
+        columns={[
+          { name: 'ID', selector: (row) => row.id },
+          { name: 'User Image', selector: (row) => row.user_image },
+          { name: 'Type', selector: (row) => row.type },
+          { name: 'User', selector: (row) => row.user_name },
+          { name: 'Status', selector: (row) => row.status },
+          { name: 'Order Number', selector: (row) => row.ordernumber },
+        ]}
+        keys={['id', 'user_image', 'type', 'user_name', 'status', 'ordernumber']}
+      />
     </>
   )
 }
-
-// import React, { useRef } from 'react'
-// import ActionButton from 'src/components/actionButton/actionButton'
-// import Table from 'src/components/table'
-// import ReactToPrint from 'react-to-print'
-
-// export default function Orders() {
-//   const tableRef = useRef()
-
-//   return (
-//     <>
-//       <div>
-//         <ActionButton name="All Orders" path="/all_orders" />
-//         <ActionButton name="Shipping" />
-//         <ActionButton name="Status" />
-//         <ActionButton name="Cancel" />
-//         <ReactToPrint
-//           trigger={() => <ActionButton name="Print" action="print" />}
-//           content={() => tableRef.current}
-//         />
-//         <ActionButton name="Add Order" />
-//       </div>
-//       <Table path="/orders/all" showDate={false} showFilter={false} ref={tableRef} />
-//     </>
-//   )
-// }

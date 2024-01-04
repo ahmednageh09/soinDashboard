@@ -3,7 +3,7 @@ import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
-export default function Shipping() {
+export default function InactiveCustomers() {
   const [showChart, setShowChart] = useState(false)
 
   function handleChartClick() {
@@ -25,37 +25,31 @@ export default function Shipping() {
 
       {showChart ? (
         <div className="d-flex justify-content-center align-content-center w-100">
-          <Chart path="/reports/shipping?type=chart" chartName="shipping_chart" />
+          <Chart
+            showPie={false}
+            path="/reports/inactive_customers?type=chart"
+            chartName="inactive_users_profit_chart"
+          />
         </div>
       ) : (
         <Table
-          path="/reports/shipping"
+          path="/reports/inactive_customers"
           showFilter={false}
           showDate={false}
           columns={[
             { name: 'ID', selector: (row) => row.id },
-            { name: 'Order.No', selector: (row) => row.order_number },
-            { name: 'Shipping Cost', selector: (row) => row.shipping_cost },
-            { name: 'Shipping Cost On', selector: (row) => row.shipping_cost_on },
-            { name: 'Reason', selector: (row) => row.shipping_cost_on_reason },
+            { name: 'Name', selector: (row) => row.name },
+            { name: 'Email', selector: (row) => row.email },
+            { name: 'Phone', selector: (row) => row.phone },
             {
-              name: 'Order Date',
-              selector: (row) => new Date(row.order_date).toLocaleDateString(),
-            },
-            {
-              name: 'Shipping Date',
-              selector: (row) => new Date(row.shipping_date).toLocaleDateString(),
+              name: 'Last Purchased Dated',
+              selector: (row) => new Date(row.last_purchased_date).toLocaleDateString(),
             },
           ]}
-          keys={[
-            'id',
-            'order_number',
-            'shipping_cost',
-            'shipping_cost_on',
-            'shipping_cost_on_reason',
-            'order_date',
-            'shipping_date',
-          ]}
+          keys={['id', 'name', 'email', 'phone', 'last_purchased_date']}
+          showActions={true}
+          buttonNames={['Details']}
+          buttonPath="/reports/inactive_customers"
         />
       )}
     </>

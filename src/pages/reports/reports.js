@@ -37,13 +37,13 @@ export default function Reports() {
             <ReportCard path="/reports/rewards_points" title={'Rewards Points'} />
             <ReportCard path="/reports/taxes" title={'Taxes'} />
             <ReportCard path="/reports/shipping" title={'Shipping'} />
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
-            {/* <ReportCard path="/reports/" title={''} /> */}
+            <ReportCard path="/reports/refund" title={'Refund'} />
+            <ReportCard path="/reports/sales" title={'Sales'} />
+            <ReportCard path="/reports/discount" title={'Discount Codes'} />
+            <ReportCard path="/reports/products_visits" title={'Products Visits'} />
+            <ReportCard path="/reports/products_purchased" title={'Products Purchased'} />
+            <ReportCard path="/reports/abandoned_carts" title={'Abandoned Carts'} />
+            <ReportCard path="/reports/inactive_customers" title={'Inactive Customers'} />
             {/* <ReportCard path="/reports/" title={''} /> */}
             {/* <ReportCard path="/reports/" title={''} /> */}
             {/* <ReportCard path="/reports/" title={''} /> */}

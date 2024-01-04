@@ -8,7 +8,6 @@ export default function Stock() {
       <ActionButton name="Update Stock" path="/stocks/updateStock" />
       <Table
         path="/stocks"
-        keys={['id', 'title', 'quantity', 'user_name', 'details', 'created_at']}
         showDate={false}
         showFilter={false}
         columns={[
@@ -19,6 +18,7 @@ export default function Stock() {
           { name: 'Details', selector: (row) => row.details },
           { name: 'Created At', selector: (row) => row.created_at },
         ]}
+        keys={['id', 'title', 'quantity', 'user_name', 'details', 'created_at']}
       />
     </>
   )

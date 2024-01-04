@@ -16,7 +16,7 @@ export default function Card({ indices, path }) {
         let responses = await Promise.all(
           indices.map(async (index) => {
             let response = await axiosInstance.get(path)
-            return response.data.data[index]
+            return response.data.data[index].value
           }),
         )
 

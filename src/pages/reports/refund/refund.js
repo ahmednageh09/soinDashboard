@@ -3,7 +3,7 @@ import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
-export default function Shipping() {
+export default function Refund() {
   const [showChart, setShowChart] = useState(false)
 
   function handleChartClick() {
@@ -25,37 +25,40 @@ export default function Shipping() {
 
       {showChart ? (
         <div className="d-flex justify-content-center align-content-center w-100">
-          <Chart path="/reports/shipping?type=chart" chartName="shipping_chart" />
+          <Chart path="/reports/refund?type=chart" chartName="refund_chart" />
         </div>
       ) : (
         <Table
-          path="/reports/shipping"
+          path="/reports/refund"
           showFilter={false}
           showDate={false}
           columns={[
             { name: 'ID', selector: (row) => row.id },
-            { name: 'Order.No', selector: (row) => row.order_number },
-            { name: 'Shipping Cost', selector: (row) => row.shipping_cost },
-            { name: 'Shipping Cost On', selector: (row) => row.shipping_cost_on },
-            { name: 'Reason', selector: (row) => row.shipping_cost_on_reason },
+            { name: 'Product', selector: (row) => row.product },
+            { name: 'Refund Reason', selector: (row) => row.refund_reason },
+            { name: 'Refund Amount', selector: (row) => row.refund_amount },
+            { name: 'Cost On', selector: (row) => row.cost_on },
             {
-              name: 'Order Date',
-              selector: (row) => new Date(row.order_date).toLocaleDateString(),
+              name: 'Refund Date',
+              selector: (row) => new Date(row.refund_date).toLocaleDateString(),
             },
             {
-              name: 'Shipping Date',
-              selector: (row) => new Date(row.shipping_date).toLocaleDateString(),
+              name: 'Order Date',
+              selector: (row) => new Date(row.created_at).toLocaleDateString(),
             },
           ]}
           keys={[
             'id',
-            'order_number',
-            'shipping_cost',
-            'shipping_cost_on',
-            'shipping_cost_on_reason',
-            'order_date',
-            'shipping_date',
+            'product',
+            'refund_reason',
+            'refund_amount',
+            'cost_on',
+            'refund_date',
+            'created_at',
           ]}
+          showActions={true}
+          buttonNames={['Details']}
+          buttonPath="/reports/refund"
         />
       )}
     </>

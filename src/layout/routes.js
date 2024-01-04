@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'))
+const Dashboard = React.lazy(() => import('../pages/dashboard/dashboard'))
 const Stock = React.lazy(() => import('../pages/stock/stock'))
 const UpdateStock = React.lazy(() => import('../pages/stock/updateStock/updateStock'))
 const Orders = React.lazy(() => import('../pages/orders/orders'))
@@ -23,6 +23,21 @@ const CustomersSearch = React.lazy(() => import('../pages/reports/customersSearc
 const RewardsPoins = React.lazy(() => import('../pages/reports/rewardsPoins/rewardsPoints'))
 const Taxes = React.lazy(() => import('../pages/reports/taxes/taxes'))
 const Shipping = React.lazy(() => import('../pages/reports/shipping/shipping'))
+const Refund = React.lazy(() => import('../pages/reports/refund/refund'))
+const RefundDetails = React.lazy(() => import('../pages/reports/refund/details'))
+const Sales = React.lazy(() => import('../pages/reports/sales/sales'))
+const Discount = React.lazy(() => import('../pages/reports/discountCodes/discountCodes'))
+const ProductsVisits = React.lazy(() => import('../pages/reports/productsVisits/productsVisits'))
+const ProductsPurchased = React.lazy(() =>
+  import('../pages/reports/productsPurchased/productsPurchased'),
+)
+const ProductsPurchasedDetails = React.lazy(() =>
+  import('../pages/reports/productsPurchased/details'),
+)
+const AbandonedCarts = React.lazy(() => import('../pages/reports/abandonedCarts/abandonedCarts'))
+const InactiveCustomers = React.lazy(() =>
+  import('../pages/reports/inactiveCustomers/inactiveCustomers'),
+)
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -49,6 +64,27 @@ const routes = [
   { path: '/reports/rewards_points', name: 'Rewards Points', element: RewardsPoins },
   { path: '/reports/taxes', name: 'Taxes', element: Taxes },
   { path: '/reports/shipping', name: 'Shipping', element: Shipping },
+  { path: '/reports/refund', name: 'Refund', element: Refund },
+  { path: '/reports/refund/:id', name: 'Refund Details', element: RefundDetails },
+  { path: '/reports/sales', name: 'Sales', element: Sales },
+  { path: '/reports/discount', name: 'Sales', element: Discount },
+  { path: '/reports/products_visits', name: 'Products Visits', element: ProductsVisits },
+  { path: '/reports/products_purchased', name: 'Products Purchased', element: ProductsPurchased },
+  {
+    path: '/reports/products_purchased/:id',
+    name: 'Purchased Details',
+    element: ProductsPurchasedDetails,
+  },
+  {
+    path: '/reports/abandoned_carts',
+    name: 'Abandoned Carts',
+    element: AbandonedCarts,
+  },
+  {
+    path: '/reports/inactive_customers',
+    name: 'Inactive Customers',
+    element: InactiveCustomers,
+  },
 ]
 
 export default routes
