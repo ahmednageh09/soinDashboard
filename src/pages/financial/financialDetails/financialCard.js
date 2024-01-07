@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { axiosInstance } from 'src/axiosConfig'
 import { useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import Form from './form'
+import Form from '../../../components/form'
 
 export default function FinancialCard({ indices, path }) {
   //define props
@@ -89,12 +89,33 @@ export default function FinancialCard({ indices, path }) {
   }
 
   // edit user info
+  let userId
+  let params = new URLSearchParams()
   const editUser = async () => {
     setShowForm(true)
     const userId = values.user.id
     const res = await axiosInstance.get(`user/${userId}/edit`)
     const data = res.data.data[0]
-    console.log(data)
+
+    // Set the initial form values
+    setValues({
+      user: {
+        id: userId,
+        name: data.firstName,
+        lastname: data.lastName,
+        phone: data.phone,
+        email: data.email,
+      },
+    })
+    // Create a new URLSearchParams
+    params = new URLSearchParams()
+
+    // Add query parameters
+    params.append('firstName', values.user?.name)
+    params.append('lastName', values.user?.lastname)
+    params.append('phone', values.user?.phone)
+    params.append('email', values.user?.email)
+    params.append('_method', 'PATCH')
   }
 
   return (
@@ -199,7 +220,12 @@ export default function FinancialCard({ indices, path }) {
           </CCard>
         </div>
       ) : (
-        <Form values={values.user} />
+        <Form
+          values={values.user}
+          setValues={setValues}
+          method={'POST'}
+          path={`/user/${userId}?${params.toString()}`}
+        />
       )}
     </>
   )

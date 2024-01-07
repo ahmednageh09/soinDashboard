@@ -17,6 +17,7 @@ Table.propTypes = {
   columns: PropTypes.array,
   keys: PropTypes.array,
   filter: PropTypes.string,
+  setShowModal: PropTypes.bool,
 }
 
 export default function Table({
@@ -30,6 +31,7 @@ export default function Table({
   buttonNames = [''],
   buttonPath = '',
   filter = '',
+  setShowModal,
 }) {
   const [data, setData] = useState([])
   const [title, setTitle] = useState('')
@@ -105,9 +107,16 @@ export default function Table({
     })
     setSearch(newData)
   }
+
   const handleAction = (id) => {
-    navigate(`${buttonPath}/${id}`)
+    if (buttonPath) {
+      navigate(`${buttonPath}/${id}`)
+    } else {
+      console.log('hhh')
+      setShowModal(true)
+    }
   }
+
   // Define the action buttons column
   const actionButtons = {
     name: 'Actions',
@@ -205,6 +214,11 @@ export default function Table({
           },
         }}
       />
+      {/* {showModal && (
+        <Modal show={showModal} handleClose={() => setShowModal(false)}>
+          <h2>greeg</h2>
+        </Modal>
+      )} */}
     </div>
   )
 }

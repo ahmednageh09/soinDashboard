@@ -47,7 +47,7 @@ const routes = [
   { path: '/orders/all', name: 'Orders', element: Orders },
   { path: '/orders/financial_transactions', name: 'Financial Transactions', element: Financial },
   {
-    path: '/orders/financial_transactions/details',
+    path: '/orders/financial_transactions/details/:id',
     name: 'Transactions Details',
     element: FinancialDetails,
   },

@@ -2,15 +2,18 @@ import React, { useState } from 'react'
 import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
+import Modal from 'src/components/modal'
 
 export default function InactiveCustomers() {
   const [showChart, setShowChart] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   function handleChartClick() {
     setShowChart(true)
   }
   function handleReportsClick() {
     setShowChart(false)
+    setShowModal(false)
   }
   return (
     <>
@@ -49,8 +52,14 @@ export default function InactiveCustomers() {
           keys={['id', 'name', 'email', 'phone', 'last_purchased_date']}
           showActions={true}
           buttonNames={['Details']}
-          buttonPath="/reports/inactive_customers"
+          showModal={showModal}
+          setShowModal={setShowModal}
         />
+      )}
+      {showModal && (
+        <Modal show={true} handleClose={() => setShowModal(false)}>
+          {/* Put the content of the modal here */}
+        </Modal>
       )}
     </>
   )

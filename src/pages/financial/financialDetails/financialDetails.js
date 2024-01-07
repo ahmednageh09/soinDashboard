@@ -1,17 +1,17 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom'
-import FinancialCard from 'src/components/financialCard'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import FinancialCard from 'src/pages/financial/financialDetails/financialCard'
 
 export default function FinancialDetails() {
-  const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  const transactionId = searchParams.get('id')
+  const { id: transactionId } = useParams()
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <>
       <FinancialCard
         path={`/orders/online/show/${transactionId}`}
         indices={['transaction', 'order', 'user', 'transaction_type']}
+        onLoad={() => setIsLoading(false)}
       />
     </>
   )
