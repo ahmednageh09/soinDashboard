@@ -81,13 +81,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Request Product',
-    to: '/requestProduct',
+    to: '/products/request',
     icon: <CIcon icon={cilFlagAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Notify Me',
-    to: '/notifyMe',
+    to: '/products/notify',
     icon: <CIcon icon={cilBullhorn} customClassName="nav-icon" />,
   },
   {
@@ -179,7 +179,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Abandoned Carts',
-    to: '/abandonedCarts',
+    to: '/abandoned_carts',
     icon: <CIcon icon={cilXCircle} customClassName="nav-icon" />,
   },
   {

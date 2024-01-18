@@ -31,7 +31,7 @@ export default function Table({
   buttonNames = [''],
   buttonPath = '',
   filter = '',
-  setShowModal,
+  setShowModal = false,
 }) {
   const [data, setData] = useState([])
   const [title, setTitle] = useState('')
@@ -112,7 +112,6 @@ export default function Table({
     if (buttonPath) {
       navigate(`${buttonPath}/${id}`)
     } else {
-      console.log('hhh')
       setShowModal(true)
     }
   }
@@ -214,11 +213,6 @@ export default function Table({
           },
         }}
       />
-      {/* {showModal && (
-        <Modal show={showModal} handleClose={() => setShowModal(false)}>
-          <h2>greeg</h2>
-        </Modal>
-      )} */}
     </div>
   )
 }

@@ -2,13 +2,14 @@ import React from 'react'
 import { CButton, CForm, CFormInput, CFormSelect } from '@coreui/react'
 import PropTypes from 'prop-types'
 import { axiosInstance } from 'src/axiosConfig'
+import { toast } from 'react-toastify'
 
-export default function Form({ values, setValues, method, url }) {
+export default function Form({ values, setValues, method, path }) {
   Form.propTypes = {
     values: PropTypes.object,
     setValues: PropTypes.func,
     method: PropTypes.string,
-    url: PropTypes.string,
+    path: PropTypes.string,
   }
   const handleFieldChange = (event) => {
     const { name, value } = event.target
@@ -27,25 +28,29 @@ export default function Form({ values, setValues, method, url }) {
 
       switch (method) {
         case 'GET':
-          response = await axiosInstance.get(url)
+          response = await axiosInstance.get(path)
           break
         case 'POST':
-          response = await axiosInstance.post(url, values)
+          response = await axiosInstance.post(path, values)
           break
         case 'PUT':
-          response = await axiosInstance.put(url, values)
+          response = await axiosInstance.put(path, values)
           break
         case 'PATCH':
-          response = await axiosInstance.patch(url, values)
+          response = await axiosInstance.patch(path, values)
           break
         default:
           throw new Error(`Invalid method ${method}`)
       }
-
       const data = response.data
-      console.log(data)
+      const status = response.data.status
+      if (status == 'success') {
+        toast.success('Updated Success!')
+      } else {
+        toast.error(data.message)
+      }
     } catch (error) {
-      console.error('Error:', error)
+      toast.error(error)
     }
   }
 

@@ -89,33 +89,24 @@ export default function FinancialCard({ indices, path }) {
   }
 
   // edit user info
-  let userId
+
   let params = new URLSearchParams()
   const editUser = async () => {
     setShowForm(true)
-    const userId = values.user.id
-    const res = await axiosInstance.get(`user/${userId}/edit`)
+    const res = await axiosInstance.get(`user/${values.user.id}/edit`)
     const data = res.data.data[0]
 
     // Set the initial form values
     setValues({
       user: {
-        id: userId,
+        _method: 'PATCH',
+        id: values.user.id,
         name: data.firstName,
         lastname: data.lastName,
         phone: data.phone,
         email: data.email,
       },
     })
-    // Create a new URLSearchParams
-    params = new URLSearchParams()
-
-    // Add query parameters
-    params.append('firstName', values.user?.name)
-    params.append('lastName', values.user?.lastname)
-    params.append('phone', values.user?.phone)
-    params.append('email', values.user?.email)
-    params.append('_method', 'PATCH')
   }
 
   return (
@@ -224,7 +215,7 @@ export default function FinancialCard({ indices, path }) {
           values={values.user}
           setValues={setValues}
           method={'POST'}
-          path={`/user/${userId}?${params.toString()}`}
+          path={`/user/${values.user.id}?${params.toString()}`}
         />
       )}
     </>

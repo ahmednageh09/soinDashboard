@@ -8,6 +8,8 @@ const Financial = React.lazy(() => import('../pages/financial/financial'))
 const FinancialDetails = React.lazy(() =>
   import('../pages/financial/financialDetails/financialDetails'),
 )
+const Products = React.lazy(() => import('../pages/products/products'))
+const Categories = React.lazy(() => import('../pages/products/categories'))
 const Countries = React.lazy(() => import('../pages/countries/countries'))
 const Cities = React.lazy(() => import('../pages/cities/cities'))
 const Regions = React.lazy(() => import('../pages/regions/regions'))
@@ -38,6 +40,18 @@ const AbandonedCarts = React.lazy(() => import('../pages/reports/abandonedCarts/
 const InactiveCustomers = React.lazy(() =>
   import('../pages/reports/inactiveCustomers/inactiveCustomers'),
 )
+const StockReport = React.lazy(() => import('../pages/reports/stock/stockReport'))
+const NewProducts = React.lazy(() => import('../pages/reports/newProducts/newProducts'))
+const Comments = React.lazy(() => import('../pages/reports/comments/comments'))
+const Payments = React.lazy(() => import('../pages/reports/payments/payments'))
+const FavProducts = React.lazy(() => import('../pages/reports/favProducts/favProducts'))
+const Offers = React.lazy(() => import('../pages/reports/offers/offers'))
+const Notify = React.lazy(() => import('../pages/notifyMe/notifyMe'))
+const RequestProduct = React.lazy(() => import('../pages/requestProduct/requestProduct'))
+const Abandoned = React.lazy(() => import('../pages/abandonedCarts/abandonedCarts'))
+const CategoriesLinks = React.lazy(() => import('../pages/links/categories'))
+const ProductsLinks = React.lazy(() => import('../pages/links/products'))
+const PagesLinks = React.lazy(() => import('../pages/links/pages'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -51,6 +65,8 @@ const routes = [
     name: 'Transactions Details',
     element: FinancialDetails,
   },
+  { path: '/products', name: 'Products', element: Products },
+  { path: '/product/categories', name: 'Categories', element: Categories },
   { path: '/countries', name: 'Countries', element: Countries },
   { path: '/cities', name: 'Cities', element: Cities },
   { path: '/regions', name: 'Regions', element: Regions },
@@ -84,6 +100,66 @@ const routes = [
     path: '/reports/inactive_customers',
     name: 'Inactive Customers',
     element: InactiveCustomers,
+  },
+  {
+    path: '/reports/stock',
+    name: 'Stock',
+    element: StockReport,
+  },
+  {
+    path: '/reports/new_products',
+    name: 'New Products',
+    element: NewProducts,
+  },
+  {
+    path: '/reports/comments',
+    name: 'Comments',
+    element: Comments,
+  },
+  {
+    path: '/reports/payments',
+    name: 'Payments',
+    element: Payments,
+  },
+  {
+    path: '/reports/fav_products',
+    name: 'Fav Products',
+    element: FavProducts,
+  },
+  {
+    path: '/reports/offers',
+    name: 'Offers',
+    element: Offers,
+  },
+  {
+    path: '/products/notify',
+    name: 'Notify Me',
+    element: Notify,
+  },
+  {
+    path: '/products/request',
+    name: 'Request Product',
+    element: RequestProduct,
+  },
+  {
+    path: '/abandoned_carts',
+    name: 'Abandoned Carts',
+    element: Abandoned,
+  },
+  {
+    path: '/links/categories',
+    name: 'Categories Links',
+    element: CategoriesLinks,
+  },
+  {
+    path: '/links/products',
+    name: 'Products Links',
+    element: ProductsLinks,
+  },
+  {
+    path: '/links/pages',
+    name: 'Pages Links',
+    element: PagesLinks,
   },
 ]
 

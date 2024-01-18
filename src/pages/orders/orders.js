@@ -21,13 +21,12 @@ export default function Orders() {
         ref={tableRef}
         columns={[
           { name: 'ID', selector: (row) => row.id },
-          { name: 'User Image', selector: (row) => row.user_image },
           { name: 'Type', selector: (row) => row.type },
           { name: 'User', selector: (row) => row.user_name },
           { name: 'Status', selector: (row) => row.status },
           { name: 'Order Number', selector: (row) => row.ordernumber },
         ]}
-        keys={['id', 'user_image', 'type', 'user_name', 'status', 'ordernumber']}
+        keys={['id', 'type', 'user_name', 'status', 'ordernumber']}
       />
     </>
   )
