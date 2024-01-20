@@ -1,5 +1,5 @@
 import React from 'react'
-import { CButton, CCard, CCardBody, CCardLink, CCardTitle } from '@coreui/react'
+import { CButton, CCard, CCardBody, CCardTitle } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import './reportCard.scss'
 import PropTypes from 'prop-types'

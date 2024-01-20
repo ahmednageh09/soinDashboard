@@ -10,9 +10,23 @@ const FinancialDetails = React.lazy(() =>
 )
 const Products = React.lazy(() => import('../pages/products/products'))
 const Categories = React.lazy(() => import('../pages/products/categories'))
+const RequestProduct = React.lazy(() => import('../pages/requestProduct/requestProduct'))
+const Notify = React.lazy(() => import('../pages/notifyMe/notifyMe'))
 const Countries = React.lazy(() => import('../pages/countries/countries'))
 const Cities = React.lazy(() => import('../pages/cities/cities'))
 const Regions = React.lazy(() => import('../pages/regions/regions'))
+const Offers = React.lazy(() => import('../pages/offers/offers'))
+const OffersOneFree = React.lazy(() => import('../pages/offers/oneFree/oneFree'))
+const OffersDuration = React.lazy(() => import('../pages/offers/duration/duration'))
+const OffersExtra = React.lazy(() => import('../pages/offers/extra/extra'))
+const OffersVoucher = React.lazy(() => import('../pages/offers/voucher/voucher'))
+const OffersVoucherFree = React.lazy(() => import('../pages/offers/voucherFree/voucherFree'))
+const OffersVoucherUserFree = React.lazy(() =>
+  import('../pages/offers/voucherUserFree/voucherUserFree'),
+)
+const OffersCommission = React.lazy(() => import('../pages/offers/commission/commision'))
+const OffersSettings = React.lazy(() => import('../pages/offers/settings/settings'))
+const Discounts = React.lazy(() => import('../pages/discounts/discounts'))
 const Reports = React.lazy(() => import('../pages/reports/reports'))
 const ProductsPrices = React.lazy(() => import('../pages/reports/productsPrices/productsPrices'))
 const AffiliateSystem = React.lazy(() => import('../pages/reports/affiliateSystem/affiliate'))
@@ -28,7 +42,7 @@ const Shipping = React.lazy(() => import('../pages/reports/shipping/shipping'))
 const Refund = React.lazy(() => import('../pages/reports/refund/refund'))
 const RefundDetails = React.lazy(() => import('../pages/reports/refund/details'))
 const Sales = React.lazy(() => import('../pages/reports/sales/sales'))
-const Discount = React.lazy(() => import('../pages/reports/discountCodes/discountCodes'))
+const DiscountCodes = React.lazy(() => import('../pages/reports/discountCodes/discountCodes'))
 const ProductsVisits = React.lazy(() => import('../pages/reports/productsVisits/productsVisits'))
 const ProductsPurchased = React.lazy(() =>
   import('../pages/reports/productsPurchased/productsPurchased'),
@@ -45,13 +59,12 @@ const NewProducts = React.lazy(() => import('../pages/reports/newProducts/newPro
 const Comments = React.lazy(() => import('../pages/reports/comments/comments'))
 const Payments = React.lazy(() => import('../pages/reports/payments/payments'))
 const FavProducts = React.lazy(() => import('../pages/reports/favProducts/favProducts'))
-const Offers = React.lazy(() => import('../pages/reports/offers/offers'))
-const Notify = React.lazy(() => import('../pages/notifyMe/notifyMe'))
-const RequestProduct = React.lazy(() => import('../pages/requestProduct/requestProduct'))
+const OffersReport = React.lazy(() => import('../pages/reports/offers/offers'))
 const Abandoned = React.lazy(() => import('../pages/abandonedCarts/abandonedCarts'))
 const CategoriesLinks = React.lazy(() => import('../pages/links/categories'))
 const ProductsLinks = React.lazy(() => import('../pages/links/products'))
 const PagesLinks = React.lazy(() => import('../pages/links/pages'))
+const CommentsPage = React.lazy(() => import('../pages/comments/comments'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -70,6 +83,7 @@ const routes = [
   { path: '/countries', name: 'Countries', element: Countries },
   { path: '/cities', name: 'Cities', element: Cities },
   { path: '/regions', name: 'Regions', element: Regions },
+  { path: '/offers', name: 'Offers', element: Offers },
   { path: '/reports', name: 'Reports', element: Reports },
   { path: '/reports/products_prices', name: 'Products Prices', element: ProductsPrices },
   { path: '/reports/affiliateSystem', name: 'Affiliate System', element: AffiliateSystem },
@@ -83,7 +97,7 @@ const routes = [
   { path: '/reports/refund', name: 'Refund', element: Refund },
   { path: '/reports/refund/:id', name: 'Refund Details', element: RefundDetails },
   { path: '/reports/sales', name: 'Sales', element: Sales },
-  { path: '/reports/discount', name: 'Sales', element: Discount },
+  { path: '/reports/discount', name: 'Discount Codes', element: DiscountCodes },
   { path: '/reports/products_visits', name: 'Products Visits', element: ProductsVisits },
   { path: '/reports/products_purchased', name: 'Products Purchased', element: ProductsPurchased },
   {
@@ -128,8 +142,58 @@ const routes = [
   },
   {
     path: '/reports/offers',
+    name: 'Offers Report',
+    element: OffersReport,
+  },
+  {
+    path: '/offers',
     name: 'Offers',
     element: Offers,
+  },
+  {
+    path: '/offers/extra',
+    name: 'Extra Offers',
+    element: OffersExtra,
+  },
+  {
+    path: '/offers/duration',
+    name: 'Duration Offers',
+    element: OffersDuration,
+  },
+  {
+    path: '/offers/onefree',
+    name: 'One Free Offers',
+    element: OffersOneFree,
+  },
+  {
+    path: '/offers/voucher',
+    name: 'Voucher Offers',
+    element: OffersVoucher,
+  },
+  {
+    path: '/offers/voucher-free',
+    name: 'Voucher Free Offers',
+    element: OffersVoucherFree,
+  },
+  {
+    path: '/offers/voucher-user-free',
+    name: 'Voucher Free User Offers',
+    element: OffersVoucherUserFree,
+  },
+  {
+    path: '/offers/commission',
+    name: 'Commission',
+    element: OffersCommission,
+  },
+  {
+    path: '/offers/settings',
+    name: 'Settings',
+    element: OffersSettings,
+  },
+  {
+    path: '/discounts',
+    name: 'Discounts',
+    element: Discounts,
   },
   {
     path: '/products/notify',
@@ -161,6 +225,7 @@ const routes = [
     name: 'Pages Links',
     element: PagesLinks,
   },
+  { path: '/comments', name: 'Comments Page', element: CommentsPage },
 ]
 
 export default routes

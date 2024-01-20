@@ -16,10 +16,14 @@ export default function Reports() {
   return (
     <>
       <div className="m-4">
-        <CButton onClick={handleReportsClick} className="mx-2" color="secondary">
+        <CButton
+          onClick={handleReportsClick}
+          className="mx-2"
+          color={showGoogle ? 'secondary' : 'info'}
+        >
           Reports
         </CButton>
-        <CButton onClick={handleGoogleClick} color="info">
+        <CButton onClick={handleGoogleClick} color={!showGoogle ? 'secondary' : 'info'}>
           Google Analytics
         </CButton>
       </div>
