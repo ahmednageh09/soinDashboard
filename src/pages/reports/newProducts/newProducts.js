@@ -15,10 +15,14 @@ export default function NewProducts() {
   return (
     <>
       <div className="m-4">
-        <CButton onClick={handleReportsClick} className="mx-2" color="secondary">
+        <CButton
+          onClick={handleReportsClick}
+          className="mx-2"
+          color={!showChart ? 'info' : 'secondary'}
+        >
           Reports
         </CButton>
-        <CButton onClick={handleChartClick} color="info">
+        <CButton onClick={handleChartClick} color={showChart ? 'info' : 'secondary'}>
           Chart
         </CButton>
       </div>

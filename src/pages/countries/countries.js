@@ -13,7 +13,7 @@ export default function Countries() {
         columns={[
           { name: 'ID', selector: (row) => row.id },
           { name: 'Title', selector: (row) => row.title },
-          { name: 'Created At', selector: (row) => row.created_at },
+          { name: 'Created At', selector: (row) => new Date(row.created_at).toLocaleDateString() },
         ]}
         keys={['id', 'title', 'created_at']}
         showActions={true}

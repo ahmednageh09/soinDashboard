@@ -28,18 +28,18 @@ export default function Products() {
       setSub_category(data.sub_category)
       const brands = data.brands
       setBrand(brands)
-      const initialSelectedCategories = {}
+      // const initialSelectedCategories = {}
       const deliveryStatus = {}
       data.products.forEach((product) => {
         deliveryStatus[product.id] = product.is_free_shipping === '1'
-        const categoryNumber = product.category_ids || []
-        const category = data.sub_category[categoryNumber]
+        // const categoryNumber = product.category_ids || []
+        // const category = data.sub_category[categoryNumber]
 
-        if (category != '' || category != undefined) {
-          initialSelectedCategories[product.id] = category || null
-        }
+        // if (category != '' || category != undefined) {
+        // initialSelectedCategories[product.id] = category || null
+        // }
       })
-      setSelectedCategories(initialSelectedCategories)
+      // setSelectedCategories(initialSelectedCategories)
       setDeliverySwitches(deliveryStatus)
     } catch {
       toast.error('Something went wrong, try later!')
@@ -48,6 +48,17 @@ export default function Products() {
   useEffect(() => {
     fetchData()
   }, [])
+
+  // Getting the corresponding category to its key
+  useEffect(() => {
+    const initialSelectedCategories = {}
+    products.forEach((product) => {
+      const categoryNumber = product.category_ids || []
+      const category = sub_category[categoryNumber]
+      initialSelectedCategories[product.id] = category || null
+    })
+    setSelectedCategories(initialSelectedCategories)
+  }, [products, sub_category])
   const handleCostChange = (productId, event) => {
     const newProducts = [...products]
     const index = newProducts.findIndex((product) => product.id === productId)
@@ -93,7 +104,6 @@ export default function Products() {
       reader.readAsDataURL(file)
     }
   }
-
   const updateProduct = async (product) => {
     try {
       setSelectedCategories((prevCategories) => ({
@@ -120,7 +130,6 @@ export default function Products() {
       toast.error('Failed to update product, please try again')
     }
   }
-
   const performSearch = () => {
     if (searchTerm === '') {
       fetchData()
@@ -219,6 +228,7 @@ export default function Products() {
     try {
       let response = await axiosInstance.get(`/product_category?category=${catId}`)
       let data = response.data.data
+      console.log(data)
       setProducts(data.products)
       setSub_category(data.sub_category)
       setSelectedCategories({})

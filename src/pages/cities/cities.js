@@ -14,7 +14,7 @@ export default function Cities() {
           { name: 'ID', selector: (row) => row.id },
           { name: 'City', selector: (row) => row.title },
           { name: 'Country', selector: (row) => row.country },
-          { name: 'Created At', selector: (row) => row.created_at },
+          { name: 'Created At', selector: (row) => new Date(row.created_at).toLocaleDateString() },
         ]}
         keys={['id', 'title', 'country', 'created_at']}
         showActions={true}

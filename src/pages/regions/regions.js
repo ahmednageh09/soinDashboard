@@ -14,7 +14,7 @@ export default function Regions() {
           { name: 'ID', selector: (row) => row.id },
           { name: 'Region Name', selector: (row) => row.region_name },
           { name: 'City Name', selector: (row) => row.city_name },
-          { name: 'Created At', selector: (row) => row.created_at },
+          { name: 'Created At', selector: (row) => new Date(row.created_at).toLocaleDateString() },
         ]}
         keys={['id', 'region_name', 'city_name', 'created_at']}
         showActions={true}

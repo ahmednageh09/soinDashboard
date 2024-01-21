@@ -18,6 +18,7 @@ Table.propTypes = {
   keys: PropTypes.array,
   filter: PropTypes.string,
   setShowModal: PropTypes.bool,
+  actions: PropTypes.arrayOf(PropTypes.func),
 }
 
 export default function Table({
@@ -32,6 +33,7 @@ export default function Table({
   buttonPath = '',
   filter = '',
   setShowModal = false,
+  actions = [],
 }) {
   const [data, setData] = useState([])
   const [title, setTitle] = useState('')
@@ -76,6 +78,7 @@ export default function Table({
     })
     setSearch(newData)
   }
+
   const handleFilter = (evt) => {
     const selectedValue = evt.target.value
     setSelectedOption(selectedValue)
@@ -86,6 +89,7 @@ export default function Table({
 
     setSearch(newData)
   }
+
   const handleFromDateChange = (evt) => {
     setFromDate(evt.target.value)
 
@@ -108,15 +112,6 @@ export default function Table({
     setSearch(newData)
   }
 
-  const handleAction = (id) => {
-    if (buttonPath) {
-      navigate(`${buttonPath}/${id}`)
-    } else {
-      setShowModal(true)
-    }
-  }
-
-  // Define the action buttons column
   const actionButtons = {
     name: 'Actions',
     selector: (row) => row.id,
@@ -127,7 +122,7 @@ export default function Table({
             className="mx-2 border-0 p-2 rounded-2"
             style={{ whiteSpace: 'nowrap', backgroundColor: '#8296bb' }}
             key={index}
-            onClick={() => handleAction(row.id)}
+            onClick={() => actions[index](row.id)}
           >
             {buttonName}
           </CButton>
@@ -136,7 +131,6 @@ export default function Table({
     ),
   }
 
-  // Add the action buttons column if pass showActions Props
   const allColumns = showActions ? [...columns, actionButtons] : columns
 
   return (

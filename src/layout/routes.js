@@ -27,6 +27,9 @@ const OffersVoucherUserFree = React.lazy(() =>
 const OffersCommission = React.lazy(() => import('../pages/offers/commission/commision'))
 const OffersSettings = React.lazy(() => import('../pages/offers/settings/settings'))
 const Discounts = React.lazy(() => import('../pages/discounts/discounts'))
+const Customers = React.lazy(() => import('../pages/customers/customers'))
+const Comments = React.lazy(() => import('../pages/comments/comments'))
+const Contacts = React.lazy(() => import('../pages/contacts/contacts'))
 const Reports = React.lazy(() => import('../pages/reports/reports'))
 const ProductsPrices = React.lazy(() => import('../pages/reports/productsPrices/productsPrices'))
 const AffiliateSystem = React.lazy(() => import('../pages/reports/affiliateSystem/affiliate'))
@@ -56,7 +59,7 @@ const InactiveCustomers = React.lazy(() =>
 )
 const StockReport = React.lazy(() => import('../pages/reports/stock/stockReport'))
 const NewProducts = React.lazy(() => import('../pages/reports/newProducts/newProducts'))
-const Comments = React.lazy(() => import('../pages/reports/comments/comments'))
+const CommentsReport = React.lazy(() => import('../pages/reports/comments/comments'))
 const Payments = React.lazy(() => import('../pages/reports/payments/payments'))
 const FavProducts = React.lazy(() => import('../pages/reports/favProducts/favProducts'))
 const OffersReport = React.lazy(() => import('../pages/reports/offers/offers'))
@@ -128,7 +131,7 @@ const routes = [
   {
     path: '/reports/comments',
     name: 'Comments',
-    element: Comments,
+    element: CommentsReport,
   },
   {
     path: '/reports/payments',
@@ -194,6 +197,21 @@ const routes = [
     path: '/discounts',
     name: 'Discounts',
     element: Discounts,
+  },
+  {
+    path: '/customers',
+    name: 'Customers',
+    element: Customers,
+  },
+  {
+    path: '/comments',
+    name: 'Comments',
+    element: Comments,
+  },
+  {
+    path: '/contacts',
+    name: 'Contacts',
+    element: Contacts,
   },
   {
     path: '/products/notify',
