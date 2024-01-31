@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const loading = (
-  <div className="d-flex justify-content-cente vh-100">
+  <div className="d-flex justify-content-around vh-100">
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 )

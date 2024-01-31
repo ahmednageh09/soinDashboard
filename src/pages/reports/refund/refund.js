@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
 export default function Refund() {
   const [showChart, setShowChart] = useState(false)
+  const navigate = useNavigate()
 
   function handleChartClick() {
     setShowChart(true)
@@ -62,7 +64,7 @@ export default function Refund() {
           ]}
           showActions={true}
           buttonNames={['Details']}
-          buttonPath="/reports/refund"
+          actions={[(id) => navigate(`/reports/refund/${id}`)]}
         />
       )}
     </>

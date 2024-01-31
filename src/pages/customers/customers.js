@@ -10,7 +10,12 @@ export default function Customers() {
         showFilter={false}
         columns={[
           { name: 'ID', selector: (row) => row.id },
-          { name: 'User Image', selector: (row) => <img src={row.image} alt="User" /> },
+          {
+            name: 'User Image',
+            selector: (row) => (
+              <img style={{ borderRadius: '50%', width: '3rem' }} src={row.image} alt="User" />
+            ),
+          },
           { name: 'Status', selector: (row) => row.status },
           { name: 'Phone Verified', selector: (row) => row.phone_verified_at },
           { name: 'is_blocked', selector: (row) => row.is_blocked },

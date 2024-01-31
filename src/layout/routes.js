@@ -13,7 +13,9 @@ const Categories = React.lazy(() => import('../pages/products/categories'))
 const RequestProduct = React.lazy(() => import('../pages/requestProduct/requestProduct'))
 const Notify = React.lazy(() => import('../pages/notifyMe/notifyMe'))
 const Countries = React.lazy(() => import('../pages/countries/countries'))
+const CountryCities = React.lazy(() => import('../pages/countries/countryCities'))
 const Cities = React.lazy(() => import('../pages/cities/cities'))
+const CityRegions = React.lazy(() => import('../pages/cities/cityRegions'))
 const Regions = React.lazy(() => import('../pages/regions/regions'))
 const Offers = React.lazy(() => import('../pages/offers/offers'))
 const OffersOneFree = React.lazy(() => import('../pages/offers/oneFree/oneFree'))
@@ -84,7 +86,9 @@ const routes = [
   { path: '/products', name: 'Products', element: Products },
   { path: '/product/categories', name: 'Categories', element: Categories },
   { path: '/countries', name: 'Countries', element: Countries },
+  { path: '/country/cities/:id', name: 'Country Cities', element: CountryCities },
   { path: '/cities', name: 'Cities', element: Cities },
+  { path: '/city/regions/:id', name: 'Regions Of City', element: CityRegions },
   { path: '/regions', name: 'Regions', element: Regions },
   { path: '/offers', name: 'Offers', element: Offers },
   { path: '/reports', name: 'Reports', element: Reports },

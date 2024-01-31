@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { CButton } from '@coreui/react'
 import Table from 'src/components/table'
 import Chart from 'src/components/chart'
 
 export default function ProductsPurchased() {
+  const navigate = useNavigate()
   const [showChart, setShowChart] = useState(false)
 
   function handleChartClick() {
@@ -50,7 +52,7 @@ export default function ProductsPurchased() {
           keys={['id', 'title', 'type', 'purchased_count', 'sales_total']}
           showActions={true}
           buttonNames={['Details']}
-          buttonPath="/reports/products_purchased"
+          actions={[(id) => navigate(`/reports/products_purchased/${id}`)]}
         />
       )}
     </>

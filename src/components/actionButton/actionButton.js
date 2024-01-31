@@ -7,12 +7,14 @@ ActionButton.propTypes = {
   name: PropTypes.string.isRequired,
   path: PropTypes.string,
   action: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
-export default function ActionButton({ name, path = '', action = '' }) {
+export default function ActionButton({ name, path = '', action = '', onClick }) {
   const navigate = useNavigate()
   const handleClick = () => {
     navigate(path)
+    onClick?.()
   }
   return (
     <>

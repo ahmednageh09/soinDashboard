@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import img from '../../assets/images/angular.jpg'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
 import { CButton } from '@coreui/react'
@@ -16,7 +15,11 @@ export default function Products() {
   const [sub_category, setSub_category] = useState([])
   const [selectedCategories, setSelectedCategories] = useState({})
   const [deliverySwitches, setDeliverySwitches] = useState({})
-  const [showModal, setShowModal] = useState(false)
+  const [showDetailsModal, setShowDetailsModal] = useState(false)
+  const [showImgModal, setShowImgModal] = useState(false)
+  const [selectedFile, setSelectedFile] = useState()
+  const [selectedFiles, setSelectedFiles] = useState([])
+  const [currentProductId, setCurrentProductId] = useState(null)
   const [brand, setBrand] = useState([])
   const [catTitles, setCatTitles] = useState([])
 
@@ -28,18 +31,10 @@ export default function Products() {
       setSub_category(data.sub_category)
       const brands = data.brands
       setBrand(brands)
-      // const initialSelectedCategories = {}
       const deliveryStatus = {}
       data.products.forEach((product) => {
         deliveryStatus[product.id] = product.is_free_shipping === '1'
-        // const categoryNumber = product.category_ids || []
-        // const category = data.sub_category[categoryNumber]
-
-        // if (category != '' || category != undefined) {
-        // initialSelectedCategories[product.id] = category || null
-        // }
       })
-      // setSelectedCategories(initialSelectedCategories)
       setDeliverySwitches(deliveryStatus)
     } catch {
       toast.error('Something went wrong, try later!')
@@ -89,21 +84,6 @@ export default function Products() {
       [productId]: checked,
     }))
   }
-  const handleImageChange = (productId, event) => {
-    const file = event.target.files[0]
-    const reader = new FileReader()
-
-    reader.onloadend = () => {
-      const newProducts = [...products]
-      const index = newProducts.findIndex((product) => product.id === productId)
-      newProducts[index].mainPhoto = reader.result
-      setProducts(newProducts)
-    }
-
-    if (file) {
-      reader.readAsDataURL(file)
-    }
-  }
   const updateProduct = async (product) => {
     try {
       setSelectedCategories((prevCategories) => ({
@@ -145,7 +125,6 @@ export default function Products() {
   useEffect(() => {
     performSearch()
   }, [searchTerm])
-
   const createNewProduct = () => {
     return {
       mainPhoto: '',
@@ -178,7 +157,6 @@ export default function Products() {
       toast.error('Error deleting product')
     }
   }
-
   const filterByStatus = async (status) => {
     try {
       const data = await axiosInstance.get(`/product_status?code=${status}`)
@@ -198,18 +176,22 @@ export default function Products() {
       toast.error('Something went wrong, try later!')
     }
   }
+  // fetching Categories for filter button
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        let response = await axiosInstance.get('/product/categories')
+        let response = await axiosInstance.get('/categories')
         let data = response.data.data
         let cats = []
-        for (let [key, value] of Object.entries(data.cats)) {
-          const childTitles = value.child.map((item) => ({
-            title: item.title,
-            id: item.id,
-            sub_category: item.sub_category,
-          }))
+        for (let [key, value] of Object.entries(data)) {
+          let childTitles = []
+          if (value.child) {
+            childTitles = value.child.map((item) => ({
+              title: item.title,
+              id: item.id,
+              sub_category: item.sub_category,
+            }))
+          }
           cats.push({
             title: value.title,
             id: value.id,
@@ -217,7 +199,7 @@ export default function Products() {
           })
         }
         setCatTitles(cats)
-      } catch {
+      } catch (error) {
         toast.error('Something went wrong, try later!')
       }
     }
@@ -228,13 +210,61 @@ export default function Products() {
     try {
       let response = await axiosInstance.get(`/product_category?category=${catId}`)
       let data = response.data.data
-      console.log(data)
       setProducts(data.products)
       setSub_category(data.sub_category)
       setSelectedCategories({})
     } catch {
       toast.error('Something went wrong, try later!')
     }
+  }
+  const saveMainImg = (proId, e) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('product_id', proId)
+    formData.append('file', selectedFile)
+
+    axiosInstance
+      .post('/product/imagesubmit', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        setProducts((prevProducts) => {
+          const newProducts = [...prevProducts]
+          const index = newProducts.findIndex((product) => product.id === proId)
+          newProducts[index].mainPhoto = response.data.data
+          return newProducts
+        })
+        console.log(response.data.message)
+      })
+  }
+  const saveImgs = async (proId, e) => {
+    e.preventDefault()
+
+    const formData = new FormData()
+    formData.append('product_id', proId)
+    selectedFiles.forEach((file) => {
+      formData.append('files', file)
+    })
+
+    axiosInstance
+      .post('/product/imagespost', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then((response) => {
+        setSelectedFiles([])
+        toast.success('Added Successfully!')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  const handleFileSelection = (event) => {
+    setSelectedFiles([...event.target.files])
   }
 
   return (
@@ -392,15 +422,106 @@ export default function Products() {
                   id={`proImg-${product.id}`}
                   accept="image/*"
                   style={{ display: 'none' }}
-                  onChange={(e) => handleImageChange(product.id, e)}
                 />
                 <button
                   className="btn btn-info mt-1"
                   style={{ whiteSpace: 'nowrap', width: 'fit-content' }}
-                  onClick={() => document.getElementById(`proImg-${product.id}`).click()}
+                  onClick={() => {
+                    setShowImgModal(true)
+                    setCurrentProductId(product.id)
+                  }}
                 >
                   Add Image
                 </button>
+                {/* Moadal of Adding Images */}
+                <Modal
+                  show={showImgModal}
+                  handleClose={() => setShowImgModal(false)}
+                  actionButtonTitle="Add"
+                  handleAction={() => {
+                    fetchData()
+                    setShowImgModal(false)
+                    setSelectedFile()
+                    toast.success('Added Successfully!')
+                  }}
+                >
+                  {/* Main  Photo Section */}
+                  {selectedFile && (
+                    <img
+                      src={URL.createObjectURL(selectedFile)}
+                      alt="Selected Image"
+                      style={{ maxWidth: '10rem', maxHeight: '14rem', objectFit: 'contain' }}
+                    />
+                  )}
+                  <form onSubmit={(e) => saveMainImg(currentProductId, e)}>
+                    <div className="d-flex justify-content-between gap-2 my-2">
+                      <label
+                        htmlFor="imgInput"
+                        className="btn btn-info"
+                        style={{ whiteSpace: 'nowrap' }}
+                      >
+                        Select Image
+                      </label>
+                      <input
+                        type="file"
+                        id="imgInput"
+                        style={{ display: 'none' }}
+                        onChange={(e) => setSelectedFile(e.target.files[0])}
+                      />
+                      <button
+                        className="btn btn-success"
+                        type="submit"
+                        onClick={(e) => saveMainImg(currentProductId, e)}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </form>
+                  {/* Other Images */}
+                  <form>
+                    <div className="d-flex justify-content-between gap-2 my-2 row">
+                      <div className="d-flex justify-content-around row">
+                        {selectedFiles &&
+                          selectedFiles.map((file, index) => (
+                            <img
+                              key={index}
+                              src={URL.createObjectURL(file)}
+                              alt="img"
+                              style={{
+                                maxWidth: '10rem',
+                                maxHeight: '14rem',
+                                objectFit: 'contain',
+                              }}
+                            />
+                          ))}
+                      </div>
+                      <div className="d-flex justify-content-center gap-2">
+                        <label
+                          htmlFor="imgsInput"
+                          className="btn btn-info"
+                          style={{ whiteSpace: 'nowrap' }}
+                        >
+                          Select Images
+                        </label>
+                        <button
+                          className="btn btn-success"
+                          type="submit"
+                          onClick={(e) => saveImgs(currentProductId, e)}
+                        >
+                          Save
+                        </button>
+                        <input
+                          style={{ display: 'none' }}
+                          id="imgsInput"
+                          type="file"
+                          multiple
+                          onChange={handleFileSelection}
+                        />
+                      </div>
+                    </div>
+                  </form>
+                </Modal>
+
                 <div className="card-body">
                   <div className="bg-light p-1 rounded">
                     <input
@@ -534,7 +655,7 @@ export default function Products() {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                    <CButton className="btn btn-info" onClick={() => setShowModal(true)}>
+                    <CButton className="btn btn-info" onClick={() => setShowDetailsModal(true)}>
                       Details
                     </CButton>
 
@@ -547,8 +668,8 @@ export default function Products() {
 
               {/* Modal for product details */}
               <Modal
-                show={showModal}
-                handleClose={() => setShowModal(false)}
+                show={showDetailsModal}
+                handleClose={() => setShowDetailsModal(false)}
                 handleAction={async () => {
                   try {
                     await axiosInstance.post('/updateproduct')

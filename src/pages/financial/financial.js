@@ -1,9 +1,11 @@
 import React, { useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Table from 'src/components/table'
 import { CButton } from '@coreui/react'
 // import { useReactToPrint } from 'react-to-print'
 
 export default function Financial() {
+  const navigate = useNavigate()
   // const tableRef = useRef()
   // const handlePrint = useReactToPrint({
   //   content: () => tableRef.current,
@@ -20,7 +22,7 @@ export default function Financial() {
         showFilter={false}
         showActions={true}
         buttonNames={['Show']}
-        buttonPath="/orders/financial_transactions/details"
+        actions={[(id) => navigate(`/orders/financial_transactions/details/${id}`)]}
         columns={[
           { name: 'Transaction ID', selector: (row) => row.id },
           { name: 'User', selector: (row) => row.user_name },
