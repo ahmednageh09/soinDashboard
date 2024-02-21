@@ -22,7 +22,7 @@ export default function Financial() {
         showFilter={false}
         showActions={true}
         buttonNames={['Show']}
-        actions={[(id) => navigate(`/orders/financial_transactions/details/${id}`)]}
+        actions={[(row) => navigate(`/orders/financial_transactions/details/${row.id}`)]}
         columns={[
           { name: 'Transaction ID', selector: (row) => row.id },
           { name: 'User', selector: (row) => row.user_name },

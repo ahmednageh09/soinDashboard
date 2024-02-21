@@ -170,9 +170,9 @@ export default function Countries() {
         showActions={true}
         buttonNames={['Edit', 'Delete', 'Show Cities', 'Language']}
         actions={[
-          (id) => handleEditCountry(id),
-          (id) => handleDeleteCountry(id),
-          (id) => navigate(`/country/cities/${id}`),
+          (row) => handleEditCountry(row.id),
+          (row) => handleDeleteCountry(row.id),
+          (row) => navigate(`/country/cities/${row.id}`),
         ]}
       />
       {editingId && (

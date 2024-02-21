@@ -5,7 +5,7 @@ export default function Duration() {
   return (
     <>
       <Table
-        path="/offers?type=extra"
+        path="/offers?type=duration"
         showFilter={false}
         showDate={false}
         columns={[

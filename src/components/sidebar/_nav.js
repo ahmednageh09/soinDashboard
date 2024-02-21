@@ -111,32 +111,6 @@ const _nav = [
     to: '/regions',
     icon: <CIcon icon={cilLocationPin} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavGroup,
-  //   name: 'Icons',
-  //   icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  //   items: [
-  //     {
-  //       component: CNavItem,
-  //       name: 'CoreUI Free',
-  //       to: '/icons/coreui-icons',
-  //       badge: {
-  //         color: 'success',
-  //         text: 'NEW',
-  //       },
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'CoreUI Flags',
-  //       to: '/icons/flags',
-  //     },
-  //     {
-  //       component: CNavItem,
-  //       name: 'CoreUI Brands',
-  //       to: '/icons/brands',
-  //     },
-  //   ],
-  // },
   {
     component: CNavTitle,
     name: 'Extras',
@@ -250,9 +224,21 @@ const _nav = [
         to: '/tickets/active',
       },
       {
-        component: CNavItem,
+        component: CNavGroup,
         name: 'Ticket Settings',
         to: '/tickets/settings',
+        items: [
+          {
+            component: CNavItem,
+            name: 'Ticket Categories',
+            to: '/ticketSetting/category',
+          },
+          {
+            component: CNavItem,
+            name: 'Ticket Priorities',
+            to: '/ticketSetting/priority',
+          },
+        ],
       },
     ],
   },
@@ -269,10 +255,14 @@ const _nav = [
     icon: <CIcon icon={cilImage} customClassName="nav-icon" />,
   },
   {
-    component: CNavItem,
+    component: CNavGroup,
     name: 'Security',
     to: '/security',
     icon: <CIcon icon={cilBadge} customClassName="nav-icon" />,
+    items: [
+      { component: CNavItem, name: 'Roles', to: '/role' },
+      { component: CNavItem, name: 'Admins', to: '/admins' },
+    ],
   },
   {
     component: CNavItem,

@@ -9,6 +9,8 @@ const FinancialDetails = React.lazy(() =>
   import('../pages/financial/financialDetails/financialDetails'),
 )
 const Products = React.lazy(() => import('../pages/products/products'))
+const ProductOrders = React.lazy(() => import('../pages/products/productOrders'))
+const LabelsTranslate = React.lazy(() => import('../pages/products/labelsTranslate'))
 const Categories = React.lazy(() => import('../pages/products/categories'))
 const RequestProduct = React.lazy(() => import('../pages/requestProduct/requestProduct'))
 const Notify = React.lazy(() => import('../pages/notifyMe/notifyMe'))
@@ -21,6 +23,7 @@ const Offers = React.lazy(() => import('../pages/offers/offers'))
 const OffersOneFree = React.lazy(() => import('../pages/offers/oneFree/oneFree'))
 const OffersDuration = React.lazy(() => import('../pages/offers/duration/duration'))
 const OffersExtra = React.lazy(() => import('../pages/offers/extra/extra'))
+const EditOffer = React.lazy(() => import('../pages/offers/extra/edit'))
 const OffersVoucher = React.lazy(() => import('../pages/offers/voucher/voucher'))
 const OffersVoucherFree = React.lazy(() => import('../pages/offers/voucherFree/voucherFree'))
 const OffersVoucherUserFree = React.lazy(() =>
@@ -29,7 +32,12 @@ const OffersVoucherUserFree = React.lazy(() =>
 const OffersCommission = React.lazy(() => import('../pages/offers/commission/commision'))
 const OffersSettings = React.lazy(() => import('../pages/offers/settings/settings'))
 const Discounts = React.lazy(() => import('../pages/discounts/discounts'))
+const EditCode = React.lazy(() => import('../pages/discounts/edit'))
+const Benficary = React.lazy(() => import('../pages/discounts/benficary'))
 const Customers = React.lazy(() => import('../pages/customers/customers'))
+const CustomerOrders = React.lazy(() => import('../pages/customers/customerOrders'))
+const EditUser = React.lazy(() => import('../pages/customers/editUser'))
+const CreateUser = React.lazy(() => import('../pages/customers/createUser'))
 const Comments = React.lazy(() => import('../pages/comments/comments'))
 const Contacts = React.lazy(() => import('../pages/contacts/contacts'))
 const Reports = React.lazy(() => import('../pages/reports/reports'))
@@ -70,7 +78,19 @@ const CategoriesLinks = React.lazy(() => import('../pages/links/categories'))
 const ProductsLinks = React.lazy(() => import('../pages/links/products'))
 const PagesLinks = React.lazy(() => import('../pages/links/pages'))
 const CommentsPage = React.lazy(() => import('../pages/comments/comments'))
-
+const TemplatesPage = React.lazy(() => import('../pages/templatesPage/templates'))
+const StylesPage = React.lazy(() => import('../pages/stylesPage/styles'))
+const createStyle = React.lazy(() => import('../pages/stylesPage/createStyle'))
+const MailingTemplates = React.lazy(() => import('../pages/mailingTemplates/mailingTemplates'))
+const MailingList = React.lazy(() => import('../pages/mailingList/mailingList'))
+const Notifications = React.lazy(() => import('../pages/notificationsPage/notifications'))
+const Tickets = React.lazy(() => import('../pages/tickets/activeTickets'))
+const OnlineCustomers = React.lazy(() => import('../pages/onlineCustomers/onlineCustomers'))
+const Roles = React.lazy(() => import('../pages/security/roles/roles'))
+const Permissions = React.lazy(() => import('../pages/security/roles/permissions'))
+const Admins = React.lazy(() => import('../pages/security/admins/admins'))
+const AddAdmin = React.lazy(() => import('../pages/security/admins/addAdmin'))
+const Settings = React.lazy(() => import('../pages/settingsPage/settings'))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -84,6 +104,8 @@ const routes = [
     element: FinancialDetails,
   },
   { path: '/products', name: 'Products', element: Products },
+  { path: '/products/productOrder/:id', name: 'Product Orders', element: ProductOrders },
+  { path: '/products/labelsTranslate/:id', name: 'Labels Translate', element: LabelsTranslate },
   { path: '/product/categories', name: 'Categories', element: Categories },
   { path: '/countries', name: 'Countries', element: Countries },
   { path: '/country/cities/:id', name: 'Country Cities', element: CountryCities },
@@ -163,6 +185,11 @@ const routes = [
     element: OffersExtra,
   },
   {
+    path: '/offers/:id/edit',
+    name: 'Edit Offer',
+    element: EditOffer,
+  },
+  {
     path: '/offers/duration',
     name: 'Duration Offers',
     element: OffersDuration,
@@ -203,9 +230,34 @@ const routes = [
     element: Discounts,
   },
   {
+    path: '/discounts/edit/:id',
+    name: 'Edit',
+    element: EditCode,
+  },
+  {
+    path: '/discounts/benficary/:id',
+    name: 'Benficary',
+    element: Benficary,
+  },
+  {
     path: '/customers',
     name: 'Customers',
     element: Customers,
+  },
+  {
+    path: '/customers/orders/:id',
+    name: 'Customer Orders',
+    element: CustomerOrders,
+  },
+  {
+    path: '/customers/editUser/:id',
+    name: 'Edit User',
+    element: EditUser,
+  },
+  {
+    path: '/customer/create',
+    name: 'Create User',
+    element: CreateUser,
   },
   {
     path: '/comments',
@@ -248,6 +300,19 @@ const routes = [
     element: PagesLinks,
   },
   { path: '/comments', name: 'Comments Page', element: CommentsPage },
+  { path: '/templates', name: 'Templates', element: TemplatesPage },
+  { path: '/styles', name: 'Styles', element: StylesPage },
+  { path: '/styles/create', name: 'Create', element: createStyle },
+  { path: '/mailingTemplates', name: 'Mailing Templates', element: MailingTemplates },
+  { path: '/mailingList', name: 'Mailing List', element: MailingList },
+  { path: '/notifications', name: 'Notifications', element: Notifications },
+  { path: '/tickets/active', name: 'Tickets', element: Tickets },
+  { path: '/onlineCustomers', name: 'Online Customers', element: OnlineCustomers },
+  { path: '/role', name: 'Roles', element: Roles },
+  { path: '/role/create', name: 'Create Role', element: Permissions },
+  { path: '/admins', name: 'Admins', element: Admins },
+  { path: '/admins/create', name: 'Add Admin', element: AddAdmin },
+  { path: '/settings', name: 'Settings', element: Settings },
 ]
 
 export default routes

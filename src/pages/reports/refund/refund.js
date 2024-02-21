@@ -64,7 +64,7 @@ export default function Refund() {
           ]}
           showActions={true}
           buttonNames={['Details']}
-          actions={[(id) => navigate(`/reports/refund/${id}`)]}
+          actions={[(row) => navigate(`/reports/refund/${row.id}`)]}
         />
       )}
     </>

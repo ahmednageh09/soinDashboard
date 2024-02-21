@@ -3,11 +3,11 @@ import { AppContent, AppSidebar, AppFooter, AppHeader } from '../components/inde
 
 const Layout = () => {
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <AppSidebar />
       <div className="wrapper d-flex flex-column min-vh-100 bg-light">
         <AppHeader />
-        <div className="container-fluid body flex-grow-1 px-3">
+        <div className=" container body flex-grow-1 px-3">
           <AppContent />
         </div>
         <AppFooter />

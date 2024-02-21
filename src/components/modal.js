@@ -20,8 +20,22 @@ export default function Modal({
   const showHideClassName = show
     ? 'modal d-flex justify-content-center align-items-center'
     : 'modal d-none'
+
   return (
     <div className={showHideClassName}>
+      {true && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            zIndex: -9999,
+            backgroundColor: '#6a6c7809',
+          }}
+        />
+      )}
       <section
         style={{
           display: 'flex',
@@ -30,8 +44,8 @@ export default function Modal({
           alignItems: 'center',
           backgroundColor: '#f0f4f7',
           height: 'fit-content',
-          marginTop: '3rem',
-          width: '25rem',
+          width: 'fit-content',
+          maxWidth: '45rem',
           padding: '1rem',
           borderRadius: '15px',
         }}

@@ -52,7 +52,7 @@ export default function ProductsPurchased() {
           keys={['id', 'title', 'type', 'purchased_count', 'sales_total']}
           showActions={true}
           buttonNames={['Details']}
-          actions={[(id) => navigate(`/reports/products_purchased/${id}`)]}
+          actions={[(row) => navigate(`/reports/products_purchased/${row.id}`)]}
         />
       )}
     </>

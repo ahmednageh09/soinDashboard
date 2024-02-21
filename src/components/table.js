@@ -112,7 +112,7 @@ export default function Table({
 
   const actionButtons = {
     name: 'Actions',
-    selector: (row) => row.id,
+    selector: (row) => row,
     cell: (row) => (
       <div className="d-flex justify-content-between">
         {buttonNames.map((buttonName, index) => (
@@ -120,7 +120,7 @@ export default function Table({
             className="mx-2 border-0 p-2 rounded-2"
             style={{ whiteSpace: 'nowrap', backgroundColor: '#8296bb' }}
             key={index}
-            onClick={() => actions[index](row.id)}
+            onClick={() => actions[index](row)}
           >
             {buttonName}
           </CButton>

@@ -218,7 +218,7 @@ export default function Regions() {
         keys={['id', 'region_name', 'city_name', 'created_at']}
         showActions={true}
         buttonNames={['Edit', 'Delete', 'Language']}
-        actions={[(id) => handleEditRegion(id), (id) => handleRegionDelete(id)]}
+        actions={[(row) => handleEditRegion(row.id), (id) => handleRegionDelete(id)]}
       />
       {editingId && (
         <Modal

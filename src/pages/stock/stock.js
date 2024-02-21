@@ -19,6 +19,9 @@ export default function Stock() {
           { name: 'Created At', selector: (row) => row.created_at },
         ]}
         keys={['id', 'title', 'quantity', 'user_name', 'details', 'created_at']}
+        showActions={true}
+        buttonNames={['View Product']}
+        actions={[() => {}]}
       />
     </>
   )

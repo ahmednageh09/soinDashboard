@@ -16,9 +16,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { setupInterceptors } from '../../services/interceptors/authInterceptor'
 import { loginAction } from '../../redux/actions/userAction'
-import { toast } from 'react-toastify'
 
 import cookies from 'universal-cookie'
 const cookie = new cookies()

@@ -128,10 +128,9 @@ export default function Orders() {
         showActions={true}
         buttonNames={['Edit', 'Show', 'Print']}
         actions={[
-          (id) => {
-            handleEdit(id)
+          (row) => {
+            handleEdit(row.id)
           },
-          ,
         ]}
       />
     </>

@@ -24,7 +24,6 @@ export default function Categories() {
       try {
         let response = await axiosInstance.get('/product/categories')
         let categories = response.data.data.cats
-        console.log(categories)
         for (let key in categories) {
           categories[key].showChildren = false
         }
@@ -59,6 +58,7 @@ export default function Categories() {
   const removeCat = async (catId) => {
     try {
       await axiosInstance.get(`product/categories/${catId}/delete`)
+      console.log(catId)
       setCategories((prevCategories) => {
         const newCategories = { ...prevCategories }
         delete newCategories[catId]
@@ -76,10 +76,11 @@ export default function Categories() {
   }
 
   const handleAddChild = (parentKey) => {
+    console.log(parentKey)
     const newChild = { id: Date.now(), title: '' }
     const newCategoriesCopy = [...newCategories]
     newCategoriesCopy[parentKey].child.push(newChild)
-    setNewCategories(newCategoriesCopy)
+    setNewChildren([...newChildren, newChild])
   }
 
   return (

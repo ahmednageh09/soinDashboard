@@ -42,7 +42,7 @@ export default function CountryCities() {
         keys={['id', 'title', 'status', 'created_at']}
         showActions={true}
         buttonNames={['Delete', 'Language']}
-        actions={[(id) => handleDeleteCity(id)]}
+        actions={[(row) => handleDeleteCity(row.id)]}
       />
     </>
   )

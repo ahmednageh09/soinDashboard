@@ -5,11 +5,13 @@ import { CButton } from '@coreui/react'
 import { axiosInstance } from 'src/axiosConfig'
 import { toast } from 'react-toastify'
 import Modal from 'src/components/modal'
-
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { useNavigate } from 'react-router-dom'
 import '../products/products.scss'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 export default function Products() {
-  const [selector, setSelector] = useState('')
   const [products, setProducts] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [sub_category, setSub_category] = useState([])
@@ -17,12 +19,37 @@ export default function Products() {
   const [deliverySwitches, setDeliverySwitches] = useState({})
   const [showDetailsModal, setShowDetailsModal] = useState(false)
   const [showImgModal, setShowImgModal] = useState(false)
+  const [showTransModalAr, setShowTransModalAr] = useState(false)
+  const [showTransModalEn, setShowTransModalEn] = useState(false)
+  const [showLabelsModal, setShowLabelsModal] = useState(false)
+  const [showStatisticsModal, setShowStatisticsModal] = useState(false)
   const [selectedFile, setSelectedFile] = useState()
   const [selectedFiles, setSelectedFiles] = useState([])
   const [currentProductId, setCurrentProductId] = useState(null)
   const [brand, setBrand] = useState([])
   const [catTitles, setCatTitles] = useState([])
+  const [showDetails, setShowDetails] = useState(true)
+  const [showFeatures, setShowFeatures] = useState(false)
+  const [showRequest, setShowRequest] = useState(false)
+  const [showSimilar, setShowSimilar] = useState(false)
+  const [showMeta, setShowMeta] = useState(false)
+  const [showColor, setShowColor] = useState(true)
+  const [showSize, setShowSize] = useState(false)
+  const [selectedButton, setSelectedButton] = useState('details')
+  const [statistics, setStatistics] = useState({})
+  const [hiddenProducts, setHiddenProducts] = useState([])
+  const [interval, setInterval] = useState('All')
+  const [date, setDate] = useState(new Date())
+  const [weekSelected, setWeekSelected] = useState('currentWeek')
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [dateForm, setDateForm] = useState({ day: new Date(), month: new Date(), year: new Date() })
+  const [text, setText] = useState({ ar: '', en: '', title: '' })
+  const [rows, setRows] = useState([
+    { name: 'Label 1', value: 'Value 1', active: false },
+    { name: 'Label 2', value: 'Value 2', active: false },
+  ])
 
+  const navigate = useNavigate()
   const fetchData = async () => {
     try {
       let response = await axiosInstance.get('/products')
@@ -237,6 +264,7 @@ export default function Products() {
           newProducts[index].mainPhoto = response.data.data
           return newProducts
         })
+        toast.success('Product image saved successfully!')
         console.log(response.data.message)
       })
   }
@@ -256,7 +284,6 @@ export default function Products() {
         },
       })
       .then((response) => {
-        setSelectedFiles([])
         toast.success('Added Successfully!')
       })
       .catch((err) => {
@@ -265,6 +292,146 @@ export default function Products() {
   }
   const handleFileSelection = (event) => {
     setSelectedFiles([...event.target.files])
+  }
+
+  const productLink = 'https://api.soin.serv5group.com/ar/product'
+  const getOrders = (prodId) => {
+    navigate(`/products/productOrder/${prodId}`)
+  }
+  const getLabelsTranslate = (prodId) => {
+    navigate(`/products/labelsTranslate/${prodId}`)
+  }
+  const getStatistics = async (prodId) => {
+    try {
+      const res = await axiosInstance.get(
+        `/get_status?id=${prodId}&type=${interval}&day=${dateForm.day}&week=${weekSelected}&month=${dateForm.month}&month_year=${dateForm.year}&year=${dateForm.year}`,
+      )
+      const data = res.data.data
+      console.log(data)
+      setStatistics(data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const getCurrentWeek = () => {
+    const today = new Date()
+    const startOfWeek = today.getDate() - today.getDay()
+    const endOfWeek = startOfWeek + 6
+
+    return {
+      start: new Date(today.setDate(startOfWeek)),
+      end: new Date(today.setDate(endOfWeek)),
+    }
+  }
+  const getWeeks = () => {
+    const today = new Date()
+    const startOfWeek = today.getDate() - today.getDay()
+    const endOfWeek = startOfWeek + 6
+    const startOfLastWeek = startOfWeek - 7
+    const endOfLastWeek = endOfWeek - 7
+
+    return {
+      currentWeek: {
+        start: new Date(today.setDate(startOfWeek)).toISOString().substring(0, 10),
+        end: new Date(today.setDate(endOfWeek)).toISOString().substring(0, 10),
+      },
+      lastWeek: {
+        start: new Date(today.setDate(startOfLastWeek)).toISOString().substring(0, 10),
+        end: new Date(today.setDate(endOfLastWeek)).toISOString().substring(0, 10),
+      },
+    }
+  }
+  const getCurrentMonth = () => {
+    const today = new Date()
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1)
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+
+    return {
+      start: startOfMonth,
+      end: endOfMonth,
+    }
+  }
+  const handleIntervalSelection = (selectedInterval, e) => {
+    let newDate
+    switch (selectedInterval) {
+      case 'daily':
+        newDate = new Date()
+        setDateForm({ ...dateForm, day: newDate })
+        break
+      case 'weekly':
+        newDate = getCurrentWeek().start
+        setWeekSelected(newDate)
+        break
+      case 'monthly':
+        newDate = new Date()
+        newDate.setMonth(parseInt(e.target.value, 10))
+        setDateForm((prevState) => ({ ...prevState, month: newDate }))
+        break
+      case 'yearly':
+        newDate = new Date().getFullYear()
+        setDateForm((prevState) => ({ ...prevState, year: newDate }))
+        break
+      default:
+        newDate = ''
+    }
+    setInterval(selectedInterval)
+  }
+  const month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+  const toggleDisplayProd = async (prodId) => {
+    const res = await axiosInstance.get(`/hidden?id=${prodId}`)
+    setHiddenProducts((prevHiddenProducts) => {
+      // Check if the product is already hidden
+      if (prevHiddenProducts.includes(prodId)) {
+        // Remove the product ID from the hidden list
+        return prevHiddenProducts.filter((id) => id !== prodId)
+      } else {
+        // Add the product ID to the hidden list
+        toast.info('Product hidden temporarily!')
+        return [...prevHiddenProducts, prodId]
+      }
+    })
+  }
+  const getTrans = async (lang) => {
+    try {
+      const data = await axiosInstance.get(`/product/get/lang/value?lang=${lang}&transRow=616`)
+      const res = data.data.data
+      console.log(res)
+      if (lang === 1) {
+        setText({ ...text, en: res.description, title: res.title })
+      } else if (lang === 2) {
+        setText({ ...text, ar: res.description, title: res.title })
+      }
+    } catch {
+      console.log('err')
+    }
+  }
+  const handleAddRow = () => {
+    setRows([...rows, { name: '', value: '', active: '' }])
+  }
+  const handleRemoveRow = (index) => {
+    setRows(rows.filter((row, i) => i !== index))
+  }
+  const handleLabelNameChange = (event, index) => {
+    setRows(rows.map((row, i) => (i === index ? { ...row, name: event.target.value } : row)))
+  }
+  const handleValueChange = (event, index) => {
+    setRows(rows.map((row, i) => (i === index ? { ...row, value: event.target.value } : row)))
+  }
+  const handleCheckRow = (event, index) => {
+    setRows(rows.map((row, i) => (i === index ? { ...row, active: event.target.Checked } : row)))
   }
 
   return (
@@ -326,7 +493,6 @@ export default function Products() {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-
           {/* Services Button */}
           <Dropdown>
             <Dropdown.Toggle variant="primary" id="dropdown-basic">
@@ -404,7 +570,7 @@ export default function Products() {
             <>
               <div
                 key={product.id}
-                className="card"
+                className={`card ${hiddenProducts.includes(product.id) ? 'dimmed-product' : ''}`}
                 style={{ width: '19rem', height: 'fit-content', margin: '1.4rem' }}
               >
                 <img
@@ -436,7 +602,11 @@ export default function Products() {
                 {/* Moadal of Adding Images */}
                 <Modal
                   show={showImgModal}
-                  handleClose={() => setShowImgModal(false)}
+                  handleClose={() => {
+                    setShowImgModal(false)
+                    setSelectedFile()
+                    setSelectedFiles([])
+                  }}
                   actionButtonTitle="Add"
                   handleAction={() => {
                     fetchData()
@@ -491,6 +661,7 @@ export default function Products() {
                                 maxWidth: '10rem',
                                 maxHeight: '14rem',
                                 objectFit: 'contain',
+                                margin: '0.3rem',
                               }}
                             />
                           ))}
@@ -622,7 +793,6 @@ export default function Products() {
                       />
                     </div>
                   </div>
-
                   <div className="d-flex justify-content-evenly mt-3">
                     <Form.Check className="form-switch">
                       <Form.Check.Input
@@ -643,10 +813,56 @@ export default function Products() {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu>
-                        <Dropdown.Item href="#">Action</Dropdown.Item>
-                        <Dropdown.Item href="#">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#">Something else here</Dropdown.Item>
                         <Dropdown.Item
+                          onClick={() => {
+                            setShowTransModalAr(true)
+                            getTrans(2)
+                          }}
+                        >
+                          Translate (AR)
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            setShowTransModalEn(true)
+                            getTrans(1)
+                          }}
+                        >
+                          Translate (EN)
+                        </Dropdown.Item>
+                        <Dropdown.Item className="d-flex justify-content-start">
+                          <CopyToClipboard text={`${productLink}/${product.id}`}>
+                            <span>Get Product Link</span>
+                          </CopyToClipboard>
+                        </Dropdown.Item>
+                        <Dropdown.Item>Duplicate</Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            setShowStatisticsModal(true)
+                            getStatistics(product.id)
+                          }}
+                        >
+                          Statistics
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => getOrders(product.id)}>
+                          Product orders
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => toggleDisplayProd(product.id)}>
+                          {hiddenProducts.includes(product.id)
+                            ? 'Show product'
+                            : 'Hide temporarily'}
+                        </Dropdown.Item>
+                        <Dropdown.Item onClick={() => setShowLabelsModal(true)}>
+                          Labels
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          onClick={() => {
+                            getLabelsTranslate(product.id)
+                          }}
+                        >
+                          Translate labels
+                        </Dropdown.Item>
+                        <Dropdown.Item
+                          className="text-danger"
                           onClick={() => {
                             deleteProduct(product.id)
                           }}
@@ -655,11 +871,19 @@ export default function Products() {
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown>
-                    <CButton className="btn btn-info" onClick={() => setShowDetailsModal(true)}>
+                    <CButton
+                      className="btn btn-info"
+                      onClick={() => setShowDetailsModal(true)}
+                      disabled={hiddenProducts.includes(product.id)}
+                    >
                       Details
                     </CButton>
 
-                    <button className="btn btn-success" onClick={() => updateProduct(product)}>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => updateProduct(product)}
+                      disabled={hiddenProducts.includes(product.id)}
+                    >
                       Save
                     </button>
                   </div>
@@ -680,87 +904,643 @@ export default function Products() {
                 }}
               >
                 <div>
-                  <div>
+                  <div className="d-flex justify-content-center align-items-center">
                     <div>
-                      <div>
-                        <h5>Send User An Email</h5>
+                      <div className="d-flex justify-content-center">
+                        <h5>Edit Prodcut Details</h5>
                       </div>
-                      <div className="d-flex align-items-center row m-3 gap-3 ">
-                        <Dropdown>
-                          <Dropdown.Toggle variant="info" id="dropdown-basic">
-                            Select Shipping
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
-                            <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
+                      <div className={'d-flex justify-content-center gap-2'}>
+                        <button
+                          className={`btn btn-${
+                            selectedButton === 'details' ? 'primary' : 'secondary'
+                          }`}
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            setShowDetails(true)
+                            setShowFeatures(false)
+                            setSelectedButton('details')
+                          }}
+                        >
+                          Details
+                        </button>
+                        <button
+                          className={`btn btn-${
+                            selectedButton === 'features' ? 'primary' : 'secondary'
+                          }`}
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            setShowDetails(false)
+                            setShowFeatures(true)
+                            setSelectedButton('features')
+                          }}
+                        >
+                          Features
+                        </button>
+                        <button
+                          className={`btn btn-${
+                            selectedButton === 'request' ? 'primary' : 'secondary'
+                          }`}
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            setShowDetails(false)
+                            setShowFeatures(false)
+                            setShowRequest(true)
+                            setSelectedButton('request')
+                          }}
+                        >
+                          Request
+                        </button>
+                        <button
+                          className={`btn btn-${
+                            selectedButton === 'similar' ? 'primary' : 'secondary'
+                          }`}
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            setShowDetails(false)
+                            setShowFeatures(false)
+                            setShowRequest(false)
+                            setShowSimilar(true)
+                            setSelectedButton('similar')
+                          }}
+                        >
+                          Similar
+                        </button>
+                        <button
+                          className={`btn btn-${
+                            selectedButton === 'metaTags' ? 'primary' : 'secondary'
+                          }`}
+                          style={{ whiteSpace: 'nowrap' }}
+                          onClick={() => {
+                            setShowDetails(false)
+                            setShowFeatures(false)
+                            setShowRequest(false)
+                            setShowSimilar(false)
+                            setShowMeta(true)
+                            setSelectedButton('metaTags')
+                          }}
+                        >
+                          Meta Tags
+                        </button>
+                      </div>
+                      {showDetails ? (
+                        <div className="d-flex align-items-around row m-3 gap-2">
+                          <div className="d-flex justify-content-around my-4">
+                            <Dropdown>
+                              <Dropdown.Toggle variant="info" id="dropdown-basic">
+                                Select Shipping
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
+                                <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            <div className="d-flex gap-2 align-items-center">
+                              <label htmlFor="subject">Weight : </label>
+                              <div className="d-flex">
+                                <input
+                                  title="Weight"
+                                  className="ps-3"
+                                  style={{
+                                    border: 'none',
+                                    outline: 'none',
+                                    borderRadius: '10px 0 0 10px ',
+                                  }}
+                                  id="subject"
+                                  // value={subject}
+                                  // onChange={(e) => setSubject(e.target.value)}
+                                />
+                                <Dropdown>
+                                  <Dropdown.Toggle
+                                    style={{ borderRadius: '0 10px 10px 0' }}
+                                    variant="info"
+                                    id="dropdown-basic"
+                                  >
+                                    Unit
+                                  </Dropdown.Toggle>
+                                  <Dropdown.Menu>
+                                    <Dropdown.Item href="#">Gram</Dropdown.Item>
+                                    <Dropdown.Item href="#">Kilogram</Dropdown.Item>
+                                  </Dropdown.Menu>
+                                </Dropdown>
+                              </div>
+                            </div>
+                          </div>
 
-                        <div>
-                          <label htmlFor="subject">Subject: </label>
-                          <input
-                            id="subject"
-                            // value={subject}
-                            // onChange={(e) => setSubject(e.target.value)}
-                          />
+                          <div className="d-flex justify-content-center align-items-center my-3 gap-3">
+                            <div className="d-flex gap-2">
+                              <label style={{ whiteSpace: 'nowrap' }} htmlFor="message">
+                                Code :{' '}
+                              </label>
+                              <input
+                                title="Code"
+                                className="ps-3"
+                                style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                                id="subject"
+                              />
+                            </div>
+                            <div className="d-flex gap-2">
+                              <label style={{ whiteSpace: 'nowrap' }} htmlFor="message">
+                                Created At :{' '}
+                              </label>
+                              <input
+                                title="Created at"
+                                className="ps-3"
+                                style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                                id="subject"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="d-flex justify-content-center align-items-center gap-4 my-2">
+                            <Dropdown>
+                              <Dropdown.Toggle variant="info" id="dropdown-basic">
+                                Product
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
+                                <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            <Dropdown>
+                              <Dropdown.Toggle variant="info" id="dropdown-basic">
+                                Country
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
+                                <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+
+                          <div className="d-flex justify-content-center align-items-center row gap-3">
+                            <input
+                              title="Price"
+                              placeholder="Price"
+                              className="ps-3 w-50"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="number"
+                              id="subject"
+                            />
+                            <input
+                              title="Cost"
+                              placeholder="Cost"
+                              className="ps-3 w-50"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="number"
+                              id="subject"
+                            />
+                          </div>
+
+                          <div className="d-flex justify-content-center align-items-center row gap-3 mt-2 ">
+                            <input
+                              className="ps-3 w-50"
+                              title="Discount"
+                              placeholder="Discount"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              id="subject"
+                              // value={subject}
+                              // onChange={(e) => setSubject(e.target.value)}
+                            />
+                            <input
+                              className="ps-3 w-50"
+                              title="Points"
+                              placeholder="Points"
+                              type="number"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              id="subject"
+                              // value={subject}
+                              // onChange={(e) => setSubject(e.target.value)}
+                            />
+                            <input
+                              className="ps-3 w-50"
+                              title="SKU"
+                              placeholder="SKU"
+                              type="number"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              id="subject"
+                              // value={subject}
+                              // onChange={(e) => setSubject(e.target.value)}
+                            />
+                            <input
+                              className="ps-3 w-50"
+                              title="Description"
+                              placeholder="Description"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="text"
+                              id="subject"
+                              // value={subject}
+                              // onChange={(e) => setSubject(e.target.value)}
+                            />
+                            <textarea
+                              className="ps-3 w-50"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              id="subject"
+                              // value={subject}
+                              // onChange={(e) => setSubject(e.target.value)}
+                            />
+                          </div>
                         </div>
-                        <div>
-                          <label htmlFor="message">Message: </label>
-                          <input
-                            id="subject"
-                            // value={subject}
-                            // onChange={(e) => setSubject(e.target.value)}
-                          />
+                      ) : showFeatures ? (
+                        <div className="">
+                          <div>
+                            <div className="d-flex gap-2 m-3">
+                              <button
+                                className={`btn btn-${showColor ? 'info' : 'secondary'}`}
+                                onClick={() => {
+                                  setShowColor(true)
+                                  setShowSize(false)
+                                }}
+                              >
+                                Color
+                              </button>
+                              <button
+                                className={`btn btn-${showSize ? 'info' : 'secondary'}`}
+                                onClick={() => {
+                                  setShowColor(false)
+                                  setShowSize(true)
+                                }}
+                              >
+                                Size
+                              </button>
+                            </div>
+                            {showColor ? (
+                              <div className="d-flex justify-content-center gap-2 row my-3 mx-5">
+                                <div className="d-flex gap-2">
+                                  <label htmlFor="color">Color :</label>
+                                  <input id="color" type="color" />
+                                </div>
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="name"
+                                  placeholder="name"
+                                />
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="additional name"
+                                  placeholder="additional name"
+                                />
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="available quantites"
+                                  placeholder="available quantites"
+                                />
+                              </div>
+                            ) : (
+                              <div className="d-flex justify-content-center gap-2 row my-3 mx-5">
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="name"
+                                  placeholder="name"
+                                />
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="additional name"
+                                  placeholder="additional name"
+                                />
+                                <input
+                                  style={{
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    outline: 'none',
+                                    padding: '0.3rem',
+                                  }}
+                                  title="available quantites"
+                                  placeholder="available quantites"
+                                />
+                              </div>
+                            )}
+                          </div>
                         </div>
-                        <div className="d-flex justify-content-between">
+                      ) : showRequest ? (
+                        <div className="my-3">
                           <Dropdown>
                             <Dropdown.Toggle variant="info" id="dropdown-basic">
-                              Product
+                              Add a field
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                               <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
                               <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
                             </Dropdown.Menu>
                           </Dropdown>
+                        </div>
+                      ) : showSimilar ? (
+                        <div className="my-3">
                           <Dropdown>
                             <Dropdown.Toggle variant="info" id="dropdown-basic">
-                              Country
+                              Similar product
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                               <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
-                              <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
                             </Dropdown.Menu>
                           </Dropdown>
                         </div>
-                        <input
-                          id="subject"
-                          // value={subject}
-                          // onChange={(e) => setSubject(e.target.value)}
-                        />
-                        <input
-                          id="subject"
-                          // value={subject}
-                          // onChange={(e) => setSubject(e.target.value)}
-                        />
-                        <Dropdown>
-                          <Dropdown.Toggle variant="info" id="dropdown-basic">
-                            Select Shipping
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
-                            <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="info" id="dropdown-basic">
-                            Select Shipping
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#">Charged Shipping</Dropdown.Item>
-                            <Dropdown.Item href="#">Free Shipping</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
+                      ) : (
+                        <div className="my-3">
+                          <div className="d-flex row justify-content-between align-items-center m-2">
+                            {' '}
+                            <input
+                              title="Price"
+                              placeholder="Price"
+                              className="m-2"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="number"
+                              id="subject"
+                            />
+                            <input
+                              title="Cost"
+                              placeholder="Cost"
+                              className="m-2"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="number"
+                              id="subject"
+                            />
+                            <input
+                              title="Cost"
+                              placeholder="Cost"
+                              className="m-2"
+                              style={{ border: 'none', outline: 'none', borderRadius: '10px' }}
+                              type="number"
+                              id="subject"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Modal>
+              {/* Modal for Translate AR*/}
+              <Modal show={showTransModalAr} handleClose={() => setShowTransModalAr(false)}>
+                <div className="d-flex justify-content-around row gap-3">
+                  <div>
+                    <label htmlFor="title">Title</label>
+                    <input
+                      id="title"
+                      style={{
+                        outline: 'none',
+                        border: 'none',
+                        borderRadius: '4px',
+                        marginLeft: '1rem',
+                      }}
+                      value={text.title}
+                      onChange={(e) => setText({ ...text, title: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="des">Description</label>
+                    <ReactQuill
+                      id="des"
+                      className="m-3"
+                      value={text.ar}
+                      onChange={(value) => setText({ ...text, ar: value })}
+                    />
+                  </div>
+                </div>
+              </Modal>
+              {/* Modal for Translate EN*/}
+              <Modal show={showTransModalEn} handleClose={() => setShowTransModalEn(false)}>
+                <div className="d-flex justify-content-around row gap-3">
+                  <div>
+                    <label htmlFor="title">Title</label>
+                    <input
+                      id="title"
+                      style={{
+                        outline: 'none',
+                        border: 'none',
+                        borderRadius: '4px',
+                        marginLeft: '1rem',
+                      }}
+                      value={text.title}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="des">Description</label>
+                    <ReactQuill
+                      id="des"
+                      className="m-3"
+                      value={text.en}
+                      onChange={(value) => setText({ ...text, en: value })}
+                    />
+                  </div>
+                </div>
+              </Modal>
+              {/* Modal for Labels */}
+              <Modal show={showLabelsModal} handleClose={() => setShowLabelsModal(false)}>
+                <div>
+                  <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between col-10 mx-3">
+                      <p>Name</p>
+                      <p>Value</p>
+                      <p>Active</p>
+                    </div>
+                    <button className="btn btn-success fw-bolder" onClick={handleAddRow}>
+                      +
+                    </button>
+                  </div>
+                  {rows.map((row, index) => (
+                    <div
+                      className="d-flex justify-content-between align-items-center gap-5 my-2"
+                      key={index}
+                    >
+                      <input
+                        style={{
+                          outline: 'none',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '0.3rem',
+                        }}
+                        type="text"
+                        value={row.name}
+                        onChange={(e) => handleLabelNameChange(e, index)}
+                      />
+                      <input
+                        style={{
+                          outline: 'none',
+                          border: 'none',
+                          borderRadius: '6px',
+                          padding: '0.3rem',
+                        }}
+                        type="text"
+                        value={row.value}
+                        onChange={(e) => handleValueChange(e, index)}
+                      />
+                      <input
+                        style={{
+                          outline: 'none',
+                          border: 'none',
+                          borderRadius: '6px',
+                        }}
+                        type="checkbox"
+                        value={row.active}
+                        onChange={(e) => handleCheckRow(e, index)}
+                      />
+                      <button
+                        className="btn btn-danger fw-bolder"
+                        onClick={() => {
+                          handleRemoveRow(index)
+                        }}
+                      >
+                        -
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </Modal>
+              {/* Modal for statistics */}
+              <Modal
+                show={showStatisticsModal}
+                handleClose={() => setShowStatisticsModal(false)}
+                handleAction={() => getStatistics(product.id)}
+              >
+                <div className="d-flex justify-content-between gap-2">
+                  <Dropdown>
+                    <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                      {interval}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => setInterval('All')}>All</Dropdown.Item>
+                      <Dropdown.Item onClick={() => setInterval('daily')}>Daily</Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          setInterval('weekly')
+                          setCurrentDate(getCurrentWeek().start)
+                        }}
+                      >
+                        Weekly
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          setInterval('monthly')
+                          setCurrentDate(getCurrentMonth().start)
+                        }}
+                      >
+                        Monthly
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => setInterval('yearly')}>Yearly</Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  {interval === 'daily' && (
+                    <input
+                      style={{
+                        textAlign: 'center',
+                        outline: 'none',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '5px',
+                      }}
+                      type="date"
+                      value={dateForm.day.toISOString().substring(0, 10)}
+                      onChange={(e) => {
+                        const selectedDate = new Date(e.target.value)
+                        setDateForm({ ...dateForm, day: selectedDate })
+                      }}
+                    />
+                  )}
+                  {interval === 'weekly' && (
+                    <Form.Select
+                      value={weekSelected}
+                      onChange={(e) => {
+                        const selectedOption = e.target.value
+                        setWeekSelected(selectedOption)
+                      }}
+                    >
+                      <option value="currentWeek">
+                        Current week ({getWeeks().currentWeek.start}, {getWeeks().currentWeek.end})
+                      </option>
+                      <option value="lastWeek">
+                        Last week ({getWeeks().lastWeek.start}, {getWeeks().lastWeek.end})
+                      </option>
+                    </Form.Select>
+                  )}
+                  {interval === 'monthly' && (
+                    <select
+                      style={{
+                        outline: 'none',
+                        border: 'none',
+                        borderRadius: '8px',
+                        padding: '0.5rem',
+                      }}
+                      value={dateForm.month ? dateForm.month.getMonth() : ''}
+                      onChange={(e) => {
+                        handleIntervalSelection('monthly', e)
+                      }}
+                    >
+                      {month.map((month, index) => (
+                        <option key={index} value={index}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                  {interval === 'yearly' && (
+                    <input
+                      style={{
+                        width: 'fit-content',
+                        textAlign: 'center',
+                        outline: 'none',
+                        border: 'none',
+                        borderRadius: '8px',
+                      }}
+                      type="number"
+                      value={dateForm.year ? dateForm.year.getUTCFullYear() : ''}
+                      onChange={(e) => {
+                        const year = parseInt(e.target.value, 10)
+                        setDateForm((prevState) => ({
+                          ...prevState,
+                          year: year ? new Date(year, 0, 2) : null,
+                        }))
+                      }}
+                    />
+                  )}
+                </div>
+
+                <div className="d-flex justify-content-between gap-4 my-4">
+                  <div className="bg-success p-2" style={{ borderRadius: '5px' }}>
+                    <h3 className="text-center" style={{ whiteSpace: 'nowrap' }}>
+                      Sales
+                    </h3>
+                    <div className="text-center fw-bold">{Number(statistics.sum).toFixed(2)}</div>
+                  </div>
+                  <div className="bg-success p-2" style={{ borderRadius: '5px' }}>
+                    <h3 className="text-center" style={{ whiteSpace: 'nowrap' }}>
+                      Orders
+                    </h3>
+                    <div className="text-center fw-bold">
+                      {Number(statistics.order_num).toFixed(2)}
+                    </div>
+                  </div>
+                  <div className="bg-success p-2" style={{ borderRadius: '5px' }}>
+                    <h3 className="text-center" style={{ whiteSpace: 'nowrap' }}>
+                      Benefit
+                    </h3>
+                    <div className="text-center fw-bold">
+                      {Number(statistics.penfit).toFixed(2)}
                     </div>
                   </div>
                 </div>

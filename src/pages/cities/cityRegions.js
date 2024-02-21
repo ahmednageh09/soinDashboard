@@ -45,7 +45,7 @@ export default function CityRegions() {
         keys={['id', 'city_name', 'region_name', 'created_at']}
         showActions={true}
         buttonNames={['Delete', 'Language']}
-        actions={[(id) => handleDeleteRegion(id)]}
+        actions={[(row) => handleDeleteRegion(row.id)]}
       />
     </>
   )
