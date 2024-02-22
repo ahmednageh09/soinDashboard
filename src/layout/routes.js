@@ -185,7 +185,7 @@ const routes = [
     element: OffersExtra,
   },
   {
-    path: '/offers/:id/edit',
+    path: '/offers/edit/:id',
     name: 'Edit Offer',
     element: EditOffer,
   },

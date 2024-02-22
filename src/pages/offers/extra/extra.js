@@ -71,7 +71,7 @@ export default function Extra() {
         actions={[
           () => {},
           (row) => {
-            navigate(`/offers/${row.id}/edit`)
+            navigate(`/offers/edit/${row.id}`)
           },
         ]}
       />
