@@ -6,7 +6,6 @@ const cookies = new Cookies()
 
 const axiosInstance = axios.create({
   baseURL: 'https://api.soin.serv5group.com/api/admin',
-  // baseURL: 'http://192.168.1.200:5128/api/admin',
   // timeout: 5000,
   headers: {
     'Content-Type': 'application/json',
