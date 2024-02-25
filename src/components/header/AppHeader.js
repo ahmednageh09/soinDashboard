@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   CContainer,
@@ -12,19 +12,25 @@ import {
   CNavItem,
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import { cilBell, cilEnvelopeOpen, cilList, cilMenu } from '@coreui/icons'
+import { cilBell, cilEnvelopeOpen, cilMenu } from '@coreui/icons'
 
 import { AppBreadcrumb } from '../index'
 import AppHeaderDropdown from './AppHeaderDropdown'
-import { logo } from 'src/assets/brand/logo'
+import logo from 'src/assets/images/soinLogo.png'
 import sidebarAction from 'src/redux/actions/sidebarAction'
+import langAction from 'src/redux/actions/langAction'
 
 const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebar.sidebarShow)
-
+  const lang = useSelector((state) => state.lang?.lang)
+  const direction = useSelector((state) => state.lang?.direction)
   const handleChange = () => {
     dispatch(sidebarAction(!sidebarShow))
+  }
+  const handleLangChange = () => {
+    const newLang = lang === 'AR' ? 'EN' : 'AR'
+    dispatch(langAction(newLang))
   }
 
   return (
@@ -39,7 +45,9 @@ const AppHeader = () => {
         </CHeaderToggler>
 
         <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <CIcon icon={logo} height={48} alt="Logo" />
+          <Link to={'/dashboard'}>
+            <img src={logo} style={{ width: '5rem', height: '40px' }} alt="Logo" />
+          </Link>
         </CHeaderBrand>
 
         <CHeaderNav className="d-none d-md-flex me-auto">
@@ -56,15 +64,21 @@ const AppHeader = () => {
           </CNavItem>
         </CHeaderNav>
 
-        <CHeaderNav>
+        <CHeaderNav className="d-flex align-items-center">
           <CNavItem>
-            <CNavLink href="#">
-              <CIcon icon={cilBell} size="lg" />
-            </CNavLink>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                handleLangChange()
+              }}
+              className="btn btn-primary p-1 rounded-5"
+            >
+              {lang}
+            </button>
           </CNavItem>
           <CNavItem>
             <CNavLink href="#">
-              <CIcon icon={cilList} size="lg" />
+              <CIcon icon={cilBell} size="lg" />
             </CNavLink>
           </CNavItem>
           <CNavItem>

@@ -21,13 +21,14 @@ export default function Customers() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axiosInstance
-      .get('/customers')
-      .then((response) => {
-        setData(response.data)
-        console.log(response.data.additional)
-      })
-      .catch((error) => console.error('Error fetching data:', error))
+    const fetchData = async () =>
+      await axiosInstance
+        .get('/customers')
+        .then((response) => {
+          setData(response.data)
+        })
+        .catch((error) => console.error('Error fetching data:', error))
+    fetchData()
   }, [refresh])
 
   const handleStatus = async (id) => {
@@ -244,11 +245,12 @@ export default function Customers() {
         <Modal handleClose={() => setAddToGroupModal(false)} show={addToGroupModal}>
           <div className="my-2">
             <select className={styles.inpt}>
-              {data.additional.groups.map((e) => (
-                <option key={e.id} value={e.id}>
-                  {e.title}
-                </option>
-              ))}
+              {data.additional &&
+                data.additional.groups.map((e) => (
+                  <option key={e.id} value={e.id}>
+                    {e.title}
+                  </option>
+                ))}
             </select>
           </div>
         </Modal>

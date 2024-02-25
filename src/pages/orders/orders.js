@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { axiosInstance } from 'src/axiosConfig'
 import ActionButton from 'src/components/actionButton/actionButton'
 import Table from 'src/components/table'
+import { useNavigate } from 'react-router-dom'
 
 export default function Orders() {
   const [path, setPath] = useState('/orders/all')
@@ -10,6 +11,8 @@ export default function Orders() {
   const [shippingOptions, setShippingOptions] = useState([])
   const tableRef = useRef()
   // Fetching statuses & shipping options
+  const navigate = useNavigate()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,7 +56,9 @@ export default function Orders() {
         console.error('An error occurred: ', err)
       })
   }
-  const handleEdit = (id) => {}
+  const handleEdit = (id) => {
+    navigate(`/orders/edit/${id}`)
+  }
   return (
     <>
       <div className="">

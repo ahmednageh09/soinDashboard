@@ -136,8 +136,8 @@ export default function Table({
       <div className="row d-flex flex-wrap justify-content-between">
         <div className="date d-flex flex-wrap justify-content-between">
           {showDate && (
-            <div className="d-flex justify-content-between">
-              <div>
+            <div className="d-flex justify-content-evenly flex-wrap">
+              <div className="me-3">
                 <label htmlFor="from">From</label>
                 <input
                   className="input"

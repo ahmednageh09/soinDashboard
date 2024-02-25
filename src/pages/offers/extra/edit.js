@@ -6,6 +6,8 @@ import { axiosInstance } from 'src/axiosConfig'
 export default function Edit() {
   const offer = useParams()
   const [data, setData] = useState()
+  const [activeButton, setActiveButton] = useState('en')
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -47,8 +49,18 @@ export default function Edit() {
       <div className="bg-white rounded-3 p-2 my-3">
         <h3 className="p-2">Edit Extra Offer</h3>
         <div>
-          <button className="btn btn-success m-2">Ar</button>
-          <button className="btn btn-secondary">EN</button>
+          <button
+            className={`btn ${activeButton === 'en' ? 'btn-success' : 'btn-secondary'} m-2`}
+            onClick={() => setActiveButton('en')}
+          >
+            EN
+          </button>
+          <button
+            className={`btn ${activeButton === 'ar' ? 'btn-success' : 'btn-secondary'}`}
+            onClick={() => setActiveButton('ar')}
+          >
+            AR
+          </button>
         </div>
         <div className="d-flex justify-content-around row m-3 gap-2">
           <div>
@@ -57,8 +69,8 @@ export default function Edit() {
               id="title"
               type="text"
               className={styles.inpt}
-              style={{ backgroundColor: '#ebedef' }}
-              value={data?.offer.title.ar}
+              style={{ backgroundColor: '#ebedef', width: 'fit-content' }}
+              value={data?.offer.title[activeButton]}
               onChange={(e) => setData(e.data?.offer.title.ar)}
             />
           </div>

@@ -4,6 +4,7 @@ const Dashboard = React.lazy(() => import('../pages/dashboard/dashboard'))
 const Stock = React.lazy(() => import('../pages/stock/stock'))
 const UpdateStock = React.lazy(() => import('../pages/stock/updateStock/updateStock'))
 const Orders = React.lazy(() => import('../pages/orders/orders'))
+const EditOrder = React.lazy(() => import('../pages/orders/edit'))
 const Financial = React.lazy(() => import('../pages/financial/financial'))
 const FinancialDetails = React.lazy(() =>
   import('../pages/financial/financialDetails/financialDetails'),
@@ -24,6 +25,7 @@ const OffersOneFree = React.lazy(() => import('../pages/offers/oneFree/oneFree')
 const OffersDuration = React.lazy(() => import('../pages/offers/duration/duration'))
 const OffersExtra = React.lazy(() => import('../pages/offers/extra/extra'))
 const EditOffer = React.lazy(() => import('../pages/offers/extra/edit'))
+const OfferMembers = React.lazy(() => import('../pages/offers/extra/members'))
 const OffersVoucher = React.lazy(() => import('../pages/offers/voucher/voucher'))
 const OffersVoucherFree = React.lazy(() => import('../pages/offers/voucherFree/voucherFree'))
 const OffersVoucherUserFree = React.lazy(() =>
@@ -97,6 +99,7 @@ const routes = [
   { path: '/stock', name: 'Stock', element: Stock },
   { path: '/stocks/updateStock', name: 'Stock / Update Stock', element: UpdateStock },
   { path: '/orders/all', name: 'Orders', element: Orders },
+  { path: '/orders/edit/:id', name: 'Edit', element: EditOrder },
   { path: '/orders/financial_transactions', name: 'Financial Transactions', element: Financial },
   {
     path: '/orders/financial_transactions/details/:id',
@@ -188,6 +191,11 @@ const routes = [
     path: '/offers/edit/:id',
     name: 'Edit Offer',
     element: EditOffer,
+  },
+  {
+    path: '/offers/members/:id',
+    name: 'Members',
+    element: OfferMembers,
   },
   {
     path: '/offers/duration',

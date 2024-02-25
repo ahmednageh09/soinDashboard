@@ -69,7 +69,9 @@ export default function Extra() {
         showActions={true}
         buttonNames={['Members', 'Edit', 'Delete']}
         actions={[
-          () => {},
+          (row) => {
+            navigate(`/offers/members/${row.id}`)
+          },
           (row) => {
             navigate(`/offers/edit/${row.id}`)
           },
