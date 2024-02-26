@@ -6,11 +6,11 @@ import CIcon from '@coreui/icons-react'
 
 import { AppSidebarNav } from './AppSidebarNav'
 
-import logoNegative from 'src/assets/images/soinLogo.png'
-import { sygnet } from 'src/assets/brand/sygnet'
+import logoNegative from '../../assets/images/soinLogo.png'
+import { sygnet } from '../../assets/brand/sygnet'
 
 import SimpleBar from 'simplebar-react'
-import sidebarAction from 'src/redux/actions/sidebarAction'
+import sidebarAction from '../../../src/redux/actions/sidebarAction'
 import 'simplebar/dist/simplebar.min.css'
 
 // sidebar nav config

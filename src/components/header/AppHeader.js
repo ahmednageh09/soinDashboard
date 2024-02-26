@@ -16,9 +16,9 @@ import { cilBell, cilEnvelopeOpen, cilMenu } from '@coreui/icons'
 
 import { AppBreadcrumb } from '../index'
 import AppHeaderDropdown from './AppHeaderDropdown'
-import logo from 'src/assets/images/soinLogo.png'
-import sidebarAction from 'src/redux/actions/sidebarAction'
-import langAction from 'src/redux/actions/langAction'
+import logo from '../../assets/images/soinLogo.png'
+import sidebarAction from '../../../src/redux/actions/sidebarAction'
+import langAction from '../../../src/redux/actions/langAction'
 
 const AppHeader = () => {
   const dispatch = useDispatch()

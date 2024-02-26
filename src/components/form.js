@@ -1,7 +1,7 @@
 import React from 'react'
 import { CButton, CForm, CFormInput, CFormSelect } from '@coreui/react'
 import PropTypes from 'prop-types'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../axiosConfig'
 import { toast } from 'react-toastify'
 
 export default function Form({ values, setValues, method, path }) {

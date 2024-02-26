@@ -1,6 +1,6 @@
 import React from 'react'
 import Styles from '../../components/input.module.scss'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 
 export default function Edit() {
   return (

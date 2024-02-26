@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { axiosInstance } from 'src/axiosConfig'
-import ActionButton from 'src/components/actionButton/actionButton'
-import Table from 'src/components/table'
+import { axiosInstance } from '../../axiosConfig'
+import ActionButton from '../../components/actionButton/actionButton'
+import Table from '../../components/table'
 import { useNavigate } from 'react-router-dom'
 
 export default function Orders() {

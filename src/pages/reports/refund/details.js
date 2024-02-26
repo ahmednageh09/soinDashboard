@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import img from '../../../assets/images/avatars/2.jpg'
 import Table from 'react-bootstrap/Table'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../../axiosConfig'
 
 export default function Details() {
   const { id } = useParams()

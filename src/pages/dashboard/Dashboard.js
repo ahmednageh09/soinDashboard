@@ -1,8 +1,8 @@
 import React from 'react'
 import { CCol } from '@coreui/react'
-import Table from 'src/components/table'
-import Card from 'src/components/card'
-import Chart from 'src/components/chart'
+import Table from '../../components/table'
+import Card from '../../components/card'
+import Chart from '../../components/chart'
 
 export default function Dashboard() {
   return (

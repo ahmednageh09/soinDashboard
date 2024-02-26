@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import Styles from '../../components/input.module.scss'
 import ActionButton from 'src/components/actionButton/actionButton'
 

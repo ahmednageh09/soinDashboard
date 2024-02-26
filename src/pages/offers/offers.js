@@ -3,7 +3,7 @@ import { CButton, CCard, CCardBody, CCardTitle } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import '../../components/sidebar/reportCard/reportCard.scss'
 import { cilCash, cilCog, cilGift } from '@coreui/icons'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 
 export default function Offers() {
   const [data, setData] = useState([])

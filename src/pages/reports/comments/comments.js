@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CButton } from '@coreui/react'
-import Table from 'src/components/table'
+import Table from '../../../components/table'
 
 export default function Comments() {
   const [showChart, setShowChart] = useState(false)

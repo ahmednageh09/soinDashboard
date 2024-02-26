@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import { toast } from 'react-toastify'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 
 export default function CityRegions() {
   const { id: cityId } = useParams()

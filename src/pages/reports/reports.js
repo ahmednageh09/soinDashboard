@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CButton } from '@coreui/react'
-import ReportCard from 'src/components/sidebar/reportCard/reportCard'
+import ReportCard from '../../components/sidebar/reportCard/reportCard'
 import Google from './googleAnalytics/google'
 
 export default function Reports() {

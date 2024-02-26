@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'src/components/table'
+import Table from '../../../components/table'
 import { useParams } from 'react-router-dom'
 
 export default function Members() {

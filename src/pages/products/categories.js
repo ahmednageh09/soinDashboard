@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import CIcon from '@coreui/icons-react'
 import {
   cilChevronBottom,

@@ -1,6 +1,6 @@
 import { axiosInstance } from '../axiosConfig'
 import Cookies from 'universal-cookie'
-import { toast } from 'react-toastify'
+import { toast } from '../axiosConfig'
 
 const cookies = new Cookies()
 

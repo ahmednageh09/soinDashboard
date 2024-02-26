@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 
 export default function Benficary() {
   const prodId = useParams()

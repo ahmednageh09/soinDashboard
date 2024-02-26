@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 export default function Products() {

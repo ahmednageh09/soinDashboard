@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../components/input.module.scss'
 import { useParams } from 'react-router-dom'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import { toast } from 'react-toastify'
 import Modal from 'src/components/modal'
 

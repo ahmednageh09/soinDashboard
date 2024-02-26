@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ActionButton from 'src/components/actionButton/actionButton'
-import Table from 'src/components/table'
+import ActionButton from '../../components/actionButton/actionButton'
+import Table from '../../components/table'
 
 export default function MailingTemplates() {
   const [path, setPath] = useState('/orders/all')

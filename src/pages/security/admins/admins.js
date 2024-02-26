@@ -1,6 +1,6 @@
 import React from 'react'
-import ActionButton from 'src/components/actionButton/actionButton'
-import Table from 'src/components/table'
+import ActionButton from '../../../components/actionButton/actionButton'
+import Table from '../../../components/table'
 import { useNavigate } from 'react-router-dom'
 
 export default function Admins() {

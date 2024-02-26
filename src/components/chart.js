@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../axiosConfig'
 import { CCard, CCardBody, CCol, CRow } from '@coreui/react'
 import { CChartBar, CChartPie } from '@coreui/react-chartjs'
 import PropTypes from 'prop-types'

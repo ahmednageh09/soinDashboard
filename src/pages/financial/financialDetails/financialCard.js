@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CButton, CCard, CCardBody, CCardHeader, CCardText } from '@coreui/react'
 import PropTypes from 'prop-types'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../../axiosConfig'
 import { useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import Form from '../../../components/form'

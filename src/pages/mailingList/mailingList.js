@@ -1,6 +1,6 @@
 import React from 'react'
-import Card from 'src/components/card'
-import Table from 'src/components/table'
+import Card from '../../components/card'
+import Table from '../../components/table'
 
 export default function MailingList() {
   return (

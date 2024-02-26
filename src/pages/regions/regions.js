@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import { toast } from 'react-toastify'
-import ActionButton from 'src/components/actionButton/actionButton'
-import Table from 'src/components/table'
-import Modal from 'src/components/modal'
+import ActionButton from '../../components/actionButton/actionButton'
+import Table from '../../components/table'
+import Modal from '../../components/modal'
 
 export default function Regions() {
   const [data, setData] = useState([])

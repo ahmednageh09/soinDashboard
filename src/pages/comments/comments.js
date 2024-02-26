@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { axiosInstance } from 'src/axiosConfig'
-import Modal from 'src/components/modal'
-import Table from 'src/components/table'
+import { axiosInstance } from '../../axiosConfig'
+import Modal from '../../components/modal'
+import Table from '../../components/table'
 import { toast } from 'react-toastify'
 
 export default function Comments() {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CButton } from '@coreui/react'
-import Table from 'src/components/table'
-import { axiosInstance } from 'src/axiosConfig'
+import Table from '../../components/table'
+import { axiosInstance } from '../../axiosConfig'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../../components/input.module.scss'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 

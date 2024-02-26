@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CButton } from '@coreui/react'
-import Table from 'src/components/table'
-import Chart from 'src/components/chart'
-import Modal from 'src/components/modal'
+import Table from '../../../components/table'
+import Chart from '../../../components/chart'
+import Modal from '../../../components/modal'
 import { toast } from 'react-toastify'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../../axiosConfig'
 
 export default function InactiveCustomers() {
   const [showChart, setShowChart] = useState(false)

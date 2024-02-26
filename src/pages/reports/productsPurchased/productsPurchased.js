@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CButton } from '@coreui/react'
-import Table from 'src/components/table'
-import Chart from 'src/components/chart'
+import Table from '../../../components/table'
+import Chart from '../../../components/chart'
 
 export default function ProductsPurchased() {
   const navigate = useNavigate()

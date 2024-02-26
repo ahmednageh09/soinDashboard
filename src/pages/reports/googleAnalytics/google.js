@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from 'src/components/table'
+import Table from '../../../components/table'
 import PropTypes from 'prop-types'
 
 Google.propTypes = {

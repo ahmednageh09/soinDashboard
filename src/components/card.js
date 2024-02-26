@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { CCard, CCardBody, CCardHeader, CCardText } from '@coreui/react'
 import PropTypes from 'prop-types'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../axiosConfig'
 export default function Card({ indices, path }) {
   Card.propTypes = {
     indices: PropTypes.arrayOf(PropTypes.string).isRequired,

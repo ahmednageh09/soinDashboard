@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
 import { CButton } from '@coreui/react'
-import { axiosInstance } from 'src/axiosConfig'
+import { axiosInstance } from '../../axiosConfig'
 import { toast } from 'react-toastify'
 import Modal from 'src/components/modal'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useNavigate } from 'react-router-dom'
 import '../products/products.scss'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+// import ReactQuill from 'react-quill'
+// import 'react-quill/dist/quill.snow.css'
 import { useCallback } from 'react'
 
 export default function Products() {
@@ -1311,13 +1311,13 @@ export default function Products() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="des">Description</label>
-                    <ReactQuill
+                    {/* <label htmlFor="des">Description</label> */}
+                    {/* <ReactQuill
                       id="des"
                       className="m-3"
                       value={text.ar}
                       onChange={(value) => setText({ ...text, ar: value })}
-                    />
+                    /> */}
                   </div>
                 </div>
               </Modal>

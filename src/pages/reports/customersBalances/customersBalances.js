@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Table from 'src/components/table'
+import Table from '../../../components/table'
 import { CButton } from '@coreui/react'
-import Chart from 'src/components/chart'
+import Chart from '../../../components/chart'
 
 export default function CustomersBalances() {
   const [showChart, setShowChart] = useState(false)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 
 export default function LabelsTranslate() {
   const [editTransLabels, setEditTransLabels] = useState({})

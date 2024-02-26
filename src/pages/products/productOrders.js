@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
-import Table from 'src/components/table'
+import Table from '../../components/table'
 
 export default function ProductOrders() {
   const { id: prodId } = useParams()
