@@ -4,7 +4,7 @@ import Table from 'src/components/table'
 import Card from 'src/components/card'
 import Chart from 'src/components/chart'
 
-const Dashboard = () => {
+export default function Dashboard() {
   return (
     <>
       <div className="row d-flex justify-content-evenly h-50">
@@ -168,5 +168,3 @@ const Dashboard = () => {
     </>
   )
 }
-
-export default Dashboard
