@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import '../products/products.scss'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { useCallback } from 'react'
 
 export default function Products() {
   const [products, setProducts] = useState([])
@@ -39,7 +40,6 @@ export default function Products() {
   const [statistics, setStatistics] = useState({})
   const [hiddenProducts, setHiddenProducts] = useState([])
   const [interval, setInterval] = useState('All')
-  const [date, setDate] = useState(new Date())
   const [weekSelected, setWeekSelected] = useState('currentWeek')
   const [currentDate, setCurrentDate] = useState(new Date())
   const [dateForm, setDateForm] = useState({ day: new Date(), month: new Date(), year: new Date() })
@@ -137,7 +137,7 @@ export default function Products() {
       toast.error('Failed to update product, please try again')
     }
   }
-  const performSearch = () => {
+  const performSearch = useCallback(() => {
     if (searchTerm === '') {
       fetchData()
     } else {
@@ -148,10 +148,12 @@ export default function Products() {
       )
       setProducts(filteredProducts)
     }
-  }
+  }, [searchTerm, products, fetchData])
+
   useEffect(() => {
     performSearch()
-  }, [searchTerm])
+  }, [performSearch])
+
   const createNewProduct = () => {
     return {
       mainPhoto: '',
@@ -210,7 +212,7 @@ export default function Products() {
         let response = await axiosInstance.get('/categories')
         let data = response.data.data
         let cats = []
-        for (let [key, value] of Object.entries(data)) {
+        for (let [value] of Object.entries(data)) {
           let childTitles = []
           if (value.child) {
             childTitles = value.child.map((item) => ({
@@ -581,7 +583,7 @@ export default function Products() {
                     height: '18rem',
                     objectFit: 'cover',
                   }}
-                  alt="Product Image"
+                  alt="Product"
                 />
                 <input
                   type="file"
@@ -619,7 +621,7 @@ export default function Products() {
                   {selectedFile && (
                     <img
                       src={URL.createObjectURL(selectedFile)}
-                      alt="Selected Image"
+                      alt="Selected"
                       style={{ maxWidth: '10rem', maxHeight: '14rem', objectFit: 'contain' }}
                     />
                   )}
@@ -773,10 +775,7 @@ export default function Products() {
                       onChange={(e) => handlePriceChange(product.id, e)}
                     />
                   </div>
-                  <div
-                    className="bg-light m-2 rounded"
-                    style={{ width: 'fit-content', width: '50%' }}
-                  >
+                  <div className="bg-light m-2 rounded" style={{ width: 'fit-content' }}>
                     <div className="card-title p-1">
                       Stock:{' '}
                       <input

@@ -13,7 +13,7 @@ export default function CountryCities() {
       .get(`/country/cities?country_id=${cityId}`)
       .then((response) => setData(response.data))
       .catch((error) => console.error('Error fetching data:', error))
-  }, [refresh])
+  }, [refresh, cityId])
   const handleDeleteCity = (id) => {
     axiosInstance
       .delete(`/country/cities/delete/${id}`)

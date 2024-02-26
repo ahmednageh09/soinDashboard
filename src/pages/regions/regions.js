@@ -7,7 +7,6 @@ import Table from 'src/components/table'
 import Modal from 'src/components/modal'
 
 export default function Regions() {
-  const navigate = useNavigate()
   const [data, setData] = useState([])
   const [refresh, setRefresh] = useState(false)
   const [createModal, setCreateModal] = useState(false)

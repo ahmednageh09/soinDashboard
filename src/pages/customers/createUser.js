@@ -49,7 +49,7 @@ export default function CreateUser() {
         password_confirmation: document.getElementById('confirmPass').value,
       })
       .then((res) => {
-        if (res.data.message == 'Added Successfully !') {
+        if (res.data.message === 'Added Successfully !') {
           toast.success('New User added successfully')
           navigate('/customers')
         } else {

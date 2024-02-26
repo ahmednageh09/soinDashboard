@@ -44,7 +44,7 @@ export default function Form({ values, setValues, method, path }) {
       }
       const data = response.data
       const status = response.data.status
-      if (status == 'success') {
+      if (status === 'success') {
         toast.success('Updated Success!')
       } else {
         toast.error(data.message)

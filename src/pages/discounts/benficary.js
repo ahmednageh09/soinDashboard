@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
-import { axiosInstance } from 'src/axiosConfig'
 import Table from 'src/components/table'
 
 export default function Benficary() {

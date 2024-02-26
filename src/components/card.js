@@ -27,7 +27,7 @@ export default function Card({ indices, path }) {
     }
 
     fetchData()
-  }, [indices])
+  }, [indices, path])
 
   return (
     <>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { axiosInstance } from 'src/axiosConfig'
 import DataTable from 'react-data-table-component'
 import { CButton } from '@coreui/react'
@@ -30,7 +29,6 @@ export default function Table({
   showActions = false,
   buttonNames = [''],
   filter = '',
-  setShowModal = false,
   actions = [],
 }) {
   const [data, setData] = useState([])
@@ -40,8 +38,6 @@ export default function Table({
   const [selectedOption, setSelectedOption] = useState('')
   const [fromDate, setFromDate] = useState('')
   const [toDate, setToDate] = useState('')
-
-  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +63,7 @@ export default function Table({
     fetchData()
 
     return
-  }, [])
+  }, [path, filter, keys])
 
   const handleSearch = (evt) => {
     const searchTerm = evt.target.value.toLowerCase()

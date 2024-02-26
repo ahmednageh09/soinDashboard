@@ -1,21 +1,13 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import Table from 'src/components/table'
-import { CButton } from '@coreui/react'
-// import { useReactToPrint } from 'react-to-print'
 
 export default function Financial() {
   const navigate = useNavigate()
-  // const tableRef = useRef()
-  // const handlePrint = useReactToPrint({
-  //   content: () => tableRef.current,
-  // })
 
   return (
     <>
-      {/* <CButton onClick={handlePrint}>Print this!</CButton> */}
       <Table
-        // ref={tableRef}
         path="/orders/financial_transactions"
         keys={['id', 'user_name', 'payment_method_type', 'payment_paid_type', 'total', 'status']}
         showDate={false}

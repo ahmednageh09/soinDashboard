@@ -17,7 +17,7 @@ export default function EditUser() {
     }
 
     fetchData()
-  }, [])
+  }, [user.id])
   const updateUser = async () => {
     await axiosInstance
       .patch(

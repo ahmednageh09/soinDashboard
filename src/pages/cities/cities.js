@@ -21,7 +21,6 @@ export default function Cities() {
   const [titleErrorMessage, setTitleErrorMessage] = useState('')
   const [selectErrorMessage, setSelectErrorMessage] = useState('')
   const [counrty, setCountry] = useState('')
-  const [selectedCountryId, setSelectedCountryId] = useState(null)
   const [countries, setCountries] = useState([])
 
   useEffect(() => {

@@ -24,7 +24,6 @@ const AppHeader = () => {
   const dispatch = useDispatch()
   const sidebarShow = useSelector((state) => state.sidebar.sidebarShow)
   const lang = useSelector((state) => state.lang?.lang)
-  const direction = useSelector((state) => state.lang?.direction)
   const handleChange = () => {
     dispatch(sidebarAction(!sidebarShow))
   }

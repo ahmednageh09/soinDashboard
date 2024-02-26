@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { axiosInstance } from 'src/axiosConfig'
 import { CCard, CCardBody, CCol, CRow } from '@coreui/react'
-import { CChartBar, CChartLine, CChartPie } from '@coreui/react-chartjs'
+import { CChartBar, CChartPie } from '@coreui/react-chartjs'
 import PropTypes from 'prop-types'
 Chart.propTypes = {
   path: PropTypes.string,
@@ -34,7 +34,7 @@ export default function Chart({ path = '/charts', chartName, showPie = true }) {
     }
 
     fetchData()
-  }, [])
+  }, [path, chartName])
 
   return (
     <>
