@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Dashboard = React.lazy(() => import('../pages/dashboard/dashboard'))
+const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'))
 const Stock = React.lazy(() => import('../pages/stock/stock'))
 const UpdateStock = React.lazy(() => import('../pages/stock/updateStock/updateStock'))
 const Orders = React.lazy(() => import('../pages/orders/orders'))
