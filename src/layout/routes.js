@@ -28,9 +28,7 @@ const EditOffer = React.lazy(() => import('../pages/offers/extra/edit'))
 const OfferMembers = React.lazy(() => import('../pages/offers/extra/members'))
 const OffersVoucher = React.lazy(() => import('../pages/offers/voucher/voucher'))
 const OffersVoucherFree = React.lazy(() => import('../pages/offers/voucherFree/voucherFree'))
-const OffersVoucherUserFree = React.lazy(() =>
-  import('../pages/offers/voucherUserFree/voucherUserFree'),
-)
+const OffersVoucherUserFree = React.lazy(() => import('../pages/offers/voucherUserFree/voucherUserFree'))
 const OffersCommission = React.lazy(() => import('../pages/offers/commission/commision'))
 const OffersSettings = React.lazy(() => import('../pages/offers/settings/settings'))
 const Discounts = React.lazy(() => import('../pages/discounts/discounts'))
