@@ -7,7 +7,13 @@ import routes from './routes'
 
 const AppContent = () => {
   return (
-    <Suspense fallback={<CSpinner color="primary" />}>
+    <Suspense
+      fallback={
+        <div className="d-flex justify-content-center align-items-center">
+          <CSpinner color="primary" />
+        </div>
+      }
+    >
       <Routes>
         {routes.map((route, idx) => {
           return (
