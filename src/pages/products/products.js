@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-implied-eval */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Form from 'react-bootstrap/Form'
