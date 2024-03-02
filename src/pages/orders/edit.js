@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Styles from '../../components/input.module.scss'
 import Table from '../../components/table'
+import { axiosInstance } from 'src/axiosConfig'
+import { useParams } from 'react-router-dom'
 
 export default function Edit() {
+  const [data, setData] = useState()
+  const order = useParams()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axiosInstance.get(`/orders/${order.id}/edit`)
+        const data = res.data.data
+        console.log(data)
+        setData(data)
+      } catch {}
+    }
+    fetchData()
+  }, [])
   return (
     <>
       <div className="d-flex justify-content-center gap-2 align-items-center row">
@@ -14,27 +29,50 @@ export default function Edit() {
         >
           <div>
             <label htmlFor="orderNo">Order No : </label>
-            <input type="text" id="orderNo" className={Styles.inpt} />
+            <input
+              type="text"
+              id="orderNo"
+              className={Styles.inpt}
+              value={data?.order.ordernumber}
+            />
           </div>
           <div>
             <label htmlFor="transNo" style={{ whiteSpace: 'noWrap' }}>
               Transaction No :
             </label>
-            <input type="button" id="transNo" value={9999} className="btn text-success" />
+            <input
+              type="button"
+              id="transNo"
+              value={data?.transactions.id}
+              className="btn text-success"
+            />
           </div>
           <div>
             <label htmlFor="date">Date : </label>
-            <input type="date" id="date" className={Styles.inpt} />
+            <input
+              type="date"
+              id="date"
+              className={Styles.inpt}
+              value={
+                data?.transactions.created_at
+                  ? new Intl.DateTimeFormat('en-CA').format(new Date(data?.transactions.created_at))
+                  : ''
+              }
+            />
           </div>
           <div>
             <label htmlFor="orderStatus" style={{ whiteSpace: 'noWrap' }}>
               Order Status :
             </label>
-            <input type="button" id="orderStatus" value={'waiting'} className="btn text-success" />
+            <input
+              type="button"
+              id="orderStatus"
+              value={data?.order.status}
+              className="btn text-success"
+            />
           </div>
           <div>
             <label htmlFor="print">Print : </label>
-            <input type="text" id="print" className={Styles.inpt} />
           </div>
         </div>
         {/* seconed info */}
@@ -45,9 +83,27 @@ export default function Edit() {
               <button className="btn btn-info">Edit</button>
             </div>
             <hr />
-            <div className="d-flex justify-content-around">
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
+            <div className="d-flex justify-content-around row">
+              <div>
+                <label htmlFor="user">User : </label>
+                <input
+                  id="user"
+                  type="text"
+                  className={Styles.inpt}
+                  style={{ width: '8rem', marginLeft: '1.1rem' }}
+                  value={`${data?.order.user.name}${' '}${data?.order.user.lastname}`}
+                />
+              </div>
+              <div>
+                <label htmlFor="phone">Phone : </label>
+                <input
+                  id="phone"
+                  type="text"
+                  className={Styles.inpt}
+                  style={{ width: '8rem' }}
+                  value={data?.order.user.phone}
+                />
+              </div>
             </div>
           </div>
 
@@ -57,9 +113,23 @@ export default function Edit() {
               <button className="btn btn-info">Edit</button>
             </div>
             <hr />
-            <div className="d-flex justify-content-around">
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
+            <div className="d-flex justify-content-around row">
+              <label htmlFor="country">Country / City : </label>
+              <input
+                id="country"
+                type="text"
+                className={Styles.inpt}
+                value={data?.address.country.data.title}
+              />
+              <label htmlFor="address">Address : </label>
+              <input
+                id="address"
+                type="text"
+                className={Styles.inpt}
+                value={`${data?.address.Neighborhood}${', '}${data?.address.street} ${', '} ${data?.address.address}`}
+              />
+              <label htmlFor="code">Postal Code : </label>
+              <input id="code" type="text" className={Styles.inpt} value={data?.address.code} />
             </div>
           </div>
 
@@ -69,9 +139,23 @@ export default function Edit() {
               <button className="btn btn-info">Edit</button>
             </div>
             <hr />
-            <div className="d-flex justify-content-around">
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
-              <input type="text" className={Styles.inpt} style={{ width: '8rem' }} />
+            <div className="d-flex justify-content-around row">
+              <label htmlFor="method">Method : </label>
+              <input
+                id="method"
+                type="text"
+                className={Styles.inpt}
+                style={{ width: '8rem' }}
+                value={data?.payment_method}
+              />
+              <label htmlFor="status">Status : </label>
+              <input
+                id="status"
+                type="text"
+                className={Styles.inpt}
+                style={{ width: '8rem' }}
+                value={data?.payment_status}
+              />
             </div>
           </div>
         </div>
@@ -96,13 +180,14 @@ export default function Edit() {
           />
         </div>
         {/* Fourth info */}
-        <div className="d-flex justify-content-center row overflow-auto flex-wrap align-items-center bg-white rounded-2 p-3  my-2 gap-3">
+        <div className="d-flex justify-content-center row overflow-auto flex-wrap align-items-center bg-white rounded-2 p-3 my-2">
           <h5>Products</h5>
           <hr />
-          <div>
-            <div>
+          <div className="d-flex justify-content-center align-items-center row">
+            <div className="d-flex justify-content-center my-3 row">
               <h5
                 style={{
+                  width: '11rem',
                   backgroundColor: '#6f30a0',
                   textAlign: 'center',
                   color: 'white',
@@ -110,12 +195,49 @@ export default function Edit() {
                   borderRadius: '1rem',
                 }}
               >
-                Payment
+                Order Details
               </h5>
+
+              <table>
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Total Price</th>
+                    <th>Vat</th>
+                    <th>Vat Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data?.order_products.data.map((item) => (
+                    <tr key={item.id} style={{ borderBottom: '.4px solid', padding: '5rem' }}>
+                      <td>
+                        <img
+                          className={{
+                            outLine: 'none',
+                            border: '1px solid',
+                            borderRadius: '50%',
+                            width: 'fit-content',
+                          }}
+                          src={item.thumbnail_img}
+                          alt="product"
+                        />
+                      </td>
+                      <td>
+                        {item.total_prices} {data.currency}
+                      </td>
+                      <td style={{ color: 'red' }}>{item.vat} %</td>
+                      <td>
+                        {item.vatVal} {data.currency}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div>
+            <div className="d-flex justify-content-center row">
               <h5
                 style={{
+                  width: '11rem',
                   backgroundColor: '#6f30a0',
                   textAlign: 'center',
                   color: 'white',
@@ -123,8 +245,22 @@ export default function Edit() {
                   borderRadius: '1rem',
                 }}
               >
-                Payment
+                Payment Details
               </h5>
+              <div className="d-flex justify-content-around align-items-center row">
+                <label htmlFor="subTotal">Sub Total : </label>
+                <input
+                  id="subTotal"
+                  value={data?.order_products.data[0].final_total}
+                  className={Styles.inpt}
+                />
+                <label htmlFor="vat">Vat : </label>
+                <input id="vat" value={data?.order_products.vatFinal} className={Styles.inpt} />
+                <label htmlFor="shipping">Shipping Cost : </label>
+                <input id="shipping" value={data?.order.shipping_cost} className={Styles.inpt} />
+                <label htmlFor="total"> Total : </label>
+                <input id="total" value={data?.order.total} className={Styles.inpt} />
+              </div>
             </div>
           </div>
         </div>
