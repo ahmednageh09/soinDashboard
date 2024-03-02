@@ -45,7 +45,7 @@ export default function Table({
         const response = await axiosInstance.get(path)
         const newTitle = response.data.message
         setTitle(newTitle)
-        const newData = response.data.data.map((responseData) => {
+        const newData = response?.data.data.map((responseData) => {
           const dataObj = keys.reduce((obj, key) => {
             obj[key] = responseData[key]
             return obj

@@ -131,11 +131,12 @@ export default function Products() {
         cost: product.cost,
         price: product.price_original,
         max_count: product.max_count.toString(),
-        types: product.types,
+        types: product.product_type,
         mainPhoto: product.mainPhoto,
         is_free_shipping: deliverySwitches[product.id],
         categories: selectedCategories[product.id].split(',')[0],
       }
+      console.log(updatedProduct)
       const data = await axiosInstance.post('/updateproduct', updatedProduct)
       fetchData()
       toast.success(data.data.message)
@@ -890,7 +891,7 @@ export default function Products() {
                       onClick={() => {
                         updateProduct(product)
                       }}
-                      disabled={hiddenProducts.includes(product.id)}
+                      // disabled={hiddenProducts.includes(product.id)}
                     >
                       Save
                     </button>
@@ -1323,12 +1324,12 @@ export default function Products() {
                   </div>
                   <div>
                     <label htmlFor="des">Description</label>
-                    {/* <MyQuil
+                    <MyQuil
                       id="des"
                       className="m-3 p-3"
                       value={text.ar}
                       onChange={(value) => setText({ ...text, ar: value })}
-                    /> */}
+                    />
                   </div>
                 </div>
               </Modal>
@@ -1350,12 +1351,12 @@ export default function Products() {
                   </div>
                   <div>
                     <label htmlFor="des">Description</label>
-                    {/* <MyQuil
+                    <MyQuil
                       id="des"
                       className="m-3 p-3"
                       value={text.en}
                       onChange={(value) => setText({ ...text, en: value })}
-                    /> */}
+                    />
                   </div>
                 </div>
               </Modal>
