@@ -12,7 +12,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useNavigate } from 'react-router-dom'
 import '../products/products.scss'
 import MyQuil from 'src/components/myQuil'
-import Styles from '../stylesPage/styles'
 
 export default function Products() {
   const [products, setProducts] = useState([])
@@ -1324,12 +1323,12 @@ export default function Products() {
                   </div>
                   <div>
                     <label htmlFor="des">Description</label>
-                    <MyQuil
+                    {/* <MyQuil
                       id="des"
                       className="m-3 p-3"
                       value={text.ar}
                       onChange={(value) => setText({ ...text, ar: value })}
-                    />
+                    /> */}
                   </div>
                 </div>
               </Modal>
@@ -1351,12 +1350,12 @@ export default function Products() {
                   </div>
                   <div>
                     <label htmlFor="des">Description</label>
-                    <MyQuil
+                    {/* <MyQuil
                       id="des"
                       className="m-3 p-3"
                       value={text.en}
                       onChange={(value) => setText({ ...text, en: value })}
-                    />
+                    /> */}
                   </div>
                 </div>
               </Modal>
