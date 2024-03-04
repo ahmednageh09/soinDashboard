@@ -69,7 +69,7 @@ export default function UpdateStock() {
                 setErrorMessage('')
               }}
             >
-              <option>select Country</option>
+              <option>select Product</option>
               {prodcuts?.map((prodcut, index) => (
                 <option style={{ backgroundColor: '#ebedef' }} key={index} value={prodcut.title}>
                   {prodcut.title}

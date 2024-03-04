@@ -3,16 +3,21 @@ import { axiosInstance } from '../../axiosConfig'
 import ActionButton from '../../components/actionButton/actionButton'
 import Table from '../../components/table'
 import { useNavigate } from 'react-router-dom'
+import { useReactToPrint } from 'react-to-print'
+import Styles from '../../components/input.module.scss'
 
 export default function Orders() {
   const [path, setPath] = useState('/orders/all')
   const [orders, setOrders] = useState([])
   const [statuses, setStatuses] = useState([])
   const [shippingOptions, setShippingOptions] = useState([])
-  const tableRef = useRef()
+
+  const componentRef = useRef()
   // Fetching statuses & shipping options
   const navigate = useNavigate()
-
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -59,9 +64,12 @@ export default function Orders() {
   const handleEdit = (id) => {
     navigate(`/orders/edit/${id}`)
   }
+  const showOrder = (id) => {
+    navigate(`/orders/${id}/show`)
+  }
   return (
     <>
-      <div className="">
+      <div>
         <ActionButton name="All Orders" onClick={() => setPath('/all_orders')} />
         <select
           className="btn btn-primary me-2"
@@ -102,15 +110,17 @@ export default function Orders() {
           ))}
         </select>
         <ActionButton name="Cancel" />
-        <ActionButton name="Print" path="print" tableRef={tableRef} />
+        <ActionButton name="Print" onClick={handlePrint} tableRef={componentRef} />
         <ActionButton name="Add Order" />
       </div>
       <Table
+        className={Styles.scrollContainer}
+        ref={componentRef}
         key={path}
         path={path}
         showDate={false}
         showFilter={false}
-        ref={tableRef}
+        showPrint={false}
         columns={[
           { name: 'ID', selector: (row) => row.id },
           {
@@ -135,6 +145,9 @@ export default function Orders() {
         actions={[
           (row) => {
             handleEdit(row.id)
+          },
+          (row) => {
+            showOrder(row.id)
           },
         ]}
       />

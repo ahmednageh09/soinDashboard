@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import Styles from '../../components/input.module.scss'
 import { axiosInstance } from 'src/axiosConfig'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useReactToPrint } from 'react-to-print'
 
-export default function Edit() {
+export default function Show() {
   const [data, setData] = useState()
   const navigate = useNavigate()
+  const componentRef = useRef()
   const order = useParams()
   useEffect(() => {
     const fetchData = async () => {
@@ -18,10 +20,17 @@ export default function Edit() {
     }
     fetchData()
   }, [])
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
-      <div className="d-flex justify-content-center gap-2 align-items-center row">
-        <h3>Edit Page</h3>
+      <div
+        ref={componentRef}
+        className="d-flex justify-content-center gap-2 align-items-center row"
+      >
+        <h3>Show Order</h3>
         {/* first info */}
         <div
           className="d-flex justify-content-center flex-wrap align-items-center bg-white rounded-2 p-3  my-2 gap-3"
@@ -74,16 +83,17 @@ export default function Edit() {
               className="btn text-success"
             />
           </div>
-          <div>
-            <label htmlFor="print">Print : </label>
+          <div className={Styles.buttonPrint}>
+            <button className="btn btn-success buttonPrint" onClick={handlePrint}>
+              Print
+            </button>
           </div>
         </div>
         {/* seconed info */}
-        <div className="d-flex justify-content-center gap-5 flex-wrap">
+        <div className={`d-flex justify-content-center gap-5 flex-wrap ${Styles.buttonPrint}`}>
           <div className="d-flex bg-white rounded-2 p-3 row" style={{ width: '20rem' }}>
             <div className="d-flex justify-content-center gap-5 align-items-center m-2">
               <h6>Client</h6>
-              <button className="btn btn-info">Edit</button>
             </div>
             <hr />
             <div className="d-flex justify-content-around row">
@@ -113,7 +123,6 @@ export default function Edit() {
           <div className="d-flex bg-white rounded-2 p-3 row" style={{ width: '20rem' }}>
             <div className="d-flex justify-content-center gap-5 align-items-center m-2">
               <h6>Shipping</h6>
-              <button className="btn btn-info">Edit</button>
             </div>
             <hr />
             <div className="d-flex justify-content-around row">
@@ -163,128 +172,130 @@ export default function Edit() {
           </div>
         </div>
         {/* third info */}
-        <div className="d-flex justify-content-center my-3 row bg-white p-3 rounded text-white fw-bold">
-          <h5
-            style={{
-              width: '11rem',
-              backgroundColor: '#6f30a0',
-              textAlign: 'center',
-              color: 'white',
-              padding: '0.2rem',
-              borderRadius: '1rem',
-            }}
-          >
-            Order Status
-          </h5>
+        <div>
+          <div className="d-flex justify-content-center my-3 row bg-white p-3 rounded text-white fw-bold">
+            <h5
+              style={{
+                width: '11rem',
+                backgroundColor: '#6f30a0',
+                textAlign: 'center',
+                color: 'white',
+                padding: '0.2rem',
+                borderRadius: '1rem',
+              }}
+            >
+              Order Status
+            </h5>
 
-          <table style={{ color: 'black', textAlign: 'center' }}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Status</th>
-                <th>Description</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.isArray(data?.order_tracks) ? (
-                data?.order_tracks.map((item) => (
-                  <tr key={item.id} style={{ borderBottom: '.4px solid', padding: '5rem' }}>
-                    <td>{item.id}</td>
-                    <td>{item.Status} </td>
-                    <td>{item.description}</td>
-                    <td>{new Date(item.date).toLocaleString()}</td>
-                  </tr>
-                ))
-              ) : (
+            <table style={{ color: 'black', textAlign: 'center' }}>
+              <thead>
                 <tr>
-                  <td colSpan="4">No order tracks available</td>
+                  <th>ID</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Date</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        {/* Fourth info */}
-        <div className="d-flex justify-content-center row overflow-auto flex-wrap align-items-center bg-white rounded-2 p-3 my-2">
-          <h5>Products</h5>
-          <hr />
-          <div className="d-flex justify-content-center align-items-center row">
-            <div className="d-flex justify-content-center my-3 row">
-              <h5
-                style={{
-                  width: '11rem',
-                  backgroundColor: '#6f30a0',
-                  textAlign: 'center',
-                  color: 'white',
-                  padding: '0.2rem',
-                  borderRadius: '1rem',
-                }}
-              >
-                Order Details
-              </h5>
-
-              <table>
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Total Price</th>
-                    <th>Vat</th>
-                    <th>Vat Value</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.order_products.data.map((item) => (
+              </thead>
+              <tbody>
+                {Array.isArray(data?.order_tracks) ? (
+                  data?.order_tracks.map((item) => (
                     <tr key={item.id} style={{ borderBottom: '.4px solid', padding: '5rem' }}>
-                      <td>
-                        <img
-                          className={{
-                            outLine: 'none',
-                            border: '1px solid',
-                            borderRadius: '50%',
-                            width: 'fit-content',
-                          }}
-                          src={item.thumbnail_img}
-                          alt="product"
-                        />
-                      </td>
-                      <td>
-                        {item.total_prices.toFixed(2)} {data.currency}
-                      </td>
-                      <td style={{ color: 'red' }}>{item.vat} %</td>
-                      <td>
-                        {item.vatVal} {data.currency}
-                      </td>
+                      <td>{item.id}</td>
+                      <td>{item.Status} </td>
+                      <td>{item.description}</td>
+                      <td>{new Date(item.date).toLocaleString()}</td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="d-flex justify-content-center row">
-              <h5
-                style={{
-                  width: '11rem',
-                  backgroundColor: '#6f30a0',
-                  textAlign: 'center',
-                  color: 'white',
-                  padding: '0.2rem',
-                  borderRadius: '1rem',
-                }}
-              >
-                Payment Details
-              </h5>
-              <div className="d-flex justify-content-around align-items-center row">
-                <label htmlFor="subTotal">Sub Total : </label>
-                <input
-                  id="subTotal"
-                  value={data?.order_products.data[0].final_total}
-                  className={Styles.inpt}
-                />
-                <label htmlFor="vat">Vat : </label>
-                <input id="vat" value={data?.order_products.vatFinal} className={Styles.inpt} />
-                <label htmlFor="shipping">Shipping Cost : </label>
-                <input id="shipping" value={data?.order.shipping_cost} className={Styles.inpt} />
-                <label htmlFor="total"> Total : </label>
-                <input id="total" value={data?.order.total} className={Styles.inpt} />
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4">No order tracks available</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+          {/* Fourth info */}
+          <div className="d-flex justify-content-center row overflow-auto flex-wrap align-items-center bg-white rounded-2 p-3 my-2">
+            <h5>Products</h5>
+            <hr />
+            <div className="d-flex justify-content-center align-items-center row">
+              <div className="d-flex justify-content-center my-3 row">
+                <h5
+                  style={{
+                    width: '11rem',
+                    backgroundColor: '#6f30a0',
+                    textAlign: 'center',
+                    color: 'white',
+                    padding: '0.2rem',
+                    borderRadius: '1rem',
+                  }}
+                >
+                  Order Details
+                </h5>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Total Price</th>
+                      <th>Vat</th>
+                      <th>Vat Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.order_products.data.map((item) => (
+                      <tr key={item.id} style={{ borderBottom: '.4px solid', padding: '5rem' }}>
+                        <td>
+                          <img
+                            className={{
+                              outLine: 'none',
+                              border: '1px solid',
+                              borderRadius: '50%',
+                              width: 'fit-content',
+                            }}
+                            src={item.thumbnail_img}
+                            alt="product"
+                          />
+                        </td>
+                        <td>
+                          {item.total_prices.toFixed(2)} {data.currency}
+                        </td>
+                        <td style={{ color: 'red' }}>{item.vat} %</td>
+                        <td>
+                          {item.vatVal} {data.currency}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="d-flex justify-content-center row">
+                <h5
+                  style={{
+                    width: '11rem',
+                    backgroundColor: '#6f30a0',
+                    textAlign: 'center',
+                    color: 'white',
+                    padding: '0.2rem',
+                    borderRadius: '1rem',
+                  }}
+                >
+                  Payment Details
+                </h5>
+                <div className="d-flex justify-content-around align-items-center row">
+                  <label htmlFor="subTotal">Sub Total : </label>
+                  <input
+                    id="subTotal"
+                    value={data?.order_products.data[0].final_total}
+                    className={Styles.inpt}
+                  />
+                  <label htmlFor="vat">Vat : </label>
+                  <input id="vat" value={data?.order_products.vatFinal} className={Styles.inpt} />
+                  <label htmlFor="shipping">Shipping Cost : </label>
+                  <input id="shipping" value={data?.order.shipping_cost} className={Styles.inpt} />
+                  <label htmlFor="total"> Total : </label>
+                  <input id="total" value={data?.order.total} className={Styles.inpt} />
+                </div>
               </div>
             </div>
           </div>

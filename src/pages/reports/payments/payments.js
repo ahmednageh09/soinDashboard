@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { CButton } from '@coreui/react'
 import Table from '../../../components/table'
 import Chart from '../../../components/chart'
+import { useReactToPrint } from 'react-to-print'
 
 export default function Payments() {
   const [showChart, setShowChart] = useState(false)
+  const componentRef = useRef()
 
   function handleChartClick() {
     setShowChart(true)
@@ -12,6 +14,9 @@ export default function Payments() {
   function handleReportsClick() {
     setShowChart(false)
   }
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
       <div className="m-4">
@@ -26,7 +31,6 @@ export default function Payments() {
           Chart
         </CButton>
       </div>
-
       {showChart ? (
         <div className="d-flex justify-content-center align-content-center w-100">
           <Chart
@@ -37,6 +41,8 @@ export default function Payments() {
         </div>
       ) : (
         <Table
+          ref={componentRef}
+          printAction={handlePrint}
           path="/reports/payments"
           showFilter={false}
           showDate={false}

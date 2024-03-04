@@ -16,3 +16,14 @@
     top: 1rem;
     left: -10rem;
 }
+
+@media print {
+    .scrollContainer {
+        overflow: hidden;
+        height: fit-content;
+    }
+
+    .buttonPrint {
+        display: none !important;
+    }
+}

@@ -28,6 +28,7 @@ export default function Dashboard() {
           <Table
             path="/salesSearch"
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Day', selector: (row) => row.day },
@@ -41,6 +42,7 @@ export default function Dashboard() {
           <Table
             path="/lastOrders"
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Order.No', selector: (row) => row.ordernumber },
@@ -56,6 +58,7 @@ export default function Dashboard() {
             path="/wordsSearch"
             showDate={false}
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Word Search', selector: (row) => row.word },
@@ -70,6 +73,7 @@ export default function Dashboard() {
             path="/wordsSearch?type=last_words_search"
             showDate={false}
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Word Search', selector: (row) => row.word },
@@ -83,6 +87,7 @@ export default function Dashboard() {
           <Table
             path="/soldProducts"
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Product ID', selector: (row) => row.product_id },
@@ -97,6 +102,7 @@ export default function Dashboard() {
           <Table
             path="/bestSellingProducts"
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Product Name', selector: (row) => row.product_name },
@@ -112,6 +118,7 @@ export default function Dashboard() {
             path="/ordersFilterByStatus"
             keys={['id', 'order_status', 'total', 'day']}
             showDate={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Orders Total', selector: (row) => row.order_status },
@@ -126,6 +133,7 @@ export default function Dashboard() {
             path="/ordersFilterByStatus"
             keys={['id', 'ordernumber', 'products_count', 'total', 'status', 'day']}
             showDate={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Order.No', selector: (row) => row.ordernumber },
@@ -142,6 +150,7 @@ export default function Dashboard() {
             path="/mostViewedProducts"
             keys={['id', 'product_name', 'product_visits', 'day']}
             showFilter={false}
+            showPrint={false}
             columns={[
               { name: 'ID', selector: (row) => row.id },
               { name: 'Product Name', selector: (row) => row.product_name },
@@ -155,6 +164,7 @@ export default function Dashboard() {
             path="/avg/sales"
             keys={['name', 'total', 'orders_count', 'average']}
             showDate={false}
+            showPrint={false}
             showFilter={false}
             columns={[
               { name: 'Name', selector: (row) => row.name },

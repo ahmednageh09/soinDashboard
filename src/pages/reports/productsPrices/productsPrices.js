@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { CButton } from '@coreui/react'
 import Table from '../../../components/table'
 import Chart from '../../../components/chart'
+import { useReactToPrint } from 'react-to-print'
 
 export default function ProductsPrices() {
   const [showChart, setShowChart] = useState(false)
+  const componentRef = useRef()
 
   function handleChartClick() {
     setShowChart(true)
@@ -12,6 +14,9 @@ export default function ProductsPrices() {
   function handleReportsClick() {
     setShowChart(false)
   }
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
       <div className="m-4">
@@ -38,6 +43,8 @@ export default function ProductsPrices() {
       ) : (
         <Table
           path="/reports/products_prices"
+          ref={componentRef}
+          printAction={handlePrint}
           showFilter={false}
           showDate={false}
           columns={[

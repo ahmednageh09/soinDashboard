@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { CButton } from '@coreui/react'
 import Table from '../../../components/table'
+import { useReactToPrint } from 'react-to-print'
 
 export default function Comments() {
   const [showChart, setShowChart] = useState(false)
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   function handleChartClick() {
     setShowChart(true)
@@ -15,6 +20,8 @@ export default function Comments() {
     <>
       <Table
         path="/reports/comments"
+        ref={componentRef}
+        printAction={handlePrint}
         showFilter={false}
         showDate={false}
         columns={[

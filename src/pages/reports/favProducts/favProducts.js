@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { CButton } from '@coreui/react'
 import Table from '../../../components/table'
 import Chart from '../../../components/chart'
+import { useReactToPrint } from 'react-to-print'
 
 export default function FavProducts() {
   const [showChart, setShowChart] = useState(false)
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   function handleChartClick() {
     setShowChart(true)
@@ -34,6 +39,8 @@ export default function FavProducts() {
       ) : (
         <Table
           path="/reports/fav_products"
+          ref={componentRef}
+          printAction={handlePrint}
           showFilter={false}
           showDate={false}
           columns={[

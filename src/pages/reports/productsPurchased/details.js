@@ -8,6 +8,7 @@ export default function Details() {
     <>
       <Table
         path={`/reports/products_purchased/${id}`}
+        showPrint={false}
         showFilter={false}
         showDate={false}
         columns={[

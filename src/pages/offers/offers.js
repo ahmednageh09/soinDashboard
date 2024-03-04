@@ -19,7 +19,7 @@ export default function Offers() {
 
   return (
     <>
-      <div className="d-flex justify-content-between row px-3">
+      <div className="d-flex justify-content-center row px-3">
         {data.map((offer, index) => (
           <CCard key={index} className="ccard">
             <CCardBody className="cbody">

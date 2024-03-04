@@ -5,6 +5,7 @@ const Stock = React.lazy(() => import('../pages/stock/stock'))
 const UpdateStock = React.lazy(() => import('../pages/stock/updateStock/updateStock'))
 const Orders = React.lazy(() => import('../pages/orders/orders'))
 const EditOrder = React.lazy(() => import('../pages/orders/edit'))
+const ShowOrder = React.lazy(() => import('../pages/orders/show'))
 const Financial = React.lazy(() => import('../pages/financial/financial'))
 const FinancialDetails = React.lazy(
   () => import('../pages/financial/financialDetails/financialDetails'),
@@ -100,6 +101,7 @@ const routes = [
   { path: '/stocks/updateStock', name: 'Stock / Update Stock', element: UpdateStock },
   { path: '/orders/all', name: 'Orders', element: Orders },
   { path: '/orders/edit/:id', name: 'Edit', element: EditOrder },
+  { path: '/orders/:id/show', name: 'Show', element: ShowOrder },
   { path: '/orders/financial_transactions', name: 'Financial Transactions', element: Financial },
   {
     path: '/orders/financial_transactions/details/:id',

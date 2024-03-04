@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Table from '../../../components/table'
+import { useReactToPrint } from 'react-to-print'
 
 export default function Affiliate() {
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
       <Table
+        ref={componentRef}
+        printAction={handlePrint}
         path="/reports/affiliateSystem"
         showFilter={false}
         showDate={false}

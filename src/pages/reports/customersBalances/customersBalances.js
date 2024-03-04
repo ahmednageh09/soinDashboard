@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import Table from '../../../components/table'
 import { CButton } from '@coreui/react'
 import Chart from '../../../components/chart'
+import { useReactToPrint } from 'react-to-print'
 
 export default function CustomersBalances() {
   const [showChart, setShowChart] = useState(false)
@@ -12,6 +13,10 @@ export default function CustomersBalances() {
   function handleReportsClick() {
     setShowChart(false)
   }
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
       <div className="m-4">
@@ -37,6 +42,8 @@ export default function CustomersBalances() {
         </div>
       ) : (
         <Table
+          ref={componentRef}
+          printAction={handlePrint}
           path="/reports/customers_balances"
           showFilter={false}
           showDate={false}

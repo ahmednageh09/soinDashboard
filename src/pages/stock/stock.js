@@ -3,6 +3,9 @@ import ActionButton from '../../components/actionButton/actionButton'
 import Table from '../../components/table'
 
 export default function Stock() {
+  const handleViewProduct = () => {
+    window.open('https://api.soin.serv5group.com/ar/product/602', '_blank')
+  }
   return (
     <>
       <ActionButton name="Update Stock" path="/stocks/updateStock" />
@@ -21,7 +24,7 @@ export default function Stock() {
         keys={['id', 'title', 'quantity', 'user_name', 'details', 'created_at']}
         showActions={true}
         buttonNames={['View Product']}
-        actions={[() => {}]}
+        actions={[handleViewProduct]}
       />
     </>
   )

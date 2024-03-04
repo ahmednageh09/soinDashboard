@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CButton } from '@coreui/react'
 import Table from '../../../components/table'
 import Chart from '../../../components/chart'
+import { useReactToPrint } from 'react-to-print'
 
 export default function Refund() {
   const [showChart, setShowChart] = useState(false)
   const navigate = useNavigate()
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   function handleChartClick() {
     setShowChart(true)
@@ -36,6 +41,8 @@ export default function Refund() {
       ) : (
         <Table
           path="/reports/refund"
+          ref={componentRef}
+          printAction={handlePrint}
           showFilter={false}
           showDate={false}
           columns={[

@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Table from '../../../components/table'
+import { useReactToPrint } from 'react-to-print'
 
 export default function CustomersLog() {
+  const componentRef = useRef()
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
   return (
     <>
       <Table
         path="/reports/log"
+        ref={componentRef}
+        printAction={handlePrint}
         showFilter={false}
         showDate={false}
         columns={[
