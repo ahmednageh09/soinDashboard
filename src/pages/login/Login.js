@@ -23,8 +23,8 @@ const cookie = new cookies()
 const Login = () => {
   const navigate = useNavigate('/login')
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('admin@serv5.com')
+  const [password, setPassword] = useState('123456')
   const [emailTouched, setEmailTouched] = useState(false)
   const [passwordTouched, setPasswordTouched] = useState(false)
   const [emailError, setEmailError] = useState('')
@@ -75,7 +75,7 @@ const Login = () => {
                       <CIcon icon={cilUser} />
                     </CInputGroupText>
                     <CFormInput
-                      placeholder="Email"
+                      placeholder="admin@admin.com"
                       autoComplete="username"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -90,7 +90,7 @@ const Login = () => {
                     </CInputGroupText>
                     <CFormInput
                       type="password"
-                      placeholder="Password"
+                      placeholder="******"
                       autoComplete="current-password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
