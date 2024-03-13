@@ -21,8 +21,9 @@ function App() {
   }, [direction])
 
   const toastAutoCloseTime = 2000
+  const basename = process.env.REACT_APP_BASENAME || ''
   return (
-    <Router>
+    <Router basename={basename}>
       <ToastContainer autoClose={toastAutoCloseTime} />
       <Routes>
         <Route exact path="/login" name="Login Page" element={<Login />} />
