@@ -32,28 +32,28 @@ export default function Reports() {
           <Google path={'/reports/google'} />
         ) : (
           <div className="row d-flex justify-content-evenly">
-            <ReportCard path="/reports/products_prices" title={'Products Prices'} />
-            <ReportCard path="/reports/affiliateSystem" title={'Affiliate System'} />
-            <ReportCard path="/reports/customers_balances" title={'Customers Balances'} />
-            <ReportCard path="/reports/log" title={'Customers log'} />
-            <ReportCard path="/reports/customers_orders" title={'Customers Orders'} />
-            <ReportCard path="/reports/customers_search" title={'Customers Search'} />
-            <ReportCard path="/reports/rewards_points" title={'Rewards Points'} />
-            <ReportCard path="/reports/taxes" title={'Taxes'} />
-            <ReportCard path="/reports/shipping" title={'Shipping'} />
-            <ReportCard path="/reports/refund" title={'Refund'} />
-            <ReportCard path="/reports/sales" title={'Sales'} />
-            <ReportCard path="/reports/discount" title={'Discount Codes'} />
-            <ReportCard path="/reports/products_visits" title={'Products Visits'} />
-            <ReportCard path="/reports/products_purchased" title={'Products Purchased'} />
-            <ReportCard path="/reports/abandoned_carts" title={'Abandoned Carts'} />
-            <ReportCard path="/reports/inactive_customers" title={'Inactive Customers'} />
-            <ReportCard path="/reports/stock" title={'Stock'} />
-            <ReportCard path="/reports/new_products" title={'New Products'} />
-            <ReportCard path="/reports/comments" title={'Comments'} />
-            <ReportCard path="/reports/payments" title={'Payments'} />
-            <ReportCard path="/reports/fav_products" title={'Fav Products'} />
-            <ReportCard path="/reports/offers" title={'Offers'} />
+            <ReportCard path="/products_prices" title={'Products Prices'} />
+            <ReportCard path="/affiliateSystem" title={'Affiliate System'} />
+            <ReportCard path="/customers_balances" title={'Customers Balances'} />
+            <ReportCard path="/log" title={'Customers log'} />
+            <ReportCard path="/customers_orders" title={'Customers Orders'} />
+            <ReportCard path="/customers_search" title={'Customers Search'} />
+            <ReportCard path="/rewards_points" title={'Rewards Points'} />
+            <ReportCard path="/taxes" title={'Taxes'} />
+            <ReportCard path="/shipping" title={'Shipping'} />
+            <ReportCard path="/refund" title={'Refund'} />
+            <ReportCard path="/sales" title={'Sales'} />
+            <ReportCard path="/discount" title={'Discount Codes'} />
+            <ReportCard path="/products_visits" title={'Products Visits'} />
+            <ReportCard path="/products_purchased" title={'Products Purchased'} />
+            <ReportCard path="/abandoned_carts" title={'Abandoned Carts'} />
+            <ReportCard path="/inactive_customers" title={'Inactive Customers'} />
+            <ReportCard path="/stock" title={'Stock'} />
+            <ReportCard path="/new_products" title={'New Products'} />
+            <ReportCard path="/comments" title={'Comments'} />
+            <ReportCard path="/payments" title={'Payments'} />
+            <ReportCard path="/fav_products" title={'Fav Products'} />
+            <ReportCard path="/offersReport" title={'Offers'} />
           </div>
         )}
       </div>

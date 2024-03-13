@@ -58,13 +58,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Orders',
-    to: '/orders/all',
+    to: '/all',
     icon: <CIcon icon={cilCheckCircle} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Financial Transactions',
-    to: '/orders/financial_transactions',
+    to: '/financial_transactions',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
   },
   {
@@ -80,7 +80,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Request Product',
-    to: '/products/request',
+    to: '/request',
     icon: <CIcon icon={cilFlagAlt} customClassName="nav-icon" />,
   },
   {
@@ -164,17 +164,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Categories',
-        to: '/links/categories',
+        to: '/categories',
       },
       {
         component: CNavItem,
         name: 'Products',
-        to: '/links/products',
+        to: '/products',
       },
       {
         component: CNavItem,
         name: 'Pages',
-        to: '/links/pages',
+        to: '/pages',
       },
     ],
   },
@@ -221,22 +221,22 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Active Tickets',
-        to: '/tickets/active',
+        to: '/active',
       },
       {
         component: CNavGroup,
         name: 'Ticket Settings',
-        to: '/tickets/settings',
+        to: '/settings',
         items: [
           {
             component: CNavItem,
             name: 'Ticket Categories',
-            to: '/ticketSetting/category',
+            to: '/category',
           },
           {
             component: CNavItem,
             name: 'Ticket Priorities',
-            to: '/ticketSetting/priority',
+            to: '/priority',
           },
         ],
       },
@@ -270,12 +270,6 @@ const _nav = [
     to: '/settings',
     icon: <CIcon icon={cilSettings} customClassName="nav-icon" />,
   },
-  // {
-  //   component: CNavItem,
-  //   name: 'Docs',
-  //   href: 'https://coreui.io/react/docs/templates/installation/',
-  //   icon: <CIcon icon={cilDescription} customClassName="nav-icon" />,
-  // },
 ]
 
 export default _nav
