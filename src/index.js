@@ -15,7 +15,7 @@ const toastAutoCloseTime = 2000
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <Router>
-      <ToastContainer autoClose={toastAutoCloseTime} /> 
+      <ToastContainer autoClose={toastAutoCloseTime} />
       <App />
     </Router>
   </Provider>,
