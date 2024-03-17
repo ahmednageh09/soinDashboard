@@ -4,6 +4,7 @@ import CIcon from '@coreui/icons-react'
 import './reportCard.scss'
 import PropTypes from 'prop-types'
 import { cilChart } from '@coreui/icons'
+import { Link } from 'react-router-dom'
 
 ReportCard.propTypes = {
   title: PropTypes.string,
@@ -19,9 +20,9 @@ export default function ReportCard({ title, path }) {
           <CIcon className="cicon" icon={cilChart} size="3xl" />
         </CCardBody>
         <CCardBody>
-          <CButton href={path} className="clink">
-            More Info
-          </CButton>
+          <Link to={path} className="clink">
+            <CButton className="btn btn-info">More Info</CButton>
+          </Link>
         </CCardBody>
       </CCard>
     </>

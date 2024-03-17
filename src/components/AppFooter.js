@@ -5,9 +5,9 @@ const AppFooter = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <CFooter>
+    <CFooter className="mt-2">
       <div>
-        <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
+        <a href="https://soin.serv5group.com/" target="_blank" rel="noopener noreferrer">
           SOIN
         </a>
         <span className="ms-1">&copy; {currentYear} creativeLabs.</span>

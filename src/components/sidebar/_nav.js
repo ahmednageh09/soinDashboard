@@ -58,7 +58,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Orders',
-    to: '/all',
+    to: '/orders/all',
     icon: <CIcon icon={cilCheckCircle} customClassName="nav-icon" />,
   },
   {
@@ -86,7 +86,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Notify Me',
-    to: '/products/notify',
+    to: '/notify',
     icon: <CIcon icon={cilBullhorn} customClassName="nav-icon" />,
   },
   {
@@ -96,13 +96,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Countries',
-    to: '/countries',
+    to: '/country',
     icon: <CIcon icon={cilGlobeAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Cities',
-    to: '/cities',
+    to: '/city',
     icon: <CIcon icon={cilMap} customClassName="nav-icon" />,
   },
   {
@@ -221,12 +221,12 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Active Tickets',
-        to: '/active',
+        to: '/tickets/active',
       },
       {
         component: CNavGroup,
         name: 'Ticket Settings',
-        to: '/settings',
+        to: '/tickets/settings',
         items: [
           {
             component: CNavItem,

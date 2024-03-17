@@ -33,7 +33,7 @@ const AppHeader = () => {
   }
 
   return (
-    <CHeader className="mb-4">
+    <CHeader className="mb-2">
       <CContainer fluid>
         <CHeaderToggler
           onClick={() => {
@@ -90,11 +90,6 @@ const AppHeader = () => {
         <CHeaderNav className="ms-3">
           <AppHeaderDropdown />
         </CHeaderNav>
-      </CContainer>
-
-      <CHeaderDivider />
-      <CContainer fluid>
-        <AppBreadcrumb />
       </CContainer>
     </CHeader>
   )

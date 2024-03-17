@@ -45,7 +45,7 @@ export default function Cities() {
 
   const handleEditCity = (id) => {
     axiosInstance
-      // .get('/cities/show', { params: { city_id: id } })
+      // .get('/city/show', { params: { city_id: id } })
       .get('/countries/show', { params: { country_id: id } })
       .then((response) => {
         const cityData = response.data
