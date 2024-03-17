@@ -164,17 +164,17 @@ const _nav = [
       {
         component: CNavItem,
         name: 'Categories',
-        to: '/categories',
+        to: '/links/categories',
       },
       {
         component: CNavItem,
         name: 'Products',
-        to: '/products',
+        to: '/links/products',
       },
       {
         component: CNavItem,
         name: 'Pages',
-        to: '/pages',
+        to: '/links/pages',
       },
     ],
   },

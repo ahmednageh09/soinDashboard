@@ -4,10 +4,9 @@ import './scss/style.scss'
 import { useSelector } from 'react-redux'
 // import routes from './layout/routes'
 import { AppFooter, AppHeader, AppSidebar } from './components'
-import { CSpinner } from '@coreui/react'
 
 // Container
-// const Layout = React.lazy(() => import('./layout/Layout'))
+const Layout = React.lazy(() => import('./layout/Layout'))
 
 // Pages
 const Dashboard = React.lazy(() => import('./pages/dashboard/Dashboard'))
@@ -114,171 +113,154 @@ function App() {
 
   return (
     <>
-      <Suspense
-        fallback={
-          <div className="d-flex justify-content-center align-items-center">
-            <CSpinner color="primary" />
-          </div>
-        }
-      >
-        <div className="d-flex flex-column">
-          <AppSidebar />
-          <div className="wrapper d-flex flex-column min-vh-100 bg-light">
-            <AppHeader />
-            <div className="container body flex-grow-1 px-3">
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route exact path="/login" name="Login Page" element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/stock" element={<Stock />} />
-                <Route path="updateStock" element={<UpdateStock />} />
-                <Route path="/orders">
-                  <Route path="all" element={<Orders />} />
-                  <Route path="edit">
-                    <Route path=":id" element={<EditOrder />} />
-                  </Route>
-                  <Route path=":id">
-                    <Route path="show" element={<ShowOrder />} />
-                  </Route>
-                </Route>
-                <Route path="/financial_transactions" element={<Financial />}>
-                  <Route path="details">
-                    <Route path=":id" element={<FinancialDetails />} />
-                  </Route>
-                </Route>
-                <Route path="/products" element={<Products />}>
-                  <Route path="productOrder">
-                    <Route path=":id" element={<ProductOrders />} />
-                  </Route>
-                  <Route path="labelsTranslate">
-                    <Route path=":id" element={<LabelsTranslate />} />
-                  </Route>
-                </Route>
-                <Route path="/request" element={<RequestProduct />} />
-                <Route path="/notify" element={<Notify />} />
-                <Route path="/product">
-                  <Route path="categories" element={<Categories />} />
-                </Route>
-                <Route path="/country" element={<Countries />}>
-                  <Route path="cities">
-                    <Route path=":id" element={<CountryCities />} />
-                  </Route>
-                </Route>
-                <Route path="/city" element={<Cities />}>
-                  <Route path="regions">
-                    <Route path=":id" element={<CityRegions />} />
-                  </Route>
-                </Route>
-                <Route path="/regions" element={<Regions />} />
-                <Route path="/offers" element={<Offers />}>
-                  <Route path="extra" element={<OffersExtra />} />
-                  <Route path="edit/:id" element={<EditOffer />} />
-                  <Route path="members/:id" element={<OfferMembers />} />
-                  <Route path="duration" element={<OffersDuration />} />
-                  <Route path="onefree" element={<OffersOneFree />} />
-                  <Route path="voucher" element={<OffersVoucher />} />
-                  <Route path="voucher-free" element={<OffersVoucherFree />} />
-                  <Route path="voucher-user-free" element={<OffersVoucherUserFree />} />
-                  <Route path="commission" element={<OffersCommission />} />
-                  <Route path="settings" element={<OffersSettings />} />
-                </Route>
-                <Route path="/discounts" element={<Discounts />}>
-                  <Route path="edit">
-                    <Route path=":id" element={<EditCode />} />
-                  </Route>
-                  <Route path="benficary">
-                    <Route path=":id" element={<Benficary />} />
-                  </Route>
-                </Route>
-                <Route path="/customers" element={<Customers />}>
-                  <Route path="orders/:id" element={<CustomerOrders />} />
-                  <Route path="editUser/:id" element={<EditUser />} />
-                  <Route path="create" element={<CreateUser />} />
-                </Route>
-                <Route path="/reports" element={<Reports />}>
-                  <Route path="payments" element={<Payments />} />
-                  <Route path="commentsReport" element={<CommentsReport />} />
-                  <Route path="abandoned_carts" element={<AbandonedCarts />} />
-                  <Route path="fav_products" element={<FavProducts />} />
-                  <Route path="products_prices" element={<ProductsPrices />} />
-                  <Route path="affiliateSystem" element={<AffiliateSystem />} />
-                  <Route path="log" element={<CustomersLog />} />
-                  <Route path="customers_balances" element={<CustomersBalances />} />
-                  <Route path="customers_orders" element={<CustomersOrders />} />
-                  <Route path="customers_search" element={<CustomersSearch />} />
-                  <Route path="rewards_points" element={<RewardsPoins />} />
-                  <Route path="taxes" element={<Taxes />} />
-                  <Route path="shipping" element={<Shipping />} />
-                  <Route path="refund" element={<Refund />}>
-                    <Route path=":id" element={<RefundDetails />} />
-                  </Route>
-                  <Route path="sales" element={<Sales />} />
-                  <Route path="discount" element={<DiscountCodes />} />
-                  <Route path="products_visits" element={<ProductsVisits />} />
-                  <Route path="products_purchased" element={<ProductsPurchased />}>
-                    <Route path=":id" element={<ProductsPurchasedDetails />} />
-                  </Route>
-                  <Route path="abandoned_carts" element={<AbandonedCarts />} />
-                  <Route path="inactive_customers" element={<InactiveCustomers />} />
-                  <Route path="stock" element={<StockReport />} />
-                  <Route path="new_products" element={<NewProducts />} />
-                  <Route path="offersReport" element={<OffersReport />} />
-                </Route>
-                <Route path="/offers" element={<Offers />}>
-                  <Route path="extra" element={<OffersExtra />} />
-                  <Route path="edit/:id" element={<EditOffer />} />
-                  <Route path="members/:id" element={<OfferMembers />} />
-                  <Route path="duration" element={<OffersDuration />} />
-                  <Route path="onefree" element={<OffersOneFree />} />
-                  <Route path="voucher" element={<OffersVoucher />} />
-                  <Route path="voucher-free" element={<OffersVoucherFree />} />
-                  <Route path="voucher-user-free" element={<OffersVoucherUserFree />} />
-                  <Route path="commission" element={<OffersCommission />} />
-                  <Route path="settings" element={<OffersSettings />} />
-                </Route>
-                <Route path="/discounts" element={<Discounts />}>
-                  <Route path="edit/:id" element={<EditCode />} />
-                  <Route path="benficary/:id" element={<Benficary />} />
-                </Route>
-                <Route path="/customers" element={<Customers />}>
-                  <Route path="orders/:id" element={<CustomerOrders />} />
-                  <Route path="editUser/:id" element={<EditUser />} />
-                  <Route path="create" element={<CreateUser />} />
-                </Route>
-                <Route path="/comments" element={<Comments />} />
-                <Route path="/contacts" element={<Contacts />} />
-                <Route path="/abandoned_carts" element={<Abandoned />} />
-                <Route path="/links" element={<PagesLinks />}>
-                  <Route path="categories" element={<CategoriesLinks />} />
-                  <Route path="products" element={<ProductsLinks />} />
-                  <Route path="pages" element={<PagesLinks />} />
-                </Route>
-                <Route path="/templates" element={<TemplatesPage />} />
-                <Route path="/styles" element={<StylesPage />}>
-                  <Route path="create" element={<CreateStyle />} />
-                </Route>
-                <Route path="/mailingTemplates" element={<MailingTemplates />} />
-                <Route path="/mailingList" element={<MailingList />} />
-                <Route path="/notifications" element={<Notifications />} />
-                <Route path="/tickets">
-                  <Route path="active" element={<Tickets />} />
-                </Route>
-                <Route path="/onlineCustomers" element={<OnlineCustomers />} />
-                <Route path="/role" element={<Roles />}>
-                  <Route path="create" element={<Permissions />} />
-                </Route>
-                <Route path="/admins" element={<Admins />}>
-                  <Route path="create" element={<AddAdmin />} />
-                </Route>
-                <Route path="/settings" element={<Settings />} />
-                <Route path="*" name="Error" element={<Error />} />
-              </Routes>
-              <Outlet />
-            </div>
-            <AppFooter />
-          </div>
-        </div>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="stock" element={<Stock />} />
+          <Route path="updateStock" element={<UpdateStock />} />
+          <Route path="orders">
+            <Route path="all" element={<Orders />} />
+            <Route path="edit">
+              <Route path=":id" element={<EditOrder />} />
+            </Route>
+            <Route path=":id">
+              <Route path="show" element={<ShowOrder />} />
+            </Route>
+          </Route>
+          <Route path="financial_transactions" element={<Financial />}>
+            <Route path="details">
+              <Route path=":id" element={<FinancialDetails />} />
+            </Route>
+          </Route>
+          <Route path="products" element={<Products />}>
+            <Route path="productOrder">
+              <Route path=":id" element={<ProductOrders />} />
+            </Route>
+            <Route path="labelsTranslate">
+              <Route path=":id" element={<LabelsTranslate />} />
+            </Route>
+          </Route>
+          <Route path="request" element={<RequestProduct />} />
+          <Route path="notify" element={<Notify />} />
+          <Route path="product">
+            <Route path="categories" element={<Categories />} />
+          </Route>
+          <Route path="country" element={<Countries />}>
+            <Route path="cities">
+              <Route path=":id" element={<CountryCities />} />
+            </Route>
+          </Route>
+          <Route path="city" element={<Cities />}>
+            <Route path="regions">
+              <Route path=":id" element={<CityRegions />} />
+            </Route>
+          </Route>
+          <Route path="regions" element={<Regions />} />
+          <Route path="offers" element={<Offers />}>
+            <Route path="extra" element={<OffersExtra />} />
+            <Route path="edit/:id" element={<EditOffer />} />
+            <Route path="members/:id" element={<OfferMembers />} />
+            <Route path="duration" element={<OffersDuration />} />
+            <Route path="onefree" element={<OffersOneFree />} />
+            <Route path="voucher" element={<OffersVoucher />} />
+            <Route path="voucher-free" element={<OffersVoucherFree />} />
+            <Route path="voucher-user-free" element={<OffersVoucherUserFree />} />
+            <Route path="commission" element={<OffersCommission />} />
+            <Route path="settings" element={<OffersSettings />} />
+          </Route>
+          <Route path="discounts" element={<Discounts />}>
+            <Route path="edit">
+              <Route path=":id" element={<EditCode />} />
+            </Route>
+            <Route path="benficary">
+              <Route path=":id" element={<Benficary />} />
+            </Route>
+          </Route>
+          <Route path="customers" element={<Customers />}>
+            <Route path="orders/:id" element={<CustomerOrders />} />
+            <Route path="editUser/:id" element={<EditUser />} />
+            <Route path="create" element={<CreateUser />} />
+          </Route>
+          <Route path="reports" element={<Reports />}>
+            <Route path="payments" element={<Payments />} />
+            <Route path="commentsReport" element={<CommentsReport />} />
+            <Route path="abandoned_carts" element={<AbandonedCarts />} />
+            <Route path="fav_products" element={<FavProducts />} />
+            <Route path="products_prices" element={<ProductsPrices />} />
+            <Route path="affiliateSystem" element={<AffiliateSystem />} />
+            <Route path="log" element={<CustomersLog />} />
+            <Route path="customers_balances" element={<CustomersBalances />} />
+            <Route path="customers_orders" element={<CustomersOrders />} />
+            <Route path="customers_search" element={<CustomersSearch />} />
+            <Route path="rewards_points" element={<RewardsPoins />} />
+            <Route path="taxes" element={<Taxes />} />
+            <Route path="shipping" element={<Shipping />} />
+            <Route path="refund" element={<Refund />}>
+              <Route path=":id" element={<RefundDetails />} />
+            </Route>
+            <Route path="sales" element={<Sales />} />
+            <Route path="discount" element={<DiscountCodes />} />
+            <Route path="products_visits" element={<ProductsVisits />} />
+            <Route path="products_purchased" element={<ProductsPurchased />}>
+              <Route path=":id" element={<ProductsPurchasedDetails />} />
+            </Route>
+            <Route path="abandoned_carts" element={<AbandonedCarts />} />
+            <Route path="inactive_customers" element={<InactiveCustomers />} />
+            <Route path="stock" element={<StockReport />} />
+            <Route path="new_products" element={<NewProducts />} />
+            <Route path="offersReport" element={<OffersReport />} />
+          </Route>
+          <Route path="offers" element={<Offers />}>
+            <Route path="extra" element={<OffersExtra />} />
+            <Route path="edit/:id" element={<EditOffer />} />
+            <Route path="members/:id" element={<OfferMembers />} />
+            <Route path="duration" element={<OffersDuration />} />
+            <Route path="onefree" element={<OffersOneFree />} />
+            <Route path="voucher" element={<OffersVoucher />} />
+            <Route path="voucher-free" element={<OffersVoucherFree />} />
+            <Route path="voucher-user-free" element={<OffersVoucherUserFree />} />
+            <Route path="commission" element={<OffersCommission />} />
+            <Route path="settings" element={<OffersSettings />} />
+          </Route>
+          <Route path="discounts" element={<Discounts />}>
+            <Route path="edit/:id" element={<EditCode />} />
+            <Route path="benficary/:id" element={<Benficary />} />
+          </Route>
+          <Route path="customers" element={<Customers />}>
+            <Route path="orders/:id" element={<CustomerOrders />} />
+            <Route path="editUser/:id" element={<EditUser />} />
+            <Route path="create" element={<CreateUser />} />
+          </Route>
+          <Route path="comments" element={<Comments />} />
+          <Route path="contacts" element={<Contacts />} />
+          <Route path="abandoned_carts" element={<Abandoned />} />
+          <Route path="links" element={<PagesLinks />}>
+            <Route path="categories" element={<CategoriesLinks />} />
+            <Route path="products" element={<ProductsLinks />} />
+            <Route path="pages" element={<PagesLinks />} />
+          </Route>
+          <Route path="templates" element={<TemplatesPage />} />
+          <Route path="styles" element={<StylesPage />}>
+            <Route path="create" element={<CreateStyle />} />
+          </Route>
+          <Route path="mailingTemplates" element={<MailingTemplates />} />
+          <Route path="mailingList" element={<MailingList />} />
+          <Route path="notifications" element={<Notifications />} />
+          <Route path="tickets">
+            <Route path="active" element={<Tickets />} />
+          </Route>
+          <Route path="onlineCustomers" element={<OnlineCustomers />} />
+          <Route path="role" element={<Roles />}>
+            <Route path="create" element={<Permissions />} />
+          </Route>
+          <Route path="admins" element={<Admins />}>
+            <Route path="create" element={<AddAdmin />} />
+          </Route>
+          <Route path="settings" element={<Settings />} />
+          <Route path="*" name="Error" element={<Error />} />
+        </Route>
+        <Route exact path="login" name="Login Page" element={<Login />} />
+      </Routes>
     </>
   )
 }
