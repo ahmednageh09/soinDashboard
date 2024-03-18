@@ -31,7 +31,7 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <Link to={'/dashboard'}>
+        <Link to={'/'}>
           <img src={logoNegative} alt="dd" width="180px" height={114} />
         </Link>
         <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />

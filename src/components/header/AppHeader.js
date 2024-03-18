@@ -5,7 +5,6 @@ import {
   CContainer,
   CHeader,
   CHeaderBrand,
-  CHeaderDivider,
   CHeaderNav,
   CHeaderToggler,
   CNavLink,
@@ -14,7 +13,6 @@ import {
 import CIcon from '@coreui/icons-react'
 import { cilBell, cilEnvelopeOpen, cilMenu } from '@coreui/icons'
 
-import { AppBreadcrumb } from '../index'
 import AppHeaderDropdown from './AppHeaderDropdown'
 import logo from '../../assets/images/soinLogo.png'
 import sidebarAction from '../../../src/redux/actions/sidebarAction'
@@ -44,14 +42,14 @@ const AppHeader = () => {
         </CHeaderToggler>
 
         <CHeaderBrand className="mx-auto d-md-none" to="/">
-          <Link to={'/dashboard'}>
+          <Link to={'/'}>
             <img src={logo} style={{ width: '5rem', height: '40px' }} alt="Logo" />
           </Link>
         </CHeaderBrand>
 
         <CHeaderNav className="d-none d-md-flex me-auto">
           <CNavItem>
-            <CNavLink to="/dashboard" component={NavLink}>
+            <CNavLink to="/" component={NavLink}>
               Dashboard
             </CNavLink>
           </CNavItem>

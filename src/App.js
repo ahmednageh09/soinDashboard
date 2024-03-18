@@ -115,7 +115,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="" element={<Dashboard />} />
           <Route path="stock" element={<Stock />} />
           <Route path="updateStock" element={<UpdateStock />} />
           <Route path="orders">
