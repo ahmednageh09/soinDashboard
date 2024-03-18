@@ -7,17 +7,10 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { Provider } from 'react-redux'
 import store from './redux/store'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-
-const toastAutoCloseTime = 2000
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <Router>
-      <ToastContainer autoClose={toastAutoCloseTime} />
-      <App />
-    </Router>
+    <App />
   </Provider>,
 )
 

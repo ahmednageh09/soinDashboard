@@ -64,7 +64,7 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Financial Transactions',
-    to: '/financial_transactions',
+    to: '/orders/financial_transactions',
     icon: <CIcon icon={cilCash} customClassName="nav-icon" />,
   },
   {
@@ -80,13 +80,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Request Product',
-    to: '/request',
+    to: '/products/request',
     icon: <CIcon icon={cilFlagAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Notify Me',
-    to: '/notify',
+    to: '/products/notify',
     icon: <CIcon icon={cilBullhorn} customClassName="nav-icon" />,
   },
   {
@@ -96,13 +96,13 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Countries',
-    to: '/country',
+    to: '/countries',
     icon: <CIcon icon={cilGlobeAlt} customClassName="nav-icon" />,
   },
   {
     component: CNavItem,
     name: 'Cities',
-    to: '/city',
+    to: '/cities',
     icon: <CIcon icon={cilMap} customClassName="nav-icon" />,
   },
   {
@@ -231,12 +231,12 @@ const _nav = [
           {
             component: CNavItem,
             name: 'Ticket Categories',
-            to: '/category',
+            to: '/tickets/category',
           },
           {
             component: CNavItem,
             name: 'Ticket Priorities',
-            to: '/priority',
+            to: '/tickets/priority',
           },
         ],
       },
